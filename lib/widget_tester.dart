@@ -33,6 +33,7 @@ class WidgetTester extends StatelessWidget {
             ),
             const TxtInput(
               fieldName: 'Full name',
+              password: false,
             ),
             const TxtSearch(
               fieldName: 'Search your role',

@@ -6,8 +6,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screen = MediaQuery.of(context);
-    print(screen.size);
     return Scaffold(
       body: ListView(
         children: [
@@ -59,11 +57,17 @@ class LoginPage extends StatelessWidget {
                     ),
                     const Padding(
                       padding: EdgeInsets.all(20.0),
-                      child: TxtInput(fieldName: 'Username'),
+                      child: TxtInput(
+                        fieldName: 'Username',
+                        password: false,
+                      ),
                     ),
                     const Padding(
                       padding: EdgeInsets.all(20.0),
-                      child: TxtInput(fieldName: 'Password'),
+                      child: TxtInput(
+                        fieldName: 'Password',
+                        password: true,
+                      ),
                     ),
                     const SizedBox(
                       height: 20.0,

@@ -30,34 +30,34 @@ class HomePageTest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var themeCol1 = const Color.fromARGB(255, 195, 255, 195);
+    //var themeCol1 = const Color.fromARGB(255, 195, 255, 195);
 
-    return Scaffold(
-      appBar: AppBar(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        title: const Text(
-          'Page Title',
-          style: TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: themeCol1,
-        centerTitle: false,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Image.asset(
-              'asset_lib/images/G4C_logo_text.png',
-              width: 50.0,
-            ),
-          ),
-        ],
-      ),
-      body: null,
-      drawer: const G4CDrawer(),
+    return const Scaffold(
+      // appBar: AppBar(
+      //   shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.circular(20.0),
+      //   ),
+      //   title: const Text(
+      //     'Page Title',
+      //     style: TextStyle(
+      //       fontSize: 15.0,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //   ),
+      //   backgroundColor: themeCol1,
+      //   centerTitle: false,
+      //   actions: [
+      //     Padding(
+      //       padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      //       child: Image.asset(
+      //         'asset_lib/images/G4C_logo_text.png',
+      //         width: 50.0,
+      //       ),
+      //     ),
+      //   ],
+      // ),
+      body: LoginPage(),
+      drawer: G4CDrawer(),
     );
   }
 }
