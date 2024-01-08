@@ -14,24 +14,11 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  height: 300.0,
-                  width: double.maxFinite,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 195, 255, 195),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(50.0),
-                      bottomRight: Radius.circular(50.0),
-                    ),
+                const TopCard(
+                  image: AssetImage(
+                    'asset_lib/images/G4C_logo_transparent.png',
                   ),
-                  child: const Center(
-                    child: Image(
-                      image: AssetImage(
-                        'asset_lib/images/G4C_logo_transparent.png',
-                      ),
-                      width: 200.0,
-                    ),
-                  ),
+                  color: Color.fromARGB(255, 195, 255, 195),
                 ),
                 const SizedBox(
                   height: 70.0,

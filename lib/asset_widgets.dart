@@ -324,3 +324,42 @@ class CardWidget extends StatelessWidget {
     );
   }
 }
+
+class TopCard extends StatelessWidget {
+  final ImageProvider image;
+  final Color color;
+  const TopCard({
+    super.key,
+    required this.image,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 300.0,
+      width: double.maxFinite,
+      decoration: BoxDecoration(
+        color: color,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 0),
+          )
+        ],
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(50.0),
+          bottomRight: Radius.circular(50.0),
+        ),
+      ),
+      child: Center(
+        child: Image(
+          image: image,
+          width: 200.0,
+        ),
+      ),
+    );
+  }
+}
