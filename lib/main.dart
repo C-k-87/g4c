@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'asset_widgets.dart';
-import 'widget_tester.dart';
 import 'g4c_drawer.dart';
+import 'register.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade200),
         useMaterial3: true,
       ),
-      home: const HomePageTest(),
+      home: const Register(),
     );
   }
 }
