@@ -186,10 +186,12 @@ class BtnWhite extends StatelessWidget {
 
 class TxtInput extends StatelessWidget {
   final String fieldName;
+  final bool password;
 
   const TxtInput({
     super.key,
     required this.fieldName,
+    required this.password,
   });
 
   @override
@@ -222,22 +224,22 @@ class PwdInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: TextField(
-                obscureText: !isPasswordVisible,
-                decoration: InputDecoration(
-                  border: const UnderlineInputBorder(),
-                  constraints: const BoxConstraints(
-                    maxWidth: 400.0,
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                      color: Colors.black,
-                    ),
-                    onPressed: onpressed,
-                  ),
-                  hintText: fieldName,
-                ),
-              ),
+        obscureText: !isPasswordVisible,
+        decoration: InputDecoration(
+          border: const UnderlineInputBorder(),
+          constraints: const BoxConstraints(
+            maxWidth: 400.0,
+          ),
+          suffixIcon: IconButton(
+            icon: Icon(
+              isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+              color: Colors.black,
+            ),
+            onPressed: onpressed,
+          ),
+          hintText: fieldName,
+        ),
+      ),
     );
   }
 }
