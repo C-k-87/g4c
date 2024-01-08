@@ -1,16 +1,9 @@
 # g4c
 
-A new Flutter project.
+The proposed system will be a professional development advisor application. The system aims to provide a medium through which an undergraduate can get an overview of the skills required to follow a certain career path and also to find a suitable career path based on their skillset or personality traits. The system will include modules to aid three types of students as follows.
 
-## Getting Started
+Firstly, the ones who have a firm idea of the job role they hope to occupy in the future. They will be able to view and compare the skills and qualifications that are required to be an effective professional in their selected job role.
 
-This project is a starting point for a Flutter application.
+Secondly, the ones who would like to discover a path to undertake based on their skill sets and preferences can use the system to discover recommendations suiting themselves based on a certain psychological test to determine their interests and biases.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Thirdly, the ones who do not have any idea regarding their present position or where they can potentially reach. They will require an expert level of help and can use the system to refer to a counselor or mentor.
