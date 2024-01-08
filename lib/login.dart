@@ -15,8 +15,13 @@ class LoginPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const TopCard(
-                  image: AssetImage(
-                    'asset_lib/images/G4C_logo_transparent.png',
+                  content: Center(
+                    child: Image(
+                      image: AssetImage(
+                        'asset_lib/images/G4C_logo_transparent.png',
+                      ),
+                      width: 200.0,
+                    ),
                   ),
                   color: Color.fromARGB(255, 195, 255, 195),
                 ),

@@ -274,12 +274,18 @@ class TxtSearch extends StatelessWidget {
 class CardWidget extends StatelessWidget {
   final String title;
   final Widget content;
+  final double fontsize;
 
-  const CardWidget({super.key, required this.content, required this.title});
+  const CardWidget(
+      {super.key,
+      required this.content,
+      required this.title,
+      required this.fontsize});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.all(10.0),
       width: 300.0,
       decoration: BoxDecoration(
         boxShadow: [
@@ -302,8 +308,9 @@ class CardWidget extends StatelessWidget {
             padding: const EdgeInsets.all(5.0),
             child: Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
+                fontSize: fontsize,
               ),
             ),
           ),
@@ -326,17 +333,18 @@ class CardWidget extends StatelessWidget {
 }
 
 class TopCard extends StatelessWidget {
-  final ImageProvider image;
+  final Widget content;
   final Color color;
   const TopCard({
     super.key,
-    required this.image,
+    required this.content,
     required this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      clipBehavior: Clip.hardEdge,
       height: 300.0,
       width: double.maxFinite,
       decoration: BoxDecoration(
@@ -354,12 +362,7 @@ class TopCard extends StatelessWidget {
           bottomRight: Radius.circular(50.0),
         ),
       ),
-      child: Center(
-        child: Image(
-          image: image,
-          width: 200.0,
-        ),
-      ),
+      child: content,
     );
   }
 }
