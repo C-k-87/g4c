@@ -59,15 +59,11 @@ class LoginPage extends StatelessWidget {
                       padding: EdgeInsets.all(20.0),
                       child: TxtInput(
                         fieldName: 'Username',
-                        password: false,
                       ),
                     ),
                     const Padding(
                       padding: EdgeInsets.all(20.0),
-                      child: TxtInput(
-                        fieldName: 'Password',
-                        password: true,
-                      ),
+                      child: TxtInput(fieldName: 'Password'),
                     ),
                     const SizedBox(
                       height: 20.0,

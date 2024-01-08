@@ -186,12 +186,10 @@ class BtnWhite extends StatelessWidget {
 
 class TxtInput extends StatelessWidget {
   final String fieldName;
-  final bool password;
 
   const TxtInput({
     super.key,
     required this.fieldName,
-    required this.password,
   });
 
   @override
@@ -217,7 +215,9 @@ class PwdInput extends StatelessWidget {
 
   const PwdInput({
     super.key,
-    required this.fieldName, required this.isPasswordVisible, this.onpressed,
+    required this.fieldName,
+    required this.isPasswordVisible,
+    this.onpressed,
   });
 
   @override
