@@ -196,13 +196,48 @@ class TxtInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      obscureText: password,
-      decoration: InputDecoration(
-        hintText: fieldName,
-        border: const UnderlineInputBorder(),
-        constraints: const BoxConstraints(
-          maxWidth: 400.0,
+    return Expanded(
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: fieldName,
+          border: const UnderlineInputBorder(),
+          constraints: const BoxConstraints(
+            maxWidth: 400.0,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PwdInput extends StatelessWidget {
+  final String fieldName;
+  final bool isPasswordVisible;
+  final Function()? onpressed;
+
+  const PwdInput({
+    super.key,
+    required this.fieldName, required this.isPasswordVisible, this.onpressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: TextField(
+        obscureText: !isPasswordVisible,
+        decoration: InputDecoration(
+          border: const UnderlineInputBorder(),
+          constraints: const BoxConstraints(
+            maxWidth: 400.0,
+          ),
+          suffixIcon: IconButton(
+            icon: Icon(
+              isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+              color: Colors.black,
+            ),
+            onPressed: onpressed,
+          ),
+          hintText: fieldName,
         ),
       ),
     );
