@@ -194,14 +194,12 @@ class TxtInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: fieldName,
-          border: const UnderlineInputBorder(),
-          constraints: const BoxConstraints(
-            maxWidth: 400.0,
-          ),
+    return TextField(
+      decoration: InputDecoration(
+        hintText: fieldName,
+        border: const UnderlineInputBorder(),
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width - 50.0,
         ),
       ),
     );
@@ -222,23 +220,21 @@ class PwdInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: TextField(
-        obscureText: !isPasswordVisible,
-        decoration: InputDecoration(
-          border: const UnderlineInputBorder(),
-          constraints: const BoxConstraints(
-            maxWidth: 400.0,
-          ),
-          suffixIcon: IconButton(
-            icon: Icon(
-              isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-              color: Colors.black,
-            ),
-            onPressed: onpressed,
-          ),
-          hintText: fieldName,
+    return TextField(
+      obscureText: !isPasswordVisible,
+      decoration: InputDecoration(
+        border: const UnderlineInputBorder(),
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width - 50.0,
         ),
+        suffixIcon: IconButton(
+          icon: Icon(
+            isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+            color: Colors.black,
+          ),
+          onPressed: onpressed,
+        ),
+        hintText: fieldName,
       ),
     );
   }
@@ -345,7 +341,7 @@ class TopCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.hardEdge,
-      height: 300.0,
+      height: MediaQuery.of(context).size.height / 3.7,
       width: double.maxFinite,
       decoration: BoxDecoration(
         color: color,

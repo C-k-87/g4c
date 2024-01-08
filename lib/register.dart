@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/asset_widgets.dart';
 
-class Register extends StatefulWidget {
-  const Register({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
   @override
   // ignore: library_private_types_in_public_api
-  _RegisterState createState() => _RegisterState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _RegisterState extends State<Register> {
+class _RegisterPageState extends State<RegisterPage> {
   bool _isPasswordVisible = false;
+  final col1 = const Color.fromARGB(255, 195, 255, 195);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Align(
+      appBar: AppBar(backgroundColor: col1, toolbarHeight: 0.0),
+      body: Container(
         alignment: Alignment.topCenter,
         child: ListView(
           clipBehavior: Clip.hardEdge,
           shrinkWrap: true,
           padding: null,
           children: [
-            const TopCard(
-              content: Center(
+            TopCard(
+              content: const Center(
                 child: Image(
                   image: AssetImage(
                     'asset_lib/images/G4C_logo_transparent.png',
@@ -30,7 +32,7 @@ class _RegisterState extends State<Register> {
                   width: 200.0,
                 ),
               ),
-              color: Color.fromARGB(255, 195, 255, 195),
+              color: col1,
             ),
             const SizedBox(
               height: 20.0,
@@ -50,7 +52,7 @@ class _RegisterState extends State<Register> {
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 30,
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 20,

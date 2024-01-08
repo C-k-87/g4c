@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'asset_widgets.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+  @override
+  // ignore: library_private_types_in_public_api
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _isPasswordVisible = false;
+  final col1 = const Color.fromARGB(255, 195, 255, 195);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: col1, toolbarHeight: 0.0),
       body: ListView(
         children: [
           Center(
@@ -53,9 +62,17 @@ class LoginPage extends StatelessWidget {
                         fieldName: 'Username',
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: TxtInput(fieldName: 'Password'),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: PwdInput(
+                        fieldName: 'Password',
+                        isPasswordVisible: _isPasswordVisible,
+                        onpressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 20.0,
