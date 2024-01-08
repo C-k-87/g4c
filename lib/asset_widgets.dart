@@ -186,21 +186,25 @@ class BtnWhite extends StatelessWidget {
 
 class TxtInput extends StatelessWidget {
   final String fieldName;
+  final bool password;
 
   const TxtInput({
     super.key,
     required this.fieldName,
+    required this.password,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      obscureText: password,
       decoration: InputDecoration(
-          hintText: fieldName,
-          border: const UnderlineInputBorder(),
-          constraints: const BoxConstraints(
-            maxWidth: 400.0,
-          )),
+        hintText: fieldName,
+        border: const UnderlineInputBorder(),
+        constraints: const BoxConstraints(
+          maxWidth: 400.0,
+        ),
+      ),
     );
   }
 }
