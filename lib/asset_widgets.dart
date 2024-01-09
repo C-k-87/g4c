@@ -186,15 +186,18 @@ class BtnWhite extends StatelessWidget {
 
 class TxtInput extends StatelessWidget {
   final String fieldName;
+  final TextEditingController controller;
 
   const TxtInput({
     super.key,
     required this.fieldName,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
         hintText: fieldName,
         border: const UnderlineInputBorder(),
@@ -209,6 +212,7 @@ class TxtInput extends StatelessWidget {
 class PwdInput extends StatelessWidget {
   final String fieldName;
   final bool isPasswordVisible;
+  final TextEditingController controller;
   final Function()? onpressed;
 
   const PwdInput({
@@ -216,12 +220,14 @@ class PwdInput extends StatelessWidget {
     required this.fieldName,
     required this.isPasswordVisible,
     this.onpressed,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       obscureText: !isPasswordVisible,
+      controller: controller,
       decoration: InputDecoration(
         border: const UnderlineInputBorder(),
         constraints: BoxConstraints(

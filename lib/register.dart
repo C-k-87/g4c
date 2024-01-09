@@ -10,12 +10,29 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   bool _isPasswordVisible = false;
+
   final col1 = const Color.fromARGB(255, 195, 255, 195);
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final pwdController = TextEditingController();
+  final confPwdController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    pwdController.dispose();
+    confPwdController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: col1, toolbarHeight: 0.0),
+      appBar: AppBar(
+        backgroundColor: col1,
+        toolbarHeight: 35.0,
+      ),
       body: Container(
         alignment: Alignment.topCenter,
         child: ListView(
@@ -23,19 +40,21 @@ class _RegisterPageState extends State<RegisterPage> {
           shrinkWrap: true,
           padding: null,
           children: [
-            TopCard(
-              content: const Center(
-                child: Image(
-                  image: AssetImage(
-                    'asset_lib/images/G4C_logo_transparent.png',
+            SizedBox(
+              child: TopCard(
+                content: const Center(
+                  child: Image(
+                    image: AssetImage(
+                      'asset_lib/images/G4C_logo_transparent.png',
+                    ),
+                    width: 200.0,
                   ),
-                  width: 200.0,
                 ),
+                color: col1,
               ),
-              color: col1,
             ),
             const SizedBox(
-              height: 20.0,
+              height: 40.0,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -57,14 +76,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                const TxtInput(
+                TxtInput(
                   fieldName: 'Full name',
+                  controller: nameController,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                const TxtInput(
+                TxtInput(
                   fieldName: 'Email',
+                  controller: emailController,
                 ),
                 const SizedBox(
                   height: 20,
@@ -77,6 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       _isPasswordVisible = !_isPasswordVisible;
                     });
                   },
+                  controller: pwdController,
                 ),
                 const SizedBox(
                   height: 20,
@@ -89,23 +111,38 @@ class _RegisterPageState extends State<RegisterPage> {
                       _isPasswordVisible = !_isPasswordVisible;
                     });
                   },
+                  controller: confPwdController,
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 40,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: BtnBlack(
-                    btnText: 'Register',
-                    onpressed: () {},
-                  ),
+                BtnBlack(
+                  btnText: 'Register',
+                  onpressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          // Retrieve the text the that user has entered by using the
+                          // TextEditingController.
+                          content: Text(
+                              'Name: ${nameController.text}\nEmail: ${emailController.text}'),
+                        );
+                      },
+                    );
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: BtnWhite(
-                    btnText: 'Clear',
-                    onpressed: () {},
-                  ),
+                const SizedBox(
+                  height: 20,
+                ),
+                BtnWhite(
+                  btnText: 'Clear',
+                  onpressed: () {
+                    nameController.clear();
+                    emailController.clear();
+                    pwdController.clear();
+                    confPwdController.clear();
+                  },
                 ),
                 const SizedBox(
                   height: 20,

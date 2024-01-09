@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/register.dart';
 import 'asset_widgets.dart';
 
 class LoginPage extends StatefulWidget {
@@ -11,11 +12,20 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool _isPasswordVisible = false;
   final col1 = const Color.fromARGB(255, 195, 255, 195);
+  final unameController = TextEditingController();
+  final pwdController = TextEditingController();
+
+  @override
+  void dispose() {
+    unameController.dispose();
+    pwdController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: col1, toolbarHeight: 0.0),
+      appBar: AppBar(backgroundColor: col1, toolbarHeight: 35.0),
       body: ListView(
         children: [
           Center(
@@ -34,71 +44,73 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   color: Color.fromARGB(255, 195, 255, 195),
                 ),
-                const SizedBox(
-                  height: 70.0,
-                  child: null,
+                const SizedBox(height: 70.0),
+                const Text(
+                  'STEP IN',
+                  style: TextStyle(
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                Column(
-                  children: [
-                    const Text(
-                      'STEP IN',
-                      style: TextStyle(
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.bold,
+                const Text(
+                  'TO YOUR FUTURE',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                  ),
+                ),
+                const SizedBox(height: 50.0),
+                TxtInput(
+                  fieldName: 'Username',
+                  controller: unameController,
+                ),
+                const SizedBox(height: 50.0),
+                PwdInput(
+                  fieldName: 'Password',
+                  isPasswordVisible: _isPasswordVisible,
+                  onpressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                  controller: pwdController,
+                ),
+                const SizedBox(height: 50.0),
+                BtnBlack(
+                  onpressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          // Retrieve the text the that user has entered by using the
+                          // TextEditingController.
+                          content: Text(
+                              'username: ${unameController.text}\npassword: ${pwdController.text}'),
+                        );
+                      },
+                    );
+                  },
+                  btnText: 'Sign In',
+                ),
+                const SizedBox(height: 20.0),
+                BtnSignInGoogle(onPressed: () {}),
+                const SizedBox(height: 30.0),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterPage(),
                       ),
+                    );
+                  },
+                  child: Text(
+                    "Don't have an account yet?",
+                    style: TextStyle(
+                      color: Colors.blue[700],
                     ),
-                    const Text(
-                      'TO YOUR FUTURE',
-                      style: TextStyle(
-                        fontSize: 30.0,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 70.0,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: TxtInput(
-                        fieldName: 'Username',
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: PwdInput(
-                        fieldName: 'Password',
-                        isPasswordVisible: _isPasswordVisible,
-                        onpressed: () {
-                          setState(() {
-                            _isPasswordVisible = !_isPasswordVisible;
-                          });
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: BtnBlack(onpressed: () {}, btnText: 'Sign In'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: BtnSignInGoogle(onPressed: () {}),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Don't have an account yet?",
-                        style: TextStyle(
-                          color: Colors.blue[700],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30.0,
-                    )
-                  ],
-                )
+                  ),
+                ),
+                const SizedBox(height: 30.0)
               ],
             ),
           ),
