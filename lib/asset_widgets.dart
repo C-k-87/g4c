@@ -246,15 +246,18 @@ class PwdInput extends StatelessWidget {
 
 class TxtSearch extends StatelessWidget {
   final String fieldName;
+  final Function(String)? onChanged;
 
   const TxtSearch({
     super.key,
-    required this.fieldName,
+    required this.fieldName, 
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChanged,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.search),
         hintText: fieldName,
