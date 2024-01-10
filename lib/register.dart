@@ -9,7 +9,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  bool _isPasswordVisible = false;
+  bool _isPasswordVisible1 = false;
+  bool _isPasswordVisible2 = false;
 
   final col1 = const Color.fromARGB(255, 195, 255, 195);
   final nameController = TextEditingController();
@@ -92,10 +93,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 PwdInput(
                   fieldName: "Password",
-                  isPasswordVisible: _isPasswordVisible,
+                  isPasswordVisible: _isPasswordVisible1,
                   onpressed: () {
                     setState(() {
-                      _isPasswordVisible = !_isPasswordVisible;
+                      _isPasswordVisible1 = !_isPasswordVisible1;
                     });
                   },
                   controller: pwdController,
@@ -105,10 +106,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 PwdInput(
                   fieldName: "Confirm Password",
-                  isPasswordVisible: _isPasswordVisible,
+                  isPasswordVisible: _isPasswordVisible2,
                   onpressed: () {
                     setState(() {
-                      _isPasswordVisible = !_isPasswordVisible;
+                      _isPasswordVisible2 = !_isPasswordVisible2;
                     });
                   },
                   controller: confPwdController,
