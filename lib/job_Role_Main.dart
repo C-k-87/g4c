@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'asset_widgets.dart';
+
 class JobRoleMain extends StatelessWidget {
   const JobRoleMain({super.key});
 
@@ -13,7 +13,7 @@ class JobRoleMain extends StatelessWidget {
           const TopCard(
             content: Image(
               fit: BoxFit.fill,
-              image: AssetImage('asset_lib/images/G4C_logo_transparent.png'),
+              image: AssetImage('asset_lib/images/JobRolesBackdrop.png'),
             ),
             color: Color.fromARGB(255, 195, 255, 195),
           ),
@@ -43,11 +43,10 @@ class JobRoleMain extends StatelessWidget {
                 height: 50,
               ),
               TxtSearch(
-                fieldName: 'Search your role', 
-                onChanged: (text){
+                fieldName: 'Search your role',
+                onChanged: (text) {
                   print(text);
                 },
-
               ),
             ],
           ),
