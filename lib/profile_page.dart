@@ -9,6 +9,10 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 195, 255, 195),
+        toolbarHeight: 35.0,
+      ),
       body: ListView(
         children: [
           Column(
@@ -30,7 +34,7 @@ class ProfilePage extends StatelessWidget {
                       color: const Color.fromARGB(255, 195, 255, 195),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     top: 50.0,
                     child: Text(
                       'User Name',
