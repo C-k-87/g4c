@@ -15,7 +15,7 @@ class PersonalityMain extends StatelessWidget {
           const TopCard(
             content: Image(
               fit: BoxFit.fill,
-              image: AssetImage('asset_lib/images/G4C_logo_transparent.png'),
+              image: AssetImage('asset_lib/images/PersTestBacdropT.png'),
             ),
             color: Color.fromARGB(255, 195, 255, 195),
           ),
