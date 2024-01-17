@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'loading_page.dart';
 // ignore: unused_import
 import 'asset_widgets.dart';
 import 'g4c_drawer.dart';
-import 'register.dart';
-import 'login.dart';
+//import 'register.dart';
+//import 'login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade200),
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      home: const LoadingPage(),
     );
   }
 }
