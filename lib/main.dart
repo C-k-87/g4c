@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'asset_widgets.dart';
 import 'g4c_drawer.dart';
+import 'personality_welcome_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +35,7 @@ class HomePageTest extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.0),
         ),
         title: const Text(
-          'Page Title',
+          'Personality Test',
           style: TextStyle(
             fontSize: 15.0,
             fontWeight: FontWeight.bold,
@@ -52,8 +53,8 @@ class HomePageTest extends StatelessWidget {
           ),
         ],
       ),
-      body: null,
-      drawer: G4CDrawer(),
+      body: const WelcomePagePersonality(),
+      drawer: const G4CDrawer(),
     );
   }
 }
