@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-// ignore: unused_import
-import 'asset_widgets.dart';
+import 'package:g4c/profile_page.dart';
 import 'g4c_drawer.dart';
 
 void main() {
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade200),
         useMaterial3: true,
       ),
-      home: const HomePageTest(),
+      home: const ProfilePage(),
     );
   }
 }
