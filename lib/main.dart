@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/Job_des.dart';
 // ignore: unused_import
 import 'asset_widgets.dart';
 import 'g4c_drawer.dart';
-import 'personality_welcome_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,7 +53,7 @@ class HomePageTest extends StatelessWidget {
           ),
         ],
       ),
-      body: const WelcomePagePersonality(),
+      body: const JobDescription(),
       drawer: const G4CDrawer(),
     );
   }
