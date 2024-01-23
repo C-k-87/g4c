@@ -70,34 +70,34 @@ class PersonalityQuiz1 extends StatelessWidget {
                   height: 20,
                 ),
                 const QuizPrefBar(
-                  question: 'How do you feel about this statement?',
+                  question: 'Repair a dishwasher',
                 ),
                 const QuizPrefBar(
-                  question: 'How do you feel about this statement?',
+                  question: 'Repair a dishwasher',
                 ),
                 const QuizPrefBar(
-                  question: 'How do you feel about this statement?',
+                  question: 'Repair a dishwasher',
                 ),
                 const QuizPrefBar(
-                  question: 'How do you feel about this statement?',
+                  question: 'Repair a dishwasher',
                 ),
                 const QuizPrefBar(
-                  question: 'How do you feel about this statement?',
+                  question: 'Repair a dishwasher',
                 ),
                 const QuizPrefBar(
-                  question: 'How do you feel about this statement?',
+                  question: 'Repair a dishwasher',
                 ),
                 const QuizPrefBar(
-                  question: 'How do you feel about this statement?',
+                  question: 'Repair a dishwasher',
                 ),
                 const QuizPrefBar(
-                  question: 'How do you feel about this statement?',
+                  question: 'Repair a dishwasher',
                 ),
                 const QuizPrefBar(
-                  question: 'How do you feel about this statement?',
+                  question: 'Repair a dishwasher',
                 ),
                 const QuizPrefBar(
-                  question: 'How do you feel about this statement?',
+                  question: 'Repair a dishwasher',
                 ),
                 const SizedBox(
                   height: 40,
