@@ -35,7 +35,7 @@ class HomePageTest extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.0),
         ),
         title: const Text(
-          'Personality Test',
+          'Job Roles',
           style: TextStyle(
             fontSize: 15.0,
             fontWeight: FontWeight.bold,

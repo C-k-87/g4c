@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 
 class JobDescription extends StatelessWidget {
@@ -43,7 +44,7 @@ class JobDescription extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  "Responsibility",
+                  "Responsibilities",
                   style: TextStyle(color: Colors.black, fontSize: 25),
                 ),
               ),
