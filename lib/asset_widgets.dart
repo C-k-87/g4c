@@ -384,7 +384,7 @@ class _QuizPrefBarState extends State<QuizPrefBar> {
     return Container(
       padding: const EdgeInsets.all(15.0),
       margin: const EdgeInsets.symmetric(
-        horizontal: 13.0,
+        //horizontal: 13.0,
         vertical: 5.0,
       ),
       decoration: BoxDecoration(
