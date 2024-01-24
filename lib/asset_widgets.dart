@@ -288,8 +288,8 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width - 100,
       margin: const EdgeInsets.all(10.0),
-      width: 300.0,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -347,7 +347,7 @@ class TopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      clipBehavior: Clip.hardEdge,
+      clipBehavior: Clip.antiAlias,
       height: 300.0,
       width: double.maxFinite,
       decoration: BoxDecoration(
