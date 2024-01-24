@@ -186,22 +186,23 @@ class BtnWhite extends StatelessWidget {
 
 class TxtInput extends StatelessWidget {
   final String fieldName;
+  final TextEditingController controller;
 
   const TxtInput({
     super.key,
     required this.fieldName,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: fieldName,
-          border: const UnderlineInputBorder(),
-          constraints: const BoxConstraints(
-            maxWidth: 400.0,
-          ),
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: fieldName,
+        border: const UnderlineInputBorder(),
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width - 50.0,
         ),
       ),
     );
@@ -211,6 +212,7 @@ class TxtInput extends StatelessWidget {
 class PwdInput extends StatelessWidget {
   final String fieldName;
   final bool isPasswordVisible;
+  final TextEditingController controller;
   final Function()? onpressed;
 
   const PwdInput({
@@ -218,27 +220,27 @@ class PwdInput extends StatelessWidget {
     required this.fieldName,
     required this.isPasswordVisible,
     this.onpressed,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: TextField(
-        obscureText: !isPasswordVisible,
-        decoration: InputDecoration(
-          border: const UnderlineInputBorder(),
-          constraints: const BoxConstraints(
-            maxWidth: 400.0,
-          ),
-          suffixIcon: IconButton(
-            icon: Icon(
-              isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-              color: Colors.black,
-            ),
-            onPressed: onpressed,
-          ),
-          hintText: fieldName,
+    return TextField(
+      obscureText: !isPasswordVisible,
+      controller: controller,
+      decoration: InputDecoration(
+        border: const UnderlineInputBorder(),
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width - 50.0,
         ),
+        suffixIcon: IconButton(
+          icon: Icon(
+            isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+            color: Colors.black,
+          ),
+          onPressed: onpressed,
+        ),
+        hintText: fieldName,
       ),
     );
   }
@@ -250,7 +252,7 @@ class TxtSearch extends StatelessWidget {
 
   const TxtSearch({
     super.key,
-    required this.fieldName, 
+    required this.fieldName,
     this.onChanged,
   });
 
@@ -347,8 +349,8 @@ class TopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      clipBehavior: Clip.antiAlias,
-      height: 300.0,
+      clipBehavior: Clip.hardEdge,
+      height: MediaQuery.of(context).size.height / 3.7,
       width: double.maxFinite,
       decoration: BoxDecoration(
         color: color,
@@ -366,6 +368,134 @@ class TopCard extends StatelessWidget {
         ),
       ),
       child: content,
+    );
+  }
+}
+
+enum Preference { disagree, avoid, neutral, tolerate, agree }
+
+class QuizPrefBar extends StatefulWidget {
+  final String question;
+  const QuizPrefBar({
+    super.key,
+    required this.question,
+  });
+
+  @override
+  State<QuizPrefBar> createState() => _QuizPrefBarState();
+}
+
+class _QuizPrefBarState extends State<QuizPrefBar> {
+  Preference? _preference = Preference.neutral;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(15.0),
+      margin: const EdgeInsets.symmetric(
+        //horizontal: 13.0,
+        vertical: 5.0,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withAlpha(100),
+            blurRadius: 7.0,
+            offset: const Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              widget.question,
+              style: const TextStyle(
+                fontWeight: FontWeight.w300,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'DISAGREE',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14.0,
+                ),
+              ),
+              const SizedBox(
+                width: 10.0,
+              ),
+              Radio(
+                value: Preference.disagree,
+                groupValue: _preference,
+                onChanged: (Preference? value) {
+                  setState(() {
+                    _preference = value;
+                  });
+                },
+              ),
+              Radio(
+                value: Preference.avoid,
+                groupValue: _preference,
+                onChanged: (Preference? value) {
+                  setState(() {
+                    _preference = value;
+                  });
+                },
+              ),
+              Radio(
+                value: Preference.neutral,
+                groupValue: _preference,
+                onChanged: (Preference? value) {
+                  setState(() {
+                    _preference = value;
+                  });
+                },
+              ),
+              Radio(
+                value: Preference.tolerate,
+                groupValue: _preference,
+                onChanged: (Preference? value) {
+                  setState(() {
+                    _preference = value;
+                  });
+                },
+              ),
+              Radio(
+                value: Preference.agree,
+                groupValue: _preference,
+                onChanged: (Preference? value) {
+                  setState(() {
+                    _preference = value;
+                  });
+                },
+              ),
+              const SizedBox(
+                width: 10.0,
+              ),
+              const Text(
+                'AGREE',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14.0,
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:g4c/job_role_main.dart';
 // ignore: unused_import
 import 'asset_widgets.dart';
 import 'g4c_drawer.dart';
+//import 'register.dart';
+//import 'login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,8 +56,8 @@ class HomePageTest extends StatelessWidget {
           ),
         ],
       ),
-      body: null,
-      drawer: G4CDrawer(),
+      body: const PersonalityMain(),
+      drawer: const G4CDrawer(),
     );
   }
 }
