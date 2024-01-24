@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/personality_quizes_main.dart';
 import 'package:g4c/job_Role_Main.dart';
 import 'loading_page.dart';
 // ignore: unused_import
@@ -56,8 +57,8 @@ class HomePageTest extends StatelessWidget {
           ),
         ],
       ),
-      body: null,
-      drawer: G4CDrawer(),
+      body: const PersonalityMain(),
+      drawer: const G4CDrawer(),
     );
   }
 }
