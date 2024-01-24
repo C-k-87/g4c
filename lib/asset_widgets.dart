@@ -186,22 +186,23 @@ class BtnWhite extends StatelessWidget {
 
 class TxtInput extends StatelessWidget {
   final String fieldName;
+  final TextEditingController controller;
 
   const TxtInput({
     super.key,
     required this.fieldName,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: fieldName,
-          border: const UnderlineInputBorder(),
-          constraints: const BoxConstraints(
-            maxWidth: 400.0,
-          ),
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: fieldName,
+        border: const UnderlineInputBorder(),
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width - 50.0,
         ),
       ),
     );
@@ -211,6 +212,7 @@ class TxtInput extends StatelessWidget {
 class PwdInput extends StatelessWidget {
   final String fieldName;
   final bool isPasswordVisible;
+  final TextEditingController controller;
   final Function()? onpressed;
 
   const PwdInput({
@@ -218,27 +220,27 @@ class PwdInput extends StatelessWidget {
     required this.fieldName,
     required this.isPasswordVisible,
     this.onpressed,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: TextField(
-        obscureText: !isPasswordVisible,
-        decoration: InputDecoration(
-          border: const UnderlineInputBorder(),
-          constraints: const BoxConstraints(
-            maxWidth: 400.0,
-          ),
-          suffixIcon: IconButton(
-            icon: Icon(
-              isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-              color: Colors.black,
-            ),
-            onPressed: onpressed,
-          ),
-          hintText: fieldName,
+    return TextField(
+      obscureText: !isPasswordVisible,
+      controller: controller,
+      decoration: InputDecoration(
+        border: const UnderlineInputBorder(),
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width - 50.0,
         ),
+        suffixIcon: IconButton(
+          icon: Icon(
+            isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+            color: Colors.black,
+          ),
+          onPressed: onpressed,
+        ),
+        hintText: fieldName,
       ),
     );
   }
@@ -246,15 +248,18 @@ class PwdInput extends StatelessWidget {
 
 class TxtSearch extends StatelessWidget {
   final String fieldName;
+  final Function(String)? onChanged;
 
   const TxtSearch({
     super.key,
     required this.fieldName,
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChanged,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.search),
         hintText: fieldName,
@@ -344,8 +349,8 @@ class TopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      clipBehavior: Clip.antiAlias,
-      height: 300.0,
+      clipBehavior: Clip.hardEdge,
+      height: MediaQuery.of(context).size.height / 3.7,
       width: double.maxFinite,
       decoration: BoxDecoration(
         color: color,
