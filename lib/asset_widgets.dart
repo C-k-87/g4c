@@ -248,15 +248,18 @@ class PwdInput extends StatelessWidget {
 
 class TxtSearch extends StatelessWidget {
   final String fieldName;
+  final Function(String)? onChanged;
 
   const TxtSearch({
     super.key,
     required this.fieldName,
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChanged,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.search),
         hintText: fieldName,
@@ -287,8 +290,8 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width - 100,
       margin: const EdgeInsets.all(10.0),
-      width: 300.0,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
