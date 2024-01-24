@@ -371,7 +371,10 @@ enum Preference { disagree, avoid, neutral, tolerate, agree }
 
 class QuizPrefBar extends StatefulWidget {
   final String question;
-  const QuizPrefBar({super.key, required this.question});
+  const QuizPrefBar({
+    super.key,
+    required this.question,
+  });
 
   @override
   State<QuizPrefBar> createState() => _QuizPrefBarState();

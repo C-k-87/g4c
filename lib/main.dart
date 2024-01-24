@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/personality_quiz1.dart';
 import 'package:g4c/personality_quizes_main.dart';
 // ignore: unused_import
 import 'asset_widgets.dart';
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade200),
         useMaterial3: true,
       ),
-      home: const HomePageTest(),
+      home: const PersonalityMain(),
     );
   }
 }
@@ -54,7 +53,7 @@ class HomePageTest extends StatelessWidget {
           ),
         ],
       ),
-      body: const PersonalityQuiz1(),
+      body: null,
       drawer: G4CDrawer(),
     );
   }

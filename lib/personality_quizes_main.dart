@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/personality_quiz1.dart';
 
 import 'asset_widgets.dart';
 
@@ -45,7 +46,13 @@ class PersonalityMain extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: BtnBlack(
                   btnText: 'Take the Test',
-                  onpressed: () {},
+                  onpressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PersonalityQuizRunner()),
+                    );
+                  },
                 ),
               ),
             ],
