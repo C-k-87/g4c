@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/g4c_drawer.dart';
 import 'asset_widgets.dart';
+import 'question_sets.dart';
 
 class PersonalityQuizRunner extends StatefulWidget {
   const PersonalityQuizRunner({super.key});
@@ -14,6 +16,30 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        title: const Text(
+          'Page Title',
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(255, 195, 255, 195),
+        centerTitle: false,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Image.asset(
+              'asset_lib/images/G4C_logo_text.png',
+              width: 50.0,
+            ),
+          ),
+        ],
+      ),
+      drawer: const G4CDrawer(),
       body: ListView(
         children: [
           const SizedBox(
@@ -25,7 +51,7 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
               Container(
                 width: 700,
                 decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 163, 249, 150),
+                  color: Color.fromARGB(255, 195, 255, 195),
                 ),
                 child: Column(
                   children: [
@@ -121,45 +147,52 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.circle_outlined),
+                    icon: pageNumber == 3
+                        ? const Icon(Icons.circle_rounded)
+                        : const Icon(Icons.circle_outlined),
                     iconSize: 20,
                     onPressed: () {
-                      /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomePageTest(),
-                    ),
-                  );*/
+                      setState(() {
+                        //questionSet = const QuestionSet3();
+                        pageNumber = 3;
+                      });
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.circle_outlined),
+                    icon: pageNumber == 4
+                        ? const Icon(Icons.circle_rounded)
+                        : const Icon(Icons.circle_outlined),
                     iconSize: 20,
                     onPressed: () {
-                      /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomePageTest(),
-                    ),
-                  );*/
+                      setState(() {
+                        questionSet = const QuestionSet4();
+                        pageNumber = 4;
+                      });
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.circle_outlined),
+                    icon: pageNumber == 5
+                        ? const Icon(Icons.circle_rounded)
+                        : const Icon(Icons.circle_outlined),
                     iconSize: 20,
                     onPressed: () {
-                      /* Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomePageTest(),
-                    ),
-                  );*/
+                      setState(() {
+                        questionSet = const QuestionSet5();
+                        pageNumber = 5;
+                      });
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.circle_outlined),
+                    icon: pageNumber == 6
+                        ? const Icon(Icons.circle_rounded)
+                        : const Icon(Icons.circle_outlined),
                     iconSize: 20,
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        questionSet = const QuestionSet6();
+                        pageNumber = 6;
+                      });
+                    },
                   ),
                 ],
               ),
@@ -171,27 +204,27 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
                   switch (pageNumber) {
                     case 1:
                       setState(() {
-                        //questionSet = const QuestionSet2();
+                        questionSet = const QuestionSet2();
                       });
                       break;
                     case 2:
                       setState(() {
-                        //questionSet = QuestionSet3()
+                        questionSet = const QuestionSet3();
                       });
                       break;
                     case 3:
                       setState(() {
-                        //questionSet = QuestionSet4()
+                        questionSet = const QuestionSet4();
                       });
                       break;
                     case 4:
                       setState(() {
-                        //questionSet = QuestionSet5()
+                        questionSet = const QuestionSet5();
                       });
                       break;
                     case 5:
                       setState(() {
-                        //questionSet = QuestionSet6()
+                        questionSet = const QuestionSet6();
                       });
                       break;
                     default:
@@ -208,66 +241,6 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class QuestionSet1 extends StatelessWidget {
-  const QuestionSet1({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        QuizPrefBar(
-          question: 'Do you enjoy working with your hands and physical tasks?',
-        ),
-        QuizPrefBar(
-          question:
-              'Are you curious about how things work and enjoy solving complex problems?',
-        ),
-        QuizPrefBar(
-          question:
-              'Do you enjoy expressing yourself through creative activities such as drawing, writing, or performing arts?',
-        ),
-        QuizPrefBar(
-          question:
-              'Are you naturally inclined towards leadership roles and enjoy taking charge?',
-        ),
-        QuizPrefBar(
-          question: 'Do you prefer well-organized and structured environments?',
-        ),
-      ],
-    );
-  }
-}
-
-class QuestionSet2 extends StatelessWidget {
-  const QuestionSet2({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        QuizPrefBar(
-          question: 'Do you enjoy helping and interacting with people?',
-        ),
-        QuizPrefBar(
-          question:
-              'Are you interested in activities such as building, fixing, or assembling things?',
-        ),
-        QuizPrefBar(
-          question:
-              'Do you enjoy analyzing data, conducting experiments, or doing research?',
-        ),
-        QuizPrefBar(
-          question:
-              'Are you attracted to unique and unconventional ideas or approaches?',
-        ),
-        QuizPrefBar(
-          question: 'Do you enjoy persuading, influencing, or managing others?',
-        ),
-      ],
     );
   }
 }

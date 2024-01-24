@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/personality_quiz1.dart';
+import 'package:g4c/g4c_drawer.dart';
+import 'package:g4c/personality_quiz_runner.dart';
 
 import 'asset_widgets.dart';
 
@@ -9,8 +10,8 @@ class PersonalityMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(
-          255, 253, 254, 253), // Use 'color' instead of 'backgroundColor'
+      drawer: G4CDrawer(),
+      backgroundColor: const Color.fromARGB(255, 253, 254, 253),
       body: ListView(
         children: [
           const TopCard(

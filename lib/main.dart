@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade200),
         useMaterial3: true,
       ),
-      home: const PersonalityMain(),
+      home: const HomePageTest(),
     );
   }
 }
@@ -53,8 +53,8 @@ class HomePageTest extends StatelessWidget {
           ),
         ],
       ),
-      body: null,
-      drawer: G4CDrawer(),
+      body: const PersonalityMain(),
+      drawer: const G4CDrawer(),
     );
   }
 }
