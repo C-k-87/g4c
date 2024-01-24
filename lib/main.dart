@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/profile_page.dart';
+import 'package:g4c/job_Role_Main.dart';
+// ignore: unused_import
+import 'asset_widgets.dart';
 import 'g4c_drawer.dart';
 
 void main() {
@@ -17,7 +19,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade200),
         useMaterial3: true,
       ),
-      home: const ProfilePage(),
+
+      home: const JobRoleMain(),
     );
   }
 }
