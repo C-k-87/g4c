@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:g4c/job_role_main.dart';
-// ignore: unused_import
-import 'asset_widgets.dart';
+import 'package:g4c/login.dart';
 import 'g4c_drawer.dart';
-//import 'register.dart';
-//import 'login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,13 +17,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade200),
         useMaterial3: true,
       ),
-      home: const JobRoleMain(),
+      home: const G4CRunner(),
     );
   }
 }
 
-class HomePageTest extends StatelessWidget {
-  const HomePageTest({super.key});
+class G4CRunner extends StatelessWidget {
+  const G4CRunner({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +51,7 @@ class HomePageTest extends StatelessWidget {
           ),
         ],
       ),
-      body: const PersonalityMain(),
+      body: const LoginPage(),
       drawer: const G4CDrawer(),
     );
   }
