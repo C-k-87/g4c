@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/asset_widgets.dart';
+import 'package:g4c/job_role_main.dart';
+import 'package:g4c/login.dart';
+import 'package:g4c/personality_quizes_main.dart';
+import 'package:g4c/profile_page.dart';
 
 class G4CDrawer extends StatelessWidget {
   const G4CDrawer({
@@ -9,7 +13,7 @@ class G4CDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.green[100],
+      backgroundColor: const Color.fromARGB(255, 195, 255, 195),
       child: ListView(
         children: [
           DrawerHeader(
@@ -51,24 +55,55 @@ class G4CDrawer extends StatelessWidget {
                 ),
                 BtnNavigation(
                     btnText: "Personality Quiz",
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PersonalityMain()),
+                      );
+                    },
                     iconData: Icons.search),
                 BtnNavigation(
                     btnText: "Progress Tracker",
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProfilePage()),
+                      );
+                    },
                     iconData: Icons.trending_up),
                 BtnNavigation(
                     btnText: "Job Roles",
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const JobRoleMain()),
+                      );
+                    },
                     iconData: Icons.castle),
                 BtnNavigation(
                     btnText: "Profile",
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProfilePage()),
+                      );
+                    },
                     iconData: Icons.supervised_user_circle),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 50.0),
                   child: BtnBlackIcon(
-                    onpressed: () {},
+                    onpressed: () {
+                      //TODO : Implement sessions logout
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
+                      );
+                    },
                     btnText: 'Logout',
                     iconData: Icons.logout,
                   ),

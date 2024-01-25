@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/asset_widgets.dart';
+import 'package:g4c/g4c_drawer.dart';
 
 class ProfilePage extends StatelessWidget {
   final double fontsize = 15.0;
@@ -10,9 +11,29 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // shape: RoundedRectangleBorder(
+        //   borderRadius: BorderRadius.circular(20.0),
+        // ),
+        title: const Text(
+          'Page Title',
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: const Color.fromARGB(255, 195, 255, 195),
-        toolbarHeight: 35.0,
+        centerTitle: false,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Image.asset(
+              'asset_lib/images/G4C_logo_text.png',
+              width: 50.0,
+            ),
+          ),
+        ],
       ),
+      drawer: const G4CDrawer(),
       body: ListView(
         children: [
           Column(
