@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "317084795175",
+    "project_id": "g4c-app",
+    "storage_bucket": "g4c-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317084795175:android:a53351d6e878a08f85e902",
+        "android_client_info": {
+          "package_name": "com.example.g4c"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBarBkACggUIKYXuuleUrnSvQMmfz0cgPw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
