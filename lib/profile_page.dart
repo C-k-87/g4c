@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/asset_widgets.dart';
+import 'package:g4c/g4c_drawer.dart';
 
 class ProfilePage extends StatelessWidget {
   final double fontsize = 15.0;
@@ -9,10 +10,8 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 195, 255, 195),
-        toolbarHeight: 35.0,
-      ),
+      appBar: G4CAppBar('Profile Page', false),
+      drawer: const G4CDrawer(),
       body: ListView(
         children: [
           Column(

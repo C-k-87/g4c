@@ -10,7 +10,8 @@ class PersonalityMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: G4CDrawer(),
+      appBar: G4CAppBar('Personality Quiz', false),
+      drawer: const G4CDrawer(),
       backgroundColor: const Color.fromARGB(255, 253, 254, 253),
       body: ListView(
         children: [
