@@ -1,0 +1,28 @@
+{
+    "roles": [
+        {
+            "id":"j1",
+            "image":"ba.png",
+            "name":"Business Analyst",
+            "description":"Business analysts (BA) help to define business problems via in-depth investigation and gathering of technical and non-technical information.The role of a business analyst is to understand the business requirements, integrate them with technology, and act as the bridge between various stakeholders."
+        },
+        {
+            "id":"j2",
+            "image":"ca.png",
+            "name":"Cybersecurity Analyst",
+            "description":"A Cybersecurity Analyst is a professional responsible for protecting an organization's computer systems and networks from cyber threats. Their role involves monitoring, analyzing, and responding to security incidents to ensure the confidentiality, integrity, and availability of information assets."
+        },
+        {
+            "id":"j3",
+            "image":"sa.png",
+            "name":"Systems Analyst",
+            "description":"A system analyst is a professional who analyzes, designs, and implements information systems to meet the specific needs of an organization. They evaluate current systems, identify areas for improvement, and create solutions that enhance efficiency and effectiveness. System analysts bridge the gap between business requirements and technology, ensuring that IT solutions align with organizational goals."
+        },
+        {
+            "id":"j4",
+            "image":"ds.png",
+            "name":"Data Scientist",
+            "description":"A Data Scientist is a professional who uses scientific methods, processes, algorithms, and systems to extract insights and knowledge from structured and unstructured data. Data scientists analyze and interpret complex datasets to inform business decision-making, solve problems, and discover patterns and trends. Their work involves a combination of skills from statistics, mathematics, computer science, and domain-specific knowledge."
+        }
+    ]
+}

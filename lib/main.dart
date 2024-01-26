@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/job_role_main.dart';
 import 'package:g4c/login.dart';
 import 'g4c_drawer.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade200),
         useMaterial3: true,
       ),
-      home: const G4CRunner(),
+      home: const JobRoleMain(),
     );
   }
 }
