@@ -10,29 +10,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.circular(20.0),
-        // ),
-        title: const Text(
-          'Page Title',
-          style: TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: const Color.fromARGB(255, 195, 255, 195),
-        centerTitle: false,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Image.asset(
-              'asset_lib/images/G4C_logo_text.png',
-              width: 50.0,
-            ),
-          ),
-        ],
-      ),
+      appBar: G4CAppBar('Profile Page', false),
       drawer: const G4CDrawer(),
       body: ListView(
         children: [
