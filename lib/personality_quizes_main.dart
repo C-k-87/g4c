@@ -10,7 +10,7 @@ class PersonalityMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: G4CDrawer(),
+      drawer: const G4CDrawer(),
       backgroundColor: const Color.fromARGB(255, 253, 254, 253),
       body: ListView(
         children: [

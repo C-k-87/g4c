@@ -1,17 +1,20 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'asset_widgets.dart';
 
-class JobRoleMain extends StatelessWidget {
+class JobRoleMain extends StatefulWidget {
   const JobRoleMain({super.key});
 
   @override
+  State<JobRoleMain> createState() => _JobRoleMainState();
+}
+
+class _JobRoleMainState extends State<JobRoleMain> {
+  String _searchParam = "";
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(
-          255, 253, 254, 253), // Use 'color' instead of 'backgroundColor'
       body: ListView(
         children: [
           const TopCard(
@@ -49,11 +52,13 @@ class JobRoleMain extends StatelessWidget {
               TxtSearch(
                 fieldName: 'Search your role',
                 onChanged: (text) {
-                  print(text);
+                  setState(() {
+                    _searchParam = text;
+                  });
                 },
               ),
               const SizedBox(height: 30.0),
-              const JobRoleList(),
+              JobRoleList(searchParam: _searchParam),
               const SizedBox(height: 20.0),
             ],
           ),
@@ -64,7 +69,8 @@ class JobRoleMain extends StatelessWidget {
 }
 
 class JobRoleList extends StatefulWidget {
-  const JobRoleList({super.key});
+  final String searchParam;
+  const JobRoleList({super.key, required this.searchParam});
 
   @override
   State<JobRoleList> createState() => _JobRoleListState();
@@ -85,58 +91,35 @@ class _JobRoleListState extends State<JobRoleList> {
 
   @override
   Widget build(BuildContext context) {
+    String searchParam = widget.searchParam;
+
     readFile();
     return Column(
-      children: createRolesList(rolesList),
+      children: createRolesList(
+        rolesList,
+        searchParam,
+      ),
     );
   }
 }
 
-List<Widget> createRolesList(List roles) {
+List<Widget> createRolesList(List roles, String searchParam) {
   List<Widget> rolesList = [];
-  for (var role in roles) {
-    rolesList.add(
-      InkWell(
-        onTap: () {
-          print(role["image"]);
-        },
-        child: Container(
-          margin: const EdgeInsets.symmetric(
-            vertical: 10.0,
-            horizontal: 20.0,
-          ),
-          padding: const EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.4),
-                  blurRadius: 10.0,
-                  offset: Offset.zero,
-                )
-              ]),
-          child: Row(
-            children: [
-              Image(
-                image:
-                    AssetImage('asset_lib/images/roleimages/${role["image"]}'),
-              ),
-              Expanded(
-                child: Text(
-                  role["name"],
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+
+  if (searchParam.isEmpty) {
+    for (var role in roles) {
+      rolesList.add(
+        JobRoleEntry(role: role),
+      );
+    }
+  } else {
+    for (var role in roles) {
+      if (role["name"].toLowerCase().contains(searchParam.toLowerCase())) {
+        rolesList.add(
+          JobRoleEntry(role: role),
+        );
+      }
+    }
   }
   return rolesList;
 }
