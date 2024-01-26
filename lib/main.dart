@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/Job_des.dart';
+// ignore: unused_import
+import 'asset_widgets.dart';
+import 'g4c_drawer.dart';
 import 'package:g4c/profile_page.dart';
 
 void main() {
