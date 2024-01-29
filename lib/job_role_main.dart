@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:g4c/g4c_drawer.dart';
-import 'package:flutter/services.dart';=
+import 'package:flutter/services.dart';
 import 'asset_widgets.dart';
 
 class JobRoleMain extends StatefulWidget {
