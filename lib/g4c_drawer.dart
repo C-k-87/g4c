@@ -103,6 +103,7 @@ class G4CDrawer extends StatelessWidget {
                     onpressed: () {
                       Navigator.pop(context);
                       //TODO : Implement sessions logout
+                      Navigator.popUntil(context, (route) => false);
                       Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'asset_widgets.dart';
-import 'package:g4c/profile_page.dart';
-import 'package:g4c/job_role_main.dart';
 import 'package:g4c/login.dart';
-import 'g4c_drawer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-void main() async{
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-);
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -36,7 +35,7 @@ class G4CRunner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: ProfilePage(),
+      body: LoginPage(),
     );
   }
 }

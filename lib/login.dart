@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/profile_page.dart';
 import 'package:g4c/register.dart';
 import 'asset_widgets.dart';
 
@@ -77,17 +78,28 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 50.0),
                 BtnBlack(
                   onpressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          // Retrieve the text the that user has entered by using the
-                          // TextEditingController.
-                          content: Text(
-                              'username: ${unameController.text}\npassword: ${pwdController.text}'),
-                        );
-                      },
-                    );
+                    String uname = unameController.text;
+                    String pwd = pwdController.text;
+
+                    if ((uname == "test") && (pwd == "123")) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ProfilePage(),
+                          ));
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            // Retrieve the text the that user has entered by using the
+                            // TextEditingController.
+                            content: Text(
+                                'invalid login details. try uname: test pwd:123'),
+                          );
+                        },
+                      );
+                    }
                   },
                   btnText: 'Sign In',
                 ),
