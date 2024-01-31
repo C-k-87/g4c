@@ -355,7 +355,7 @@ class TopCard extends StatelessWidget {
     double aspectRatio = resolution[0] / resolution[1];
     return Container(
       clipBehavior: Clip.hardEdge,
-      height: (aspectRatio < 0.48 ? resolution[1] / 3.7 : resolution[1] / 2.0),
+      height: (aspectRatio < 0.5 ? resolution[1] / 3.7 : resolution[1] / 2.0),
       width: double.maxFinite,
       decoration: BoxDecoration(
         color: color,
@@ -439,9 +439,6 @@ class _QuizPrefBarState extends State<QuizPrefBar> {
                   fontSize: 14.0,
                 ),
               ),
-              const SizedBox(
-                width: 10.0,
-              ),
               Radio(
                 value: Preference.disagree,
                 groupValue: _preference,
@@ -486,9 +483,6 @@ class _QuizPrefBarState extends State<QuizPrefBar> {
                     _preference = value;
                   });
                 },
-              ),
-              const SizedBox(
-                width: 10.0,
               ),
               const Text(
                 'AGREE',
