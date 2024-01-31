@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 50.0),
                 BtnBlack(
                   onpressed: () {
-                    String uname = unameController.text;
+                    String uname = unameController.text.trim();
                     String pwd = pwdController.text;
 
                     if ((uname == "test") && (pwd == "123")) {
@@ -91,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return AlertDialog(
+                          return const AlertDialog(
                             // Retrieve the text the that user has entered by using the
                             // TextEditingController.
                             content: Text(

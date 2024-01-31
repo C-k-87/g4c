@@ -4,6 +4,7 @@ import 'package:g4c/job_role_main.dart';
 import 'package:g4c/login.dart';
 import 'package:g4c/personality_quizes_main.dart';
 import 'package:g4c/profile_page.dart';
+import 'package:g4c/progress_tracker.dart';
 
 class G4CDrawer extends StatelessWidget {
   const G4CDrawer({
@@ -71,7 +72,7 @@ class G4CDrawer extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ProfilePage()),
+                            builder: (context) => const ProgressTracker()),
                       );
                     },
                     iconData: Icons.trending_up),
