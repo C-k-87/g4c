@@ -205,11 +205,25 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
                         questionSet = const QuestionSet6();
                       });
                       break;
+                    case 6:
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const AlertDialog(
+                              content: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.android),
+                                  Text('To be implemented')
+                                ],
+                              ),
+                            );
+                          });
                     default:
                   }
                   pageNumber++;
                 },
-                btnText: 'Next',
+                btnText: pageNumber < 6 ? 'Next' : 'Submit',
                 iconData: Icons.arrow_right_rounded,
               ),
               const SizedBox(
