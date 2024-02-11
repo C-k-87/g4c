@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../presentation/components/asset_widgets.dart';
+import 'package:g4c/presentation/components/quiz_pref_bar.dart';
 
 class QuestionSet1 extends StatelessWidget {
   const QuestionSet1({super.key});

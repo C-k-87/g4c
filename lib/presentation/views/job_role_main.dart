@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:flutter/services.dart';
-import '../components/asset_widgets.dart';
+import 'package:g4c/presentation/components/job_role_entry.dart';
+import 'package:g4c/presentation/components/top_card.dart';
+import 'package:g4c/presentation/components/txt_search.dart';
 
 class JobRoleMain extends StatefulWidget {
   const JobRoleMain({super.key});

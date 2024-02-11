@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/domain/use_cases/personality_quiz_runner.dart';
-
-import '../components/asset_widgets.dart';
+import 'package:g4c/presentation/components/top_card.dart';
 
 class PersonalityMain extends StatelessWidget {
   const PersonalityMain({super.key});

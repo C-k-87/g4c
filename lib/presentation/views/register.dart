@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/presentation/components/asset_widgets.dart';
+import 'package:g4c/presentation/components/btn_black.dart';
+import 'package:g4c/presentation/components/btn_white.dart';
+import 'package:g4c/presentation/components/pwd_input.dart';
+import 'package:g4c/presentation/components/top_card.dart';
+import 'package:g4c/presentation/components/txt_input.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

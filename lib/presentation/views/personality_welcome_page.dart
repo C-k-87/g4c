@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/presentation/components/asset_widgets.dart';
+import 'package:g4c/presentation/components/btn_black_icon.dart';
 
 class WelcomePagePersonality extends StatelessWidget {
   const WelcomePagePersonality({super.key});

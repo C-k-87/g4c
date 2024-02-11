@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/presentation/components/asset_widgets.dart';
+import 'package:g4c/presentation/components/btn_black_icon.dart';
+import 'package:g4c/presentation/components/btn_navigation.dart';
 import 'package:g4c/presentation/views/job_role_main.dart';
 import 'package:g4c/presentation/views/login.dart';
 import 'package:g4c/presentation/views/personality_quizes_main.dart';
