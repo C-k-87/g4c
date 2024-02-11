@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/asset_widgets.dart';
+import 'package:g4c/presentation/components/asset_widgets.dart';
 
 class WelcomePagePersonality extends StatelessWidget {
   const WelcomePagePersonality({super.key});
@@ -37,20 +37,23 @@ class WelcomePagePersonality extends StatelessWidget {
                 child: Text(
                   "Let Us Discover\n"
                   "Your Personality",
-                  style: TextStyle(color: Colors.black,fontWeight:FontWeight.bold, fontSize: 35),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35),
                 ),
               ),
               const SizedBox(
                 height: 90,
               ),
               Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 50.0),
-                  child: BtnBlackIcon(
-                    onpressed: () {},
-                    btnText: 'Next',
-                    iconData: Icons.logout,
-                  ),
-                )
+                padding: const EdgeInsets.symmetric(vertical: 50.0),
+                child: BtnBlackIcon(
+                  onpressed: () {},
+                  btnText: 'Next',
+                  iconData: Icons.logout,
+                ),
+              )
             ],
           ),
         ],

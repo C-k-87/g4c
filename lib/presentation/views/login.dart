@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/profile_page.dart';
-import 'package:g4c/register.dart';
-import 'asset_widgets.dart';
+import 'package:g4c/presentation/views/profile_page.dart';
+import 'package:g4c/presentation/views/register.dart';
+import '../components/asset_widgets.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

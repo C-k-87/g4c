@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/personality_quiz_runner.dart';
+import 'package:g4c/domain/use_cases/personality_quiz_runner.dart';
 // ignore: unused_import
-import 'asset_widgets.dart';
-import 'package:g4c/login.dart';
+import '../presentation/components/asset_widgets.dart';
+import 'package:g4c/presentation/views/login.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import '../data/data_sources/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

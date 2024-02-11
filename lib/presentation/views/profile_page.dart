@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/asset_widgets.dart';
-import 'package:g4c/g4c_drawer.dart';
+import 'package:g4c/presentation/components/asset_widgets.dart';
+import 'package:g4c/presentation/components/g4c_drawer.dart';
 
 class ProfilePage extends StatelessWidget {
   final double fontsize = 15.0;

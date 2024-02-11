@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/asset_widgets.dart';
+import 'package:g4c/presentation/components/asset_widgets.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
