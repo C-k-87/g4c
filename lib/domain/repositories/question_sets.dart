@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/data/entities/pref_record.dart';
+import 'package:g4c/presentation/components/pref_bar.dart';
 import 'package:g4c/presentation/components/quiz_pref_bar.dart';
 
 class QuestionSet1 extends StatelessWidget {
@@ -187,3 +189,25 @@ class QuestionSet6 extends StatelessWidget {
     );
   }
 }
+
+final PrefRecord prefList = PrefRecord();
+
+var qset1 = [
+  PrefBar(
+      prefList: prefList,
+      index: 1,
+      question: 'Do you enjoy working with your hands and physical tasks?'),
+  PrefBar(
+      prefList: prefList,
+      index: 2,
+      question:
+          'Are you curious about how things work and enjoy solving complex problems?'),
+  PrefBar(prefList: prefList, index: 3, question: 'Q3'),
+  PrefBar(prefList: prefList, index: 4, question: 'Q4'),
+];
+var qset2 = [
+  PrefBar(prefList: prefList, index: 5, question: 'Q5'),
+  PrefBar(prefList: prefList, index: 6, question: 'Q6'),
+  PrefBar(prefList: prefList, index: 7, question: 'Q7'),
+  PrefBar(prefList: prefList, index: 8, question: 'Q8'),
+];

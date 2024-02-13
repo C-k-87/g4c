@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/domain/model/qtest.dart';
 import 'package:g4c/presentation/components/btn_black_icon.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
 import '../repositories/question_sets.dart';
@@ -12,6 +13,7 @@ class PersonalityQuizRunner extends StatefulWidget {
 
 class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
   Widget questionSet = const QuestionSet1();
+  var qset = qset1;
   int pageNumber = 1;
   @override
   Widget build(BuildContext context) {
@@ -92,7 +94,9 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
               const SizedBox(
                 height: 10.0,
               ),
-              questionSet,
+              Column(
+                children: qset,
+              ),
               const SizedBox(
                 height: 20.0,
               ),
@@ -108,6 +112,7 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
                     onPressed: () {
                       setState(() {
                         questionSet = const QuestionSet1();
+                        qset = qset1;
                         pageNumber = 1;
                       });
                     },
@@ -120,6 +125,7 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
                     onPressed: () {
                       setState(() {
                         questionSet = const QuestionSet2();
+                        qset = qset2;
                         pageNumber = 2;
                       });
                     },
