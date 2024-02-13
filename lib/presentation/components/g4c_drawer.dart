@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/asset_widgets.dart';
-import 'package:g4c/job_role_main.dart';
-import 'package:g4c/login.dart';
-import 'package:g4c/personality_quizes_main.dart';
-import 'package:g4c/profile_page.dart';
-import 'package:g4c/progress_tracker.dart';
+import 'package:g4c/presentation/components/btn_black_icon.dart';
+import 'package:g4c/presentation/components/btn_navigation.dart';
+import 'package:g4c/presentation/views/job_role_main.dart';
+import 'package:g4c/presentation/views/login.dart';
+import 'package:g4c/presentation/views/personality_quizes_main.dart';
+import 'package:g4c/presentation/views/profile_page.dart';
+import 'package:g4c/presentation/views/progress_tracker.dart';
 
 class G4CDrawer extends StatelessWidget {
   const G4CDrawer({

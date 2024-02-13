@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/g4c_drawer.dart';
-import 'asset_widgets.dart';
-import 'question_sets.dart';
+import 'package:g4c/presentation/components/btn_black_icon.dart';
+import 'package:g4c/presentation/components/g4c_drawer.dart';
+import '../repositories/question_sets.dart';
 
 class PersonalityQuizRunner extends StatefulWidget {
   const PersonalityQuizRunner({super.key});

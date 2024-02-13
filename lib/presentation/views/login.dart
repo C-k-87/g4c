@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/profile_page.dart';
-import 'package:g4c/register.dart';
-import 'asset_widgets.dart';
+import 'package:g4c/presentation/components/btn_black.dart';
+import 'package:g4c/presentation/components/btn_sign_in_google.dart';
+import 'package:g4c/presentation/components/pwd_input.dart';
+import 'package:g4c/presentation/components/top_card.dart';
+import 'package:g4c/presentation/components/txt_input.dart';
+import 'package:g4c/presentation/views/profile_page.dart';
+import 'package:g4c/presentation/views/register.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
