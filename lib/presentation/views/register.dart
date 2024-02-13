@@ -177,25 +177,25 @@ class _RegisterPageState extends State<RegisterPage> {
     String email = emailController.text;
     String password = pwdController.text;
     String confirmpassword = confPwdController.text;
-  if(password==confirmpassword){
-    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+    if (password == confirmpassword) {
+      User? user = await _auth.signUpWithEmailAndPassword(email, password);
 
-    setState(() {
-      isSigningUp = false;
-    });
-    if (user != null) {
-      showToast(message: "User is successfully created");
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ProfilePage(),
-          ));
+      setState(() {
+        isSigningUp = false;
+      });
+      if (user != null) {
+        showToast(message: "User is successfully created");
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ProfilePage(),
+            ));
+      } else {
+        showToast(message: "Some error happend");
+      }
     } else {
-      showToast(message: "Some error happend");
+      showToast(message: "some error happend");
     }
-  }else{
-    showToast(message: "some error happend");
-  }
   }
 }
