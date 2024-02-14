@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/domain/use_cases/personality_quiz_runner.dart';
-// ignore: unused_import
 import 'package:g4c/presentation/views/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import '../data/data_sources/firebase_options.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,4 +38,5 @@ class G4CRunner extends StatelessWidget {
       body: LoginPage(),
     );
   }
+  
 }
