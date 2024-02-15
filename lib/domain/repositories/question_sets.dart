@@ -190,24 +190,26 @@ class QuestionSet6 extends StatelessWidget {
   }
 }
 
-final PrefRecord prefList = PrefRecord();
+final PrefRecord prefList = PrefRecord(10);
 
 var qset1 = [
   PrefBar(
       prefList: prefList,
-      index: 1,
+      index: 0,
       question: 'Do you enjoy working with your hands and physical tasks?'),
   PrefBar(
       prefList: prefList,
-      index: 2,
+      index: 1,
       question:
           'Are you curious about how things work and enjoy solving complex problems?'),
-  PrefBar(prefList: prefList, index: 3, question: 'Q3'),
-  PrefBar(prefList: prefList, index: 4, question: 'Q4'),
+  PrefBar(prefList: prefList, index: 2, question: 'Q3'),
+  PrefBar(prefList: prefList, index: 3, question: 'Q4'),
+  PrefBar(prefList: prefList, index: 4, question: 'Q5')
 ];
 var qset2 = [
-  PrefBar(prefList: prefList, index: 5, question: 'Q5'),
-  PrefBar(prefList: prefList, index: 6, question: 'Q6'),
-  PrefBar(prefList: prefList, index: 7, question: 'Q7'),
-  PrefBar(prefList: prefList, index: 8, question: 'Q8'),
+  PrefBar(prefList: prefList, index: 5, question: 'Q6'),
+  PrefBar(prefList: prefList, index: 6, question: 'Q7'),
+  PrefBar(prefList: prefList, index: 7, question: 'Q8'),
+  PrefBar(prefList: prefList, index: 8, question: 'Q9'),
+  PrefBar(prefList: prefList, index: 9, question: 'Q10')
 ];

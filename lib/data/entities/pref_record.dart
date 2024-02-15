@@ -1,9 +1,13 @@
 import 'package:g4c/domain/repositories/enumerations.dart';
 
 class PrefRecord {
-  PrefRecord();
+  final int length;
+  late List<Preference> prefList;
 
-  List<Preference> prefList = List.generate(50, (index) => Preference.neutral);
+  PrefRecord(this.length) {
+    List<Preference> prefList =
+        List.generate(length, (index) => Preference.neutral);
+  }
 
   void updateRec(int index, Preference newPref) {
     prefList[index] = newPref;

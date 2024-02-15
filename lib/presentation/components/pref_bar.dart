@@ -6,11 +6,12 @@ class PrefBar extends StatefulWidget {
   final PrefRecord prefList;
   final int index;
   final String question;
-  const PrefBar(
-      {super.key,
-      required this.prefList,
-      required this.index,
-      required this.question});
+  const PrefBar({
+    super.key,
+    required this.prefList,
+    required this.index,
+    required this.question,
+  });
 
   @override
   State<PrefBar> createState() => _PrefBarState();

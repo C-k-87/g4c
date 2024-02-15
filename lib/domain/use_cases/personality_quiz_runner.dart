@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/domain/model/qtest.dart';
 import 'package:g4c/presentation/components/btn_black_icon.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
 import '../repositories/question_sets.dart';
@@ -189,11 +188,13 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
                     case 1:
                       setState(() {
                         questionSet = const QuestionSet2();
+                        qset = qset1;
                       });
                       break;
                     case 2:
                       setState(() {
                         questionSet = const QuestionSet3();
+                        qset = qset2;
                       });
                       break;
                     case 3:
