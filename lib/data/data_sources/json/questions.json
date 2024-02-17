@@ -1,0 +1,33 @@
+{
+    "questions":[
+        {
+            "text":"Do you enjoy working with your hands and physical tasks?",
+            "trait":"R"
+        },
+        {
+            "text":"Are you interested in activities such as building, fixing, or assembling things?",
+            "trait":"R"
+        },
+        {
+            "text":"Do you prefer practical, concrete problems over abstract or theoretical ones?",
+            "trait":"R"
+        },
+        {
+            "text":"Do you enjoy outdoor activities and being in a dynamic environment?",
+            "trait":"R"
+        },
+        {
+            "text":"Are you drawn to careers that involve machinery, tools, or equipment?"            ,
+            "trait":"R"
+        },
+        {
+            "text":"Do you enjoy outdoor activities and being in a dynamic environment?",
+            "trait":"R"
+        }
+    ]
+}
+
+
+
+
+

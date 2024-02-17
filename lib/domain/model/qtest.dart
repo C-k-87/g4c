@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:g4c/domain/repositories/enumerations.dart';
 
 void main() {
-  runApp(PersonalityTest());
+  runApp(const PersonalityTest());
 }
 
 class PersonalityTest extends StatelessWidget {
@@ -25,8 +28,34 @@ class PersTestRunner extends StatefulWidget {
 
 class _PersTestRunnerState extends State<PersTestRunner> {
   Map<int, Preference> _selectedOptions = {};
+  List questionData = [];
+
+  Future<void> readFile() async {
+    final String resp = await rootBundle
+        .loadString('lib/data/data_sources/json/questions.json');
+    final data = await jsonDecode(resp);
+
+    setState(() {
+      questionData = data["questions"];
+    });
+  }
+
+  List<Question> generateQlist() {
+    List<Question> questionList = [];
+
+    readFile();
+
+    for (var question in questionData) {
+      questionList.add(
+          Question(questionText: question["text"], trait: question["trait"]));
+    }
+    return questionList;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<Question> questions = generateQlist();
+
     return Scaffold(
         body: ListView(
       children: [
@@ -69,13 +98,17 @@ class _PersTestRunnerState extends State<PersTestRunner> {
                       const Text('Disagree'),
                     ],
                   ),
-                  Text('data'),
                 ],
               ),
             );
           },
         ),
-        const Text('data'),
+        ElevatedButton(
+          onPressed: () {
+            calc(_selectedOptions, questions);
+          },
+          child: const Text('Calculate'),
+        ),
       ],
     ));
   }
@@ -88,21 +121,52 @@ class Question {
   Question({required this.questionText, required this.trait});
 }
 
-final List<Question> questions = [
-  Question(
-    questionText: "You find it easy to introduce yourself to other people.",
-    trait: 'R',
-  ),
-  Question(
-    questionText:
-        "You often get so lost in thoughts that you ignore or forget your surroundings.",
-    trait: 'I',
-  ),
-  Question(questionText: "Q3", trait: 'C'),
-  Question(questionText: "Q4", trait: 'C'),
-  Question(questionText: "Q5", trait: 'C'),
-  Question(questionText: "Q6", trait: 'C'),
-  Question(questionText: "Q7", trait: 'C'),
-  Question(questionText: "Q8", trait: 'C'),
-  // Add more questions as needed
-];
+// final List<Question> questions = [
+//   Question(
+//     questionText: "You find it easy to introduce yourself to other people.",
+//     trait: 'R',
+//   ),
+//   Question(
+//     questionText:
+//         "You often get so lost in thoughts that you ignore or forget your surroundings.",
+//     trait: 'R',
+//   ),
+//   Question(questionText: "Q3", trait: 'R'),
+//   Question(questionText: "Q4", trait: 'R'),
+//   Question(questionText: "Q5", trait: 'R'),
+//   Question(questionText: "Q6", trait: 'R'),
+//   Question(questionText: "Q7", trait: 'R'),
+//   Question(questionText: "Q8", trait: 'R'),
+//   // Add more questions as needed
+// ];
+
+void calc(Map<int, Preference> map, List<Question> questions) {
+  int rscore = 0;
+  int iscore = 0;
+  int cscore = 0;
+
+  for (var preference in map.entries) {
+    var score = switch (preference.value) {
+      Preference.disagree => -2,
+      Preference.avoid => -1,
+      Preference.neutral => 0,
+      Preference.tolerate => 1,
+      Preference.agree => 2,
+    };
+    switch (questions[preference.key].trait) {
+      case 'R':
+        rscore += score;
+        print('added $score to rscore');
+        break;
+      case 'I':
+        iscore += score;
+        print('added $score to iscore');
+        break;
+      case 'C':
+        cscore += score;
+        print('added $score to cscore');
+        break;
+    }
+  }
+  print('rscore: $rscore, iscore: $iscore, cscore: $cscore');
+}
