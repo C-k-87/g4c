@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/domain/use_cases/personality_quiz_runner.dart';
 // ignore: unused_import
 import 'package:g4c/presentation/views/login.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,7 +34,7 @@ class G4CRunner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: PersonalityQuizRunner(),
+      body: LoginPage(),
     );
   }
 }

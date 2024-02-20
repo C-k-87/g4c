@@ -21,8 +21,24 @@
             "trait":"R"
         },
         {
-            "text":"Do you enjoy outdoor activities and being in a dynamic environment?",
-            "trait":"R"
+            "text":"Are you curious about how things work and enjoy solving complex problems?",
+            "trait":"I"
+        },
+        {
+            "text":"Do you enjoy analyzing data, conducting experiments, or doing research?",
+            "trait":"I"
+        },
+        {
+            "text":"Are you comfortable with abstract ideas and theoretical concepts?",
+            "trait":"I"
+        },
+        {
+            "text":"Do you enjoy learning new things and exploring topics in depth?",
+            "trait":"I"
+        },
+        {
+            "text":"Are you naturally inclined towards careers in science, technology, engineering, or mathematics?",
+            "trait":"I"
         }
     ]
 }
