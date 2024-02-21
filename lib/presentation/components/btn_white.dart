@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class BtnWhite extends StatelessWidget {
   final Function()? onpressed;
   final String btnText;
+  final double? width;
 
   const BtnWhite({
     super.key,
     required this.onpressed,
     required this.btnText,
+    this.width,
   });
 
   @override
@@ -17,8 +19,8 @@ class BtnWhite extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 80.0,
+          padding: EdgeInsets.symmetric(
+            horizontal: width ?? 80.0,
             vertical: 20.0,
           ),
           shape: RoundedRectangleBorder(
@@ -28,7 +30,10 @@ class BtnWhite extends StatelessWidget {
             color: Colors.black,
             width: 2.0,
           )),
-      child: Text(btnText),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: width ?? 0),
+        child: Text(btnText),
+      ),
     );
   }
 }

@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:g4c/presentation/components/btn_black_icon.dart';
+import 'package:flutter/services.dart';
+import 'package:g4c/data/entities/question.dart';
+import 'package:g4c/domain/repositories/enumerations.dart';
+import 'package:g4c/presentation/components/btn_black.dart';
+import 'package:g4c/presentation/components/btn_white.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
-import '../repositories/question_sets.dart';
 
 class PersonalityQuizRunner extends StatefulWidget {
   const PersonalityQuizRunner({super.key});
@@ -11,228 +15,234 @@ class PersonalityQuizRunner extends StatefulWidget {
 }
 
 class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
-  Widget questionSet = const QuestionSet1();
-  int pageNumber = 1;
+  List<Preference> selectedOptions =
+      List.generate(11, (index) => Preference.neutral);
+  List<Question> questionData = [Question(questionText: "loading", trait: '0')];
+  int questionNumber = 0;
+
+  Future<void> readFile() async {
+    final String resp = await rootBundle
+        .loadString('lib/data/data_sources/json/questions.json');
+    final data = await jsonDecode(resp);
+
+    for (var element in data["questions"]) {
+      questionData.add(
+        Question(questionText: element["text"], trait: element["trait"]),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (questionData.length == 1) {
+      readFile().whenComplete(() => setState(() {
+            questionNumber = 1;
+          }));
+    }
     return Scaffold(
       appBar: G4CAppBar('Personality Quiz', true),
-      drawer: const G4CDrawer(),
-      body: ListView(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(
-            height: 10.0,
-          ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 700,
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 195, 255, 195),
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.width / 10,
-                          vertical: 10.0),
-                      child: const Text(
-                        'Choose your preference to each question from the ranges below',
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'DISLIKE',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Icon(
-                            Icons.circle,
-                            size: 15,
-                            color: Colors.black,
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            'NEUTRAL',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Icon(
-                            Icons.circle,
-                            size: 15,
-                            color: Colors.black,
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            'LIKE',
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              questionSet,
-              const SizedBox(
-                height: 20.0,
-              ),
-              Text("Step $pageNumber of 6 "),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Stack(
+                alignment: const Alignment(0, 0),
                 children: [
-                  IconButton(
-                    icon: pageNumber == 1
-                        ? const Icon(Icons.circle_rounded)
-                        : const Icon(Icons.circle_outlined),
-                    iconSize: 20,
-                    onPressed: () {
-                      setState(() {
-                        questionSet = const QuestionSet1();
-                        pageNumber = 1;
-                      });
-                    },
+                  SizedBox(
+                    height: 90.0,
+                    width: 90.0,
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.green.shade100,
+                      color: Colors.green,
+                      value: ((questionNumber + 1) / questionData.length),
+                    ),
                   ),
-                  IconButton(
-                    icon: pageNumber == 2
-                        ? const Icon(Icons.circle_rounded)
-                        : const Icon(Icons.circle_outlined),
-                    iconSize: 20,
-                    onPressed: () {
-                      setState(() {
-                        questionSet = const QuestionSet2();
-                        pageNumber = 2;
-                      });
-                    },
-                  ),
-                  IconButton(
-                    icon: pageNumber == 3
-                        ? const Icon(Icons.circle_rounded)
-                        : const Icon(Icons.circle_outlined),
-                    iconSize: 20,
-                    onPressed: () {
-                      setState(() {
-                        //questionSet = const QuestionSet3();
-                        pageNumber = 3;
-                      });
-                    },
-                  ),
-                  IconButton(
-                    icon: pageNumber == 4
-                        ? const Icon(Icons.circle_rounded)
-                        : const Icon(Icons.circle_outlined),
-                    iconSize: 20,
-                    onPressed: () {
-                      setState(() {
-                        questionSet = const QuestionSet4();
-                        pageNumber = 4;
-                      });
-                    },
-                  ),
-                  IconButton(
-                    icon: pageNumber == 5
-                        ? const Icon(Icons.circle_rounded)
-                        : const Icon(Icons.circle_outlined),
-                    iconSize: 20,
-                    onPressed: () {
-                      setState(() {
-                        questionSet = const QuestionSet5();
-                        pageNumber = 5;
-                      });
-                    },
-                  ),
-                  IconButton(
-                    icon: pageNumber == 6
-                        ? const Icon(Icons.circle_rounded)
-                        : const Icon(Icons.circle_outlined),
-                    iconSize: 20,
-                    onPressed: () {
-                      setState(() {
-                        questionSet = const QuestionSet6();
-                        pageNumber = 6;
-                      });
-                    },
+                  Text(
+                    questionNumber.toString(),
+                    style: const TextStyle(
+                        fontSize: 20.0, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
               const SizedBox(
-                height: 30.0,
+                height: 40.0,
               ),
-              BtnBlackIcon(
-                onpressed: () {
-                  switch (pageNumber) {
-                    case 1:
-                      setState(() {
-                        questionSet = const QuestionSet2();
-                      });
-                      break;
-                    case 2:
-                      setState(() {
-                        questionSet = const QuestionSet3();
-                      });
-                      break;
-                    case 3:
-                      setState(() {
-                        questionSet = const QuestionSet4();
-                      });
-                      break;
-                    case 4:
-                      setState(() {
-                        questionSet = const QuestionSet5();
-                      });
-                      break;
-                    case 5:
-                      setState(() {
-                        questionSet = const QuestionSet6();
-                      });
-                      break;
-                    case 6:
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const AlertDialog(
-                              content: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.android),
-                                  Text('To be implemented')
-                                ],
-                              ),
-                            );
-                          });
-                    default:
-                  }
-                  pageNumber++;
-                },
-                btnText: pageNumber < 6 ? 'Next' : 'Submit',
-                iconData: Icons.arrow_right_rounded,
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  questionData[questionNumber].getQuestion(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 20.0,
+                  ),
+                ),
               ),
               const SizedBox(
-                height: 30.0,
+                height: 40.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "DISAGREE",
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(0.7),
+                    ),
+                  ),
+                  prefButton(
+                    Preference.disagree,
+                    Colors.red.shade400,
+                    callback(Preference.disagree),
+                  ),
+                  prefButton(
+                    Preference.avoid,
+                    Colors.amber.shade400,
+                    callback(Preference.avoid),
+                  ),
+                  prefButton(
+                    Preference.neutral,
+                    Colors.yellow.shade200,
+                    callback(Preference.neutral),
+                  ),
+                  prefButton(
+                    Preference.tolerate,
+                    Colors.green.shade200,
+                    callback(Preference.tolerate),
+                  ),
+                  prefButton(
+                    Preference.agree,
+                    Colors.green,
+                    callback(Preference.agree),
+                  ),
+                  Text(
+                    "AGREE",
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(0.7),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 50.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Visibility(
+                visible: questionNumber == 1 ? false : true,
+                child: BtnWhite(
+                  onpressed: previousQuestion,
+                  btnText: questionNumber == 1 ? '' : 'Previous',
+                  width: 15.0,
+                ),
+              ),
+              const SizedBox(
+                width: 20.0,
+              ),
+              BtnBlack(
+                onpressed: questionNumber == questionData.length - 1
+                    ? submit
+                    : nextQuestion,
+                btnText: questionNumber == questionData.length - 1
+                    ? 'Submit'
+                    : 'Next',
+                width: 20.0,
               ),
             ],
           ),
         ],
       ),
     );
+  }
+
+  prefButton(Preference pref, Color color, void Function() callback) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: (MediaQuery.of(context).size.width / 40)),
+      child: InkWell(
+        splashColor: color,
+        onTap: callback,
+        child: selectedOptions[questionNumber] == pref
+            ? Icon(
+                Icons.square_rounded,
+                size: 35.0,
+                color: color,
+              )
+            : Icon(
+                Icons.square_outlined,
+                size: 35.0,
+                color: color,
+              ),
+      ),
+    );
+  }
+
+  void Function() callback(Preference pref) {
+    return () {
+      selectedOptions[questionNumber] = pref;
+      nextQuestion();
+    };
+  }
+
+  previousQuestion() {
+    if (questionNumber == 1) {
+      // print("No more");
+    } else {
+      setState(() {
+        questionNumber--;
+      });
+    }
+  }
+
+  nextQuestion() {
+    if (questionNumber == questionData.length - 1) {
+      setState(() {});
+    } else {
+      setState(() {
+        questionNumber++;
+      });
+    }
+  }
+
+  submit() {
+    int rscore = 0;
+    int iscore = 0;
+
+    for (var i = 1; i < questionData.length; i++) {
+      int prefscore = 0;
+
+      switch (selectedOptions[i]) {
+        case Preference.disagree:
+          prefscore = -2;
+          break;
+        case Preference.avoid:
+          prefscore = -1;
+          break;
+        case Preference.neutral:
+          prefscore = 0;
+          break;
+        case Preference.tolerate:
+          prefscore = 1;
+          break;
+        case Preference.agree:
+          prefscore = 2;
+          break;
+        default:
+      }
+      switch (questionData[i].trait) {
+        case 'R':
+          rscore += prefscore;
+          break;
+        case 'I':
+          iscore += prefscore;
+        default:
+      }
+    }
+    print("rscore = $rscore, iscore = $iscore");
   }
 }
