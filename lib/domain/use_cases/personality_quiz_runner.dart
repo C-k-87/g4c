@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g4c/data/entities/question.dart';
@@ -41,25 +40,34 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
           }));
     }
     return Scaffold(
-      appBar: G4CAppBar('Profile Page', true),
+      appBar: G4CAppBar('Personality Quiz', true),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                padding: const EdgeInsets.all(20.0),
-                decoration: BoxDecoration(
-                  // color:
-                  //     const Color.fromARGB(255, 161, 238, 163).withOpacity(0.3),
-                  shape: BoxShape.circle,
-                  border: Border.all(width: 1.0),
-                ),
-                child: Text(
-                  questionNumber.toString(),
-                  style: const TextStyle(fontSize: 20.0),
-                ),
+              Stack(
+                alignment: const Alignment(0, 0),
+                children: [
+                  SizedBox(
+                    height: 90.0,
+                    width: 90.0,
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.green.shade100,
+                      color: Colors.green,
+                      value: ((questionNumber + 1) / questionData.length),
+                    ),
+                  ),
+                  Text(
+                    questionNumber.toString(),
+                    style: const TextStyle(
+                        fontSize: 20.0, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 40.0,
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -120,7 +128,7 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
             ],
           ),
           const SizedBox(
-            height: 40.0,
+            height: 50.0,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -130,18 +138,20 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
                 child: BtnWhite(
                   onpressed: previousQuestion,
                   btnText: questionNumber == 1 ? '' : 'Previous',
-                  width: 20.0,
+                  width: 15.0,
                 ),
               ),
               const SizedBox(
                 width: 20.0,
               ),
               BtnBlack(
-                onpressed: nextQuestion,
+                onpressed: questionNumber == questionData.length - 1
+                    ? submit
+                    : nextQuestion,
                 btnText: questionNumber == questionData.length - 1
                     ? 'Submit'
                     : 'Next',
-                width: 15.0,
+                width: 20.0,
               ),
             ],
           ),
@@ -152,21 +162,20 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
 
   prefButton(Preference pref, Color color, void Function() callback) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      padding: EdgeInsets.symmetric(
+          horizontal: (MediaQuery.of(context).size.width / 40)),
       child: InkWell(
         splashColor: color,
-        borderRadius: BorderRadius.circular(15.0),
-        splashFactory: InkRipple.splashFactory,
         onTap: callback,
         child: selectedOptions[questionNumber] == pref
             ? Icon(
-                Icons.circle_rounded,
-                size: 30.0,
+                Icons.square_rounded,
+                size: 35.0,
                 color: color,
               )
             : Icon(
-                Icons.circle_outlined,
-                size: 30.0,
+                Icons.square_outlined,
+                size: 35.0,
                 color: color,
               ),
       ),
@@ -192,11 +201,48 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
 
   nextQuestion() {
     if (questionNumber == questionData.length - 1) {
-      // print("Submit");
+      setState(() {});
     } else {
       setState(() {
         questionNumber++;
       });
     }
+  }
+
+  submit() {
+    int rscore = 0;
+    int iscore = 0;
+
+    for (var i = 1; i < questionData.length; i++) {
+      int prefscore = 0;
+
+      switch (selectedOptions[i]) {
+        case Preference.disagree:
+          prefscore = -2;
+          break;
+        case Preference.avoid:
+          prefscore = -1;
+          break;
+        case Preference.neutral:
+          prefscore = 0;
+          break;
+        case Preference.tolerate:
+          prefscore = 1;
+          break;
+        case Preference.agree:
+          prefscore = 2;
+          break;
+        default:
+      }
+      switch (questionData[i].trait) {
+        case 'R':
+          rscore += prefscore;
+          break;
+        case 'I':
+          iscore += prefscore;
+        default:
+      }
+    }
+    print("rscore = $rscore, iscore = $iscore");
   }
 }

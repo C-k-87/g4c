@@ -128,8 +128,11 @@ class G4CDrawer extends StatelessWidget {
 AppBar G4CAppBar(String pageTitle, bool rounded) {
   return AppBar(
     shape: rounded
-        ? RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+        ? const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
+            ),
           )
         : null,
     title: Text(
