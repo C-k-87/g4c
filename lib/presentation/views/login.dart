@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/data/data_sources/firebase_auth_services.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_sign_in_google.dart';
 import 'package:g4c/presentation/components/pwd_input.dart';
@@ -6,6 +7,10 @@ import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/components/txt_input.dart';
 import 'package:g4c/presentation/views/profile_page.dart';
 import 'package:g4c/presentation/views/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:g4c/presentation/components/toast.dart';
+import '../data/data_sources/firebase_auth_services.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,6 +21,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isPasswordVisible = false;
+  bool _isSigning = false;
+  final FirebaseAuthService _auth = FirebaseAuthService();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final col1 = const Color.fromARGB(255, 195, 255, 195);
   final unameController = TextEditingController();
   final pwdController = TextEditingController();
@@ -85,30 +93,14 @@ class _LoginPageState extends State<LoginPage> {
                     String uname = unameController.text.trim();
                     String pwd = pwdController.text;
 
-                    if ((uname == "test") && (pwd == "123")) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ProfilePage(),
-                          ));
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const AlertDialog(
-                            // Retrieve the text the that user has entered by using the
-                            // TextEditingController.
-                            content: Text(
-                                'invalid login details. try uname: test pwd:123'),
-                          );
-                        },
-                      );
-                    }
+                    _signIn();
                   },
                   btnText: 'Sign In',
                 ),
                 const SizedBox(height: 20.0),
-                BtnSignInGoogle(onPressed: () {}),
+                BtnSignInGoogle(onPressed: () {
+                  _signInWithGoogle();
+                }),
                 const SizedBox(height: 30.0),
                 TextButton(
                   onPressed: () {
@@ -133,5 +125,61 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+
+  void _signIn() async {
+    setState(() {
+      _isSigning = true;
+    });
+
+    String email = unameController.text;
+    String password = pwdController.text;
+
+    User? user = await _auth.signInWithEmailAndPassword(email, password);
+
+    setState(() {
+      _isSigning = false;
+    });
+
+    if (user != null) {
+      showToast(message: "User is successfully signed in");
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProfilePage(),
+          ));
+    } else {
+      showToast(message: "some error occured");
+    }
+  }
+
+  _signInWithGoogle() async {
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
+
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          idToken: googleSignInAuthentication.idToken,
+          accessToken: googleSignInAuthentication.accessToken,
+        );
+
+        await _firebaseAuth.signInWithCredential(credential);
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ProfilePage(),
+            ));
+      }
+    } catch (e) {
+      showToast(message: "some error occured $e");
+    }
   }
 }
