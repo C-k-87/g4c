@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/asset_widgets.dart';
+import 'package:g4c/data/data_sources/firebase_auth_services.dart';
+import 'package:g4c/presentation/components/btn_black.dart';
+import 'package:g4c/presentation/components/btn_white.dart';
+import 'package:g4c/presentation/components/pwd_input.dart';
+import 'package:g4c/presentation/components/top_card.dart';
+import 'package:g4c/presentation/components/txt_input.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:g4c/presentation/components/toast.dart';
+import 'package:g4c/presentation/views/profile_page.dart';
+import '../data/data_sources/firebase_auth_services.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -11,7 +20,9 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   bool _isPasswordVisible1 = false;
   bool _isPasswordVisible2 = false;
+  bool isSigningUp = false;
 
+  final FirebaseAuthService _auth = FirebaseAuthService();
   final col1 = const Color.fromARGB(255, 195, 255, 195);
   final nameController = TextEditingController();
   final emailController = TextEditingController();
@@ -120,7 +131,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 BtnBlack(
                   btnText: 'Register',
                   onpressed: () {
-                    showDialog(
+                    /*showDialog(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
@@ -130,7 +141,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               'Name: ${nameController.text}\nEmail: ${emailController.text}'),
                         );
                       },
-                    );
+                    );*/
+                    _signUp();
                   },
                 ),
                 const SizedBox(
@@ -154,5 +166,36 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  void _signUp() async {
+    setState(() {
+      isSigningUp = true;
+    });
+
+    String username = nameController.text;
+    String email = emailController.text;
+    String password = pwdController.text;
+    String confirmpassword = confPwdController.text;
+    if (password == confirmpassword) {
+      User? user = await _auth.signUpWithEmailAndPassword(email, password);
+
+      setState(() {
+        isSigningUp = false;
+      });
+      if (user != null) {
+        showToast(message: "User is successfully created");
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ProfilePage(),
+            ));
+      } else {
+        showToast(message: "Some error happend");
+      }
+    } else {
+      showToast(message: "some error happend");
+    }
   }
 }
