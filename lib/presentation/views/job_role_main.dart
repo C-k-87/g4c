@@ -86,8 +86,8 @@ class _JobRoleListState extends State<JobRoleList> {
   List rolesList = [];
 
   Future<void> readFile() async {
-    final String resp =
-        await rootBundle.loadString('asset_lib/json/sample.json');
+    final String resp = await rootBundle
+        .loadString('lib/data/data_sources/json/job_roles.json');
     final data = await jsonDecode(resp);
 
     setState(() {
