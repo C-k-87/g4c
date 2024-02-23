@@ -37,6 +37,13 @@
             {
               "client_id": "565471500049-too7gv7ufbarpssak0itep2035cm8kvv.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "565471500049-1pqql9tcjvt7gfubjppcc32mlj1j62l5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.g4c"
+              }
             }
           ]
         }
