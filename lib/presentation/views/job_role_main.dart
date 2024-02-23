@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:g4c/presentation/components/job_role_entry.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/components/txt_search.dart';
+import 'package:g4c/JobDataModel.dart';
 
 class JobRoleMain extends StatefulWidget {
   const JobRoleMain({super.key});
@@ -15,6 +16,7 @@ class JobRoleMain extends StatefulWidget {
 
 class _JobRoleMainState extends State<JobRoleMain> {
   String _searchParam = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,43 +32,46 @@ class _JobRoleMainState extends State<JobRoleMain> {
             ),
             color: Color.fromARGB(255, 195, 255, 195),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              const Text(
-                "FIND YOUR",
-                style: TextStyle(
-                    decoration: TextDecoration.none,
-                    color: Colors.black,
-                    fontSize: 38,
-                    fontWeight: FontWeight.bold),
-              ),
-              const Text(
-                "CALLING",
-                style: TextStyle(
-                    decoration: TextDecoration.none,
-                    color: Colors.black,
-                    fontSize: 55,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              TxtSearch(
-                fieldName: 'Search your role',
-                onChanged: (text) {
-                  setState(() {
-                    _searchParam = text;
-                  });
-                },
-              ),
-              const SizedBox(height: 30.0),
-              JobRoleList(searchParam: _searchParam),
-              const SizedBox(height: 20.0),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 50,
+                ),
+                const Text(
+                  "FIND YOUR",
+                  style: TextStyle(
+                      decoration: TextDecoration.none,
+                      color: Colors.black,
+                      fontSize: 38,
+                      fontWeight: FontWeight.bold),
+                ),
+                const Text(
+                  "CALLING",
+                  style: TextStyle(
+                      decoration: TextDecoration.none,
+                      color: Colors.black,
+                      fontSize: 55,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                TxtSearch(
+                  fieldName: 'Search your role',
+                  onChanged: (text) {
+                    setState(() {
+                      _searchParam = text;
+                    });
+                  },
+                ),
+                const SizedBox(height: 30.0),
+                JobRoleList(searchParam: _searchParam),
+                const SizedBox(height: 20.0),
+              ],
+            ),
           ),
         ],
       ),
@@ -76,6 +81,7 @@ class _JobRoleMainState extends State<JobRoleMain> {
 
 class JobRoleList extends StatefulWidget {
   final String searchParam;
+
   const JobRoleList({super.key, required this.searchParam});
 
   @override
@@ -83,7 +89,7 @@ class JobRoleList extends StatefulWidget {
 }
 
 class _JobRoleListState extends State<JobRoleList> {
-  List rolesList = [];
+  List<JobRoleEntry> rolesList = [];
 
   Future<void> readFile() async {
     final String resp =
@@ -91,7 +97,21 @@ class _JobRoleListState extends State<JobRoleList> {
     final data = await jsonDecode(resp);
 
     setState(() {
-      rolesList = data["roles"];
+      final allRoles = data["roles"];
+      for (var role in allRoles) {
+        rolesList.add(
+          JobRoleEntry(
+            role: JobModel(
+              id: role["id"],
+              image: role["image"],
+              name: role["name"],
+              description:
+                  role["description"] is String ? role["description"] : "",
+            ),
+          ),
+        );
+      }
+      // rolesList = data["roles"];
     });
   }
 
@@ -109,20 +129,20 @@ class _JobRoleListState extends State<JobRoleList> {
   }
 }
 
-List<Widget> createRolesList(List roles, String searchParam) {
+List<Widget> createRolesList(List<JobRoleEntry> roles, String searchParam) {
   List<Widget> rolesList = [];
 
   if (searchParam.isEmpty) {
     for (var role in roles) {
       rolesList.add(
-        JobRoleEntry(role: role),
+        JobRoleEntry(role: role.role),
       );
     }
   } else {
     for (var role in roles) {
-      if (role["name"].toLowerCase().contains(searchParam.toLowerCase())) {
+      if (role.role.name.toLowerCase().contains(searchParam.toLowerCase())) {
         rolesList.add(
-          JobRoleEntry(role: role),
+          JobRoleEntry(role: role.role),
         );
       }
     }
