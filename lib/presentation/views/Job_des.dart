@@ -1,6 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:g4c/JobDataModel.dart';
+import 'package:g4c/JobModel.dart';
 
 class JobDescription extends StatefulWidget {
   final JobModel job;
@@ -16,18 +16,19 @@ class _JobDescriptionState extends State<JobDescription> {
   Widget build(BuildContext context) {
     String jobtitle = widget.job.name; // 'JOB TITLE';
     String description = widget.job.description; //'Description';
+    final steps = widget.job.steps; //'steps';
     return Container(
       color: Colors.white,
       child: SafeArea(
         child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage('asset_lib/images/imagebg.png'),
-            ),
-          ),
+          // decoration: const BoxDecoration(
+          //   image: DecorationImage(
+          //     fit: BoxFit.fill,
+          //     image: AssetImage('asset_lib/images/imagebg.png'),
+          //   ),
+          // ),
           child: Scaffold(
-            backgroundColor: Colors.transparent,
+            // backgroundColor: Colors.transparent,
             body: ListView(
               children: [
                 Column(
@@ -41,7 +42,7 @@ class _JobDescriptionState extends State<JobDescription> {
                       child: Text(
                         // ignore: unnecessary_string_interpolations
                         jobtitle,
-                        style: const TextStyle(color: Colors.white, fontSize: 40),
+                        style: TextStyle(color: Colors.black, fontSize: 40),
                       ),
                     ),
                     const SizedBox(height: 40),
@@ -49,9 +50,21 @@ class _JobDescriptionState extends State<JobDescription> {
                       alignment: Alignment.center,
                       child: Text(
                         description,
-                        style: const TextStyle(color: Colors.white, fontSize: 35),
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 35),
                       ),
                     ),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: steps.length,
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (context, index) {
+                          return Text(
+                            steps[index],
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 35),
+                          );
+                        }),
                     const SizedBox(
                       height: 80,
                     ),
@@ -59,7 +72,7 @@ class _JobDescriptionState extends State<JobDescription> {
                       padding: EdgeInsets.only(left: 30.0),
                       child: Text(
                         "Responsibilities",
-                        style: TextStyle(color: Colors.white, fontSize: 35),
+                        style: TextStyle(color: Colors.black, fontSize: 35),
                       ),
                     ),
                     const SizedBox(
@@ -69,7 +82,7 @@ class _JobDescriptionState extends State<JobDescription> {
                       padding: EdgeInsets.only(left: 30.0),
                       child: Text(
                         "Skills",
-                        style: TextStyle(color: Colors.white, fontSize: 35),
+                        style: TextStyle(color: Colors.black, fontSize: 35),
                       ),
                     ),
                     const SizedBox(
@@ -79,7 +92,7 @@ class _JobDescriptionState extends State<JobDescription> {
                       padding: EdgeInsets.only(left: 50.0),
                       child: Text(
                         'Technical Skills',
-                        style: TextStyle(color: Colors.white, fontSize: 25),
+                        style: TextStyle(color: Colors.black, fontSize: 25),
                       ),
                     ),
                     const SizedBox(
@@ -89,7 +102,7 @@ class _JobDescriptionState extends State<JobDescription> {
                       padding: EdgeInsets.only(left: 50.0),
                       child: Text(
                         'Soft Skills',
-                        style: TextStyle(color: Colors.white, fontSize: 25),
+                        style: TextStyle(color: Colors.black, fontSize: 25),
                       ),
                     )
                   ],

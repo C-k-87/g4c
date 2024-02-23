@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/JobModel.dart';
+import 'package:g4c/presentation/views/Job_des.dart';
 
 class JobRoleEntry extends StatelessWidget {
   const JobRoleEntry({
@@ -6,13 +8,18 @@ class JobRoleEntry extends StatelessWidget {
     required this.role,
   });
 
-  final dynamic role;
+  final JobModel role;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //TODO : Implement navigation to Job Role Description page
+        // navigation to Job Role Description page
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => JobDescription(job: role,),
+            ));
       },
       child: Container(
         margin: const EdgeInsets.symmetric(
@@ -36,12 +43,12 @@ class JobRoleEntry extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Image(
                 image:
-                    AssetImage('asset_lib/images/roleimages/${role["image"]}'),
+                    AssetImage('asset_lib/images/roleimages/${role.image}'),
               ),
             ),
             Expanded(
               child: Text(
-                role["name"],
+                role.name,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 20.0,

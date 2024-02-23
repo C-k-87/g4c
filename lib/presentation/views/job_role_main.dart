@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:g4c/presentation/components/job_role_entry.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/components/txt_search.dart';
-import 'package:g4c/JobDataModel.dart';
+import 'package:g4c/JobModel.dart';
 
 class JobRoleMain extends StatefulWidget {
   const JobRoleMain({super.key});
@@ -93,20 +93,32 @@ class _JobRoleListState extends State<JobRoleList> {
 
   Future<void> readFile() async {
     final String resp =
-        await rootBundle.loadString('asset_lib/json/sample.json');
+        await rootBundle.loadString('lib/data/data_sources/json/sample.json');
     final data = await jsonDecode(resp);
 
     setState(() {
       final allRoles = data["roles"];
       for (var role in allRoles) {
+        List<String> stepsAdd = [];
+
+        if (role["description"] is String) {
+          //
+        } else {
+          final steps = role["description"]["steps"];
+          for (var step in steps) {
+            stepsAdd.add(step.toString());
+          }
+        }
+
         rolesList.add(
           JobRoleEntry(
             role: JobModel(
               id: role["id"],
-              image: role["image"],
-              name: role["name"],
+              image: role["image"] ?? "",
+              name: role["name"] ?? "",
               description:
                   role["description"] is String ? role["description"] : "",
+              steps: stepsAdd,
             ),
           ),
         );
