@@ -1,1 +1,1 @@
-enum Preference { disagree, avoid, neutral, tolerate, agree }
+enum Preference { disagree, avoid, neutral, tolerate, agree, na }

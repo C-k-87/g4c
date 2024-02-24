@@ -8,7 +8,6 @@ import 'package:g4c/presentation/components/txt_input.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:g4c/presentation/components/toast.dart';
 import 'package:g4c/presentation/views/profile_page.dart';
-import '../data/data_sources/firebase_auth_services.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

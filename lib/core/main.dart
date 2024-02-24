@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/presentation/views/job_role_main.dart';
-// import 'package:g4c/presentation/views/login.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:g4c/presentation/views/login.dart';
+import 'package:firebase_core/firebase_core.dart';
 import '../data/data_sources/firebase_options.dart';
 
 void main() async {

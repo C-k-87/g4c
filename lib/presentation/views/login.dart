@@ -10,7 +10,6 @@ import 'package:g4c/presentation/views/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:g4c/presentation/components/toast.dart';
-import '../data/data_sources/firebase_auth_services.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
