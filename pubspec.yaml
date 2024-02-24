@@ -42,6 +42,7 @@ dependencies:
   firebase_storage: ^11.2.4
   fluttertoast: ^8.2.2
   google_sign_in: ^6.1.5
+  fl_chart: ^0.66.2
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,7 @@ flutter:
   assets:
     - asset_lib/images/
     - asset_lib/images/roleimages/
+    - asset_lib/images/personalityimages/
     - lib/data/data_sources/json/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
