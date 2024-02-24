@@ -1,11 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
-import 'package:flutter/services.dart';
-import 'package:g4c/presentation/components/job_role_entry.dart';
+import 'package:g4c/presentation/components/job_role_list.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/components/txt_search.dart';
-import 'package:g4c/JobDataModel.dart';
 
 class JobRoleMain extends StatefulWidget {
   const JobRoleMain({super.key});
@@ -77,75 +74,4 @@ class _JobRoleMainState extends State<JobRoleMain> {
       ),
     );
   }
-}
-
-class JobRoleList extends StatefulWidget {
-  final String searchParam;
-
-  const JobRoleList({super.key, required this.searchParam});
-
-  @override
-  State<JobRoleList> createState() => _JobRoleListState();
-}
-
-class _JobRoleListState extends State<JobRoleList> {
-  List<JobRoleEntry> rolesList = [];
-
-  Future<void> readFile() async {
-    final String resp = await rootBundle
-        .loadString('lib/data/data_sources/json/job_roles.json');
-    final data = await jsonDecode(resp);
-
-    setState(() {
-      final allRoles = data["roles"];
-      for (var role in allRoles) {
-        rolesList.add(
-          JobRoleEntry(
-            role: JobModel(
-              id: role["id"],
-              image: role["image"],
-              name: role["name"],
-              description:
-                  role["description"] is String ? role["description"] : "",
-            ),
-          ),
-        );
-      }
-      // rolesList = data["roles"];
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    String searchParam = widget.searchParam;
-
-    readFile();
-    return Column(
-      children: createRolesList(
-        rolesList,
-        searchParam,
-      ),
-    );
-  }
-}
-
-List<Widget> createRolesList(List<JobRoleEntry> roles, String searchParam) {
-  List<Widget> rolesList = [];
-
-  if (searchParam.isEmpty) {
-    for (var role in roles) {
-      rolesList.add(
-        JobRoleEntry(role: role.role),
-      );
-    }
-  } else {
-    for (var role in roles) {
-      if (role.role.name.toLowerCase().contains(searchParam.toLowerCase())) {
-        rolesList.add(
-          JobRoleEntry(role: role.role),
-        );
-      }
-    }
-  }
-  return rolesList;
 }
