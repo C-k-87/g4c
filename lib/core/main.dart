@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
-// import 'package:g4c/domain/use_cases/personality_quiz_runner.dart';
 import 'package:g4c/presentation/views/job_role_main.dart';
-// import 'package:g4c/presentation/views/login.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import '../data/data_sources/firebase_options.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
+import 'package:g4c/presentation/views/login.dart';
+import 'package:firebase_core/firebase_core.dart';
+import '../data/data_sources/firebase_options.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp(
-//     options: DefaultFirebaseOptions.currentPlatform,
-//   );
-//   runApp(const MyApp());
-// }
-
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
