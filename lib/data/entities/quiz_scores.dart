@@ -27,4 +27,8 @@ class QuizScores {
     Map<String, int> scores = Map.fromEntries(scoreList);
     return scores;
   }
+
+  String getType() {
+    return getSortedScores().entries.last.key;
+  }
 }
