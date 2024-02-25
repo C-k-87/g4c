@@ -4,210 +4,227 @@
             "id": "j1",
             "image": "ba.png",
             "name": "Software Engineer",
-            "description": "As a Software Engineer, you're essential in creating and maintaining software. Your skills in coding, problem-solving, and teamwork are key to project success. This guide gives a detailed overview of what's needed for a successful career in Software Engineering",
-            "responsibilities":"se responsibilities",
+            "description": "As a Software Engineer, you're essential in creating and maintaining software. Your skills in coding, problem-solving, and teamwork are key to project success. This guide gives a detailed overview of what's needed for a successful career in Software Engineering.",
+            "responsibilities":"-Requirements Analysis\n-Design\n-Coding\n-Testing\n-Debugging and Troubleshooting\n-Version Control\n-Documentation\n-Deployment\n-Performance Optimization\n-Security Implementation\n-Collaboration\n-Continuous Learning",
+        
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Programming Languages (Depending on the project requirements)\n-Debugging\n-Web Development ( HTML, CSS, and frameworks like React, Angular, or Vue.js)\n-Database Knowledge\n-Version Control\n-Continuous Integration/Continuous Deployment (CI/CD)\n-S/W Methodology",
+                "tech":"-Problem-Solving\n-Collaboration with team\n-Effective communication"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Algorithms and Data Structures Coures\n-Web Development Courses\n-Mobile App Development Courses\n-Software Engineering Fundamentals Courses\n-Database Management Courses\n-Machine Learning and Artificial Intelligence Courses\n-Cybersecurity Courses\n-Cloud Computing Courses\n-Programming Languages Courses"
+            }
         },
         {
             "id": "j2",
             "image": "ca.png",
             "name": "Business analyst",
             "description": "As a Business Analyst, you play a crucial role in helping organizations enhance their operations and achieve strategic objectives. You act as a bridge between business stakeholders and technology teams, translating business needs into actionable insights and solutions.",
-            "responsibilities":"ba responsibilities",
+            "responsibilities":"-Requirement Gathering\n-Data Analysis\n-Process Improvement\n-Documentation\n-Communication\n-Testing and Validation\n-Project Management\n-ContinuousLearning\n",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Analytical Skills\n-Communication Skills\n-Collaboration with team\n-Effective communication\n-Adaptability",
+                "tech":"-Data Analysis\n-Business Intelligence Tools\n-Requirements Management(Jira, Confluence, Trello)\n-UML (Unified Modeling Language) (Use Case, Activity, Sequence diagrams)\n-Database Knowledge\n-Process Modeling\n-Programming Concepts(Python,JavaScript)\n-Systems Analysis\n-Prototyping Tools\n-Statistical Analysis\n-Cybersecurity Awareness\n-ERP Systems Knowledge\n-Coding and Scripting (optional)\n-API Understanding\n"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Business Analysis Fundamentals Courses\n-Data Analysis and Visualization Courses\n-Requirements Analysis and Documentation Courses\n-Project Management Courses\n-Process Improvement and Optimization Courses\n-Data Analytics Tools\n-Business Communication Courses\n"
+            }
         },
         {
             "id": "j3",
-            "image": "sa.png",
+            "image": "cs.png",
             "name": "Project Manager",
             "description": "A Project Manager oversees project planning and execution, leading teams to achieve organizational goals. With strong organizational and communication skills, they ensure successful project completion. Integral to various industries, Project Managers play a vital role in achieving efficient and impactful outcomes.",
-            "responsibilities":"pm responsibilities",
+            "responsibilities":"-Project planning\n-Team Leadership(fostering collaboration & effective communication)\n-Resource Management\n-Risk Management\n-Stakeholder Communication\n-Quality Assurance\n-Adaptability(Foster a culture of flexibility and adaptability within the project team.)",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Communication\n-Leadership\n-Organization\n-Problem Solving",
+                "tech":"-Project management tools (S/W such as MS project, Asana, Jira…)\n-Data Analysis\n-Budgeting & Financial tools\n-Version controlling\n-Version Control\n-Modern communication tools\n-Technical Writing\n-S/W Methodology"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Project Management Fundamentals Courses\n-Lean Six Sigma Courses\n-Project Management Professional (PMP) Courses\n-Agile and Scrum Courses\n-Fundamentals of Project Risk Management Courses\n-Stakeholder Management Courses"
+            }
         },
         {
             "id": "j4",
-            "image": "ds.png",
+            "image": "qa.png",
             "name": "QA Engineer",
             "description": "Embark on a journey as a Quality Assurance (QA) Engineer, contributing to the delivery of high-quality software solutions. QA Engineers ensure software quality, meticulously testing and identifying defects to deliver robust and error-free applications. They collaborate with development teams, utilizing testing tools and automation to safeguard the integrity of software solutions. Essential guardians of quality in the tech landscape.",
-            "responsibilities":"qa responsibilities",
+            "responsibilities":"-Test planning\n-Automation Testing\n-Test Execution\n-Test Documentation\n-Performance Testing\n-Continuous Improvement",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Communication\n-Analytical Skills\n-Transparency\n-Ability to adapt to new Technologiess",
+                "tech":"-Testing tools (Such as Selenium, JUnit, TestNG…)\n-Programming (have to touch of different languages)\n-Automation Frameworks\n-Test management tools\n-Version Control"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Software Testing Fundamentals Courses\n-Introduction to Quality Assurance Courses\n-Test Automation Courses\n-Agile Methodologies Courses\n-Software Development Processes and Methodologies Courses\n-Bug Tracking and Reporting Courses\n-Performance Testing Courses\n-Mobile App Testing Courses"
+            }
         },
         {
             "id": "j5",
-            "image": "ds.png",
+            "image": "ne.png",
             "name": "Database Administrator",
             "description": "As a Database Administrator (DBA), you play a crucial role in managing and maintaining an organization's databases. Your primary responsibility is to ensure the integrity, security, and performance of the databases, allowing for efficient data storage and retrieval.",
-            "responsibilities":"da responsibilities",
+            "responsibilities":"-Database Maintenance\n-Data Management\n-Performance Monitoring\n-User Support\n-Database Planning and Design\n-Documentation\n-Security Management",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Communication skills\n-Problem-Solving\n-Attention to Detail\n-Time Management\n-Adaptability\n-Team Collaboration\n-Customer Service\n-Continuous Learning\n-Leadership skills\n-Ethical and Professional Conduct",
+                "tech":"-Database Management Systems (DBMS)\n-Database Design and Modeling\n-SQL (Structured Query Language\n-Security\n-Performance Tuning\n-Backup and Recovery\n-Data Migration\n-Scripting and Automation(e.g., Python, PowerShell)\n -Troubleshooting\n-Knowledge of Cloud Platforms"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Introduction to Databases Courses\n-SQL Fundamentals Courses\n-Database Design and Management Courses\n-Data Warehousing Courses\n-Database Administration Courses\n-Cloud Database Management Courses"
+            }
         },
         {
             "id": "j6",
-            "image": "ds.png",
+            "image": "qa.png",
             "name": "DevOps Engineer",
             "description": "Embark on a transformative journey as a DevOps Engineer, playing a pivotal role in bridging the gap between development and operations.DevOps Engineers streamline software delivery, uniting development and operations. They automate processes, manage infrastructure, and ensure collaboration for efficient and reliable deployment. Proficient in scripting, cloud platforms, and CI/CD tools, they are essential contributors to modern software development.",
-            "responsibilities":"Devops responsibilities",
+            "responsibilities":"-Continuous Integration/Continuous Deployment (CI/CD)\n-Infrastructure as Code (IaC)\n-Monitoring and Logging\n-Security Integration\n-Automation\n-Version Control",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Communication\n-Collaboration\n-Adaptability\n-Problem-Solving\n-Time Management\n-Leadership\n-Continuous Learning\n-Customer-Focused Mindset\n-Resilience",
+                "tech":"-Scripting and Programming\n-Cloud Platforms\n-Containerization (eg: docker, kubernetes)\n-CI/CD Tools\n-Monitoring Tools\n-Infrastructure as Code Tools"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Linux Fundamentals Courses\n-Scripting and Automation Courses\n-Version Control Courses\n-Continuous Integration/Continuous Deployment (CI/CD) Courses\n-Cloud Platforms Courses"
+            }
         },
         {
             "id": "j7",
-            "image": "ds.png",
+            "image": "ne.png",
             "name": "Network Engineer",
             "description": "As a Network Engineer, you play a crucial role in designing, implementing, and maintaining the backbone of information flow for businesses.",
-            "responsibilities":"responsibilities",
+            "responsibilities":"-Design and Implementation\n-Maintenance and Troubleshooting\n-Security\n-Collaboration\n-Upgrades and Expansion\n-Documentation",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Problem-Solving\n-Communication Skills\n-Teamwork\n-Adaptability",
+                "tech":"-Programming Languages(eg: Python, Java, C++, JavaScript, Ruby)\n-Web Development( HTML, CSS, JavaScript, PHP)\n-Database Management\n-Network Administration\n-Cybersecurity\n-Data Analysis\n-Cloud Computing\n-DevOps\n-Project Management Tools\n-Computer-Aided Design (CAD)\n-Technical Writing\n-Machine Learning and AI\n-Hardware Skills\n-Mobile App Development"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Introduction to Networking Courses\n-Networking Fundamentals Courses\n-Cisco CCNA Certification Preparation Courses\n-Network Security Basics Courses\n-Linux Fundamentals Courses\n-Introduction to Routing and Switching Courses\n-Network Troubleshooting and Tools"
+            }
         },
         {
             "id": "j8",
             "image": "ds.png",
             "name": "Data Scientist",
             "description": "Embark on a data-driven journey as a Data Scientist, unraveling insights and patterns from complex datasets. Data Scientists decode complex data, revealing patterns that drive informed decisions. Proficient in programming and statistics, they communicate insights effectively, playing a vital role in shaping data-driven strategies for business success.",
-            "responsibilities":"responsibilities",
+            "responsibilities":"-Data Analysis\n-Model Development\n-Data Cleaning and Preprocessing\n-Algorithm Selection\n-Collaboration\n-Visualization\n-Experimentation and A/B Testing",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Communication\n-Collaboration\n-Curiosity\n-Critical Thinking\n-Attention to Detail\n-Ethical Considerations\n-Time Management\n-Presentation Skills\n-Empath",
+                "tech":"-Programming\n-Statistical Analysis\n-Machine Learning\n-Data Manipulation\n-Database Knowledge\n-Big Data Technologies\n-Cloud Platforms"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Mathematics and Statistics Courses\n-Programming Languages Courses\n-Data Analysis and Visualization Courses\n-Machine Learning and Data Mining Courses\n-Big Data Technologies Courses\n-Data Engineering Courses"
+            }
         },
         {
             "id": "j9",
-            "image": "ds.png",
+            "image": "ne.png",
             "name": "UI/UX  Designer",
-            "description": {
-                "steps": [
-                    "I.\tResearch",
-                    "II.\tInformation Architecture",
-                    "III.\tWireframing and Prototyping",
-                    "IV.\tVisual Design",
-                    "V.\tUsability Testing",
-                    "VI.\tCollaboration",
-                    "VII.\tResponsive Design",
-                    "VIII.\tAccessibility",
-                    "IX.\tStay Updated",
-                    "X.\tIterative Improvement"
-                ]
-            },
-            "responsibilities":"responsibilities",
+            "description":"Embark on a user-centered voyage as a UI/UX Designer, sculpting intuitive and visually captivating digital experiences. UI/UX Designers harmonize aesthetics and functionality, crafting interfaces that delight users and drive engagement. Proficient in design principles and user psychology, they communicate seamlessly, playing a pivotal role in shaping user-centric strategies for digital success",
+            "responsibilities":"-User Research\n-Information Architecture\n-Wireframing and Prototyping\n-Visual Design\n-Usability Testing\n-Collaboration\n-Responsive Design\n-Accessibility\n-Stay Updated\n-Iterative Improvement",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Analytical Skills\n-Continuous Learning\n-Communication Skills\n-Creativity\n-Empathy\n-Collaboration\n-Adaptability\n-Problem-Solving\n-Attention to Detail\n-Time Management\n-Openness to Feedback\n-User-Centered Mindset\n-Critical Thinking\n-Positive Attitude",
+                "tech":"-Graphic Design Tools\n-Prototyping and Wireframing\n-User Experience (UX) Design\n-Web Design Technologies\n-Responsive Design\n-Collaboration Tools\n-Usability Testing\n-Accessibility Standards\n-Version Control"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Introduction to UI/UX Design Courses\n-Human-Computer Interaction Courses\n-User Research and Prototyping Courses\n-Graphic Design Courses\n-Responsive Website Development and Design Courses\n-Mobile App Design Courses\n-Portfolio Development Courses"
+            }
         },
         {
             "id": "j10",
-            "image": "ds.png",
+            "image": "ba.png",
             "name": "Software Architect",
             "description": "Software Architects are visionary designers, shaping the blueprint for scalable and innovative software solutions. With a focus on system design, technology selection, and collaboration, they lead in creating robust, efficient, and secure digital landscapes. Combining technical expertise with effective communication, Software Architects drive digital innovation and success.",
-            "responsibilities":"responsibilities",
+            "responsibilities":"-System Design\n-Technology Selection\n-Code Review and Guidelines\n-Prototyping\n-Collaboration\n-Performance Optimization\n-Security Considerations",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Communication\n-Problem-Solving\n-Leadership\n-Adaptability",
+                "tech":"-System Design\n-Technical Proficiency"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Software Engineering Fundamentals Courses\n-System Design and Architecture Courses\n-Advanced Programming Concepts\n-Cloud Computing and Distributed Systems Courses\n-Database Design and Management Courses\n-Enterprise Architecture Courses"
+            }
         },
         {
             "id": "j11",
-            "image": "ds.png",
+            "image": "cs.png",
             "name": "Computer Scientist",
             "description": "Computer Scientists are innovative architects, blending research and coding to unravel complex computational challenges. Proficient in diverse languages, they shape the future of technology through algorithmic thinking and collaboration. Each line of code signifies a step towards groundbreaking solutions in the dynamic world of computer science.",
-            "responsibilities":"responsibilities",
+            "responsibilities":"-Research and Development\n-Software Design and Development\n-Algorithm Design\n-Problem Solving\n-Coding and Programming",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Communication\n-Collaboration\n-Problem-Solving\n-Ethical Considerations\n-Presentation Skills\n-Flexibility\n-Customer Focus",
+                "tech":"-Programming Languages\n-Algorithmic Thinking\n-Machine Learning and Artificial Intelligence\n-Data Structures\n-Open Source Contribution\n-Problem Complexity Analysis"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Introduction to Computer Science Courses\n-Data Structures and Algorithms Courses\n-Discrete Mathematics Courses\n-Programming Languages Courses\n-Operating Systems Courses\n-Computer Networks Courses\n-Introduction to Databases Courses\n-Artificial Intelligence Courses"
+            }
         },
         {
             "id": "j12",
-            "image": "ds.png",
+            "image": "ba.png",
             "name": "Machine learning Engineer",
             "description": "Machine Learning Engineers craft intelligent systems, designing and deploying algorithms for artificial intelligence solutions. With a blend of programming and data science expertise, they collaborate across teams to bring predictive analytics and automation to the forefront of technology. Embark on a dynamic journey, shaping the future through actionable intelligence.",
-            "responsibilities":"responsibilities",
+            "responsibilities":"-Model Development\n-Data Preprocessing\n-Algorithm Selection\n-Model Evaluation\n-Deployment and Integration",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Communication\n-Problem-Solving\n-Research Skills\n-Analytical Skills",
+                "tech":"-Programming Languages\n-Data Science Tools\n-Machine Learning Frameworks\n-Database Knowledge\n-Software Development Practices\n-Cloud Platforms"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Mathematics and Statistics Fundamentals Courses\n-Programming Fundamentals Courses\n-Data Science and Machine Learning Fundamentals Courses"
+            }
         },
         {
             "id": "j13",
-            "image": "ds.png",
+            "image": "qa.png",
             "name": "IT Consultant",
             "description": "An IT Consultant is a professional who provides expert advice and assistance to organizations in managing and optimizing their information technology (IT) systems. The primary goal is to help businesses use technology effectively to achieve their objectives and improve overall performance.",
-            "responsibilities":"responsibilities",
+            "responsibilities":"-Assessment and Analysis\n-Strategic Planning\n-Implementation and Integration\n-Security and Compliance\n-Client Collaboration\n-Training and Documentation\n-Stay Current with Technology Trends",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Communication Skills\n-Problem-Solving\n-Teamwork\n-Adaptability\n-Time Management\n-Leadership\n-Creativity\n-Emotional Intelligence\n-Conflict Resolution\n-Customer Service",
+                "tech":"-Industry Knowledge-Programming Languages(e.g., Python, Java, C++, etc.)\n-Data Analysis\n-Technical Proficiency\n-IT Security\n-Networking\n-Project Management\n-Cloud Computing\n-Database Management"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Business Analysis Fundamentals Courses\n-Project Management Courses\n-Information Technology Management Courses\n-Data Analysis and Visualization Courses\n-Cybersecurity Awareness Courses\n-Information Systems Planning and Strategy Courses"
+            }
         },
         {
             "id": "j14",
-            "image": "ds.png",
+            "image": "ba.png",
             "name": "Developer",
-            "description": {
-                "steps": [
-                    "I.\tDatabase Developer",
-                    "II.\tSoftware Developer",
-                    "III.\tMobile App Developer",
-                    "IV.\tVideo Game Developer'",
-                    "V.\tFull-stack Developer",
-                    "VI.\tWeb Developer",
-                    "As a developer, you play a crucial role in the creation and maintenance of websites, ensuring they function smoothly and meet the needs of users."
-                ]
-            },
-            "responsibilities":"responsibilities",
+            "description":"Embark on a code-driven journey as a Developer, architecting robust and innovative software solutions. Developers engineer intricate systems, transforming complex requirements into efficient, scalable applications. Proficient in coding languages and problem-solving, they collaborate seamlessly, playing a crucial role in shaping cutting-edge technologies for digital advancement.",
+            "responsibilities":"-Coding and Programming-Web Development\n-Front-End Development\n-Back-End Development\n-Database Management\n-Testing and Debugging\n-Version Control\n-Continuous Learning\n-Collaboration\n-Documentation\n-Problem Solving\n-Security Compliance",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Communication Skills\n-Problem-Solving\n-Collaboration\n-Adaptability\n-Attention to Detail\n-Time Management\n-Continuous Learning\n-Creativity",
+                "tech":"-Programming Languages\n-Web Development Frameworks\n-Database Management\n-Version Control/Git\n-APIs (Application Programming Interfaces)\n-Server-Side Development\n-Front-End Development\n-Testing and Debugging\n-DevOps and Deployment\n-Security Practices"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Introduction to Computer Science Courses\n-Programming Fundamentals Courses\n-Data Structures and Algorithms Courses\n-Web Development Courses\n-Mobile App Development Corses\n-Database Management Courses\n-Software Engineering Fundamentals Courses\n-Version Control Courses\n-Computer Networking Courses\n-Operating Systems Courses\n"
+            }
         },
         {
             "id": "j15",
             "image": "ds.png",
             "name": "Academic",
-            "description": {
-                "steps": [
-                    "i. Lecturer",
-                    "ii. Computer Scientist",
-                    "Embark on a dynamic academic journey in Computer Science, shaping the future of computing through teaching, research, and innovation. This role blends teaching excellence, pioneering research, and mentorship, offering a platform to inspire the next generation and contribute to cutting-edge advancements in the field. Explore the guide for insights into the multifaceted responsibilities and skills defining success in this impactful academic role."
-                ]
-            },
-            "responsibilities":"responsibilities",
+            "description":"Embark on a dynamic academic journey in Computer Science, shaping the future of computing through teaching, research, and innovation. This role blends teaching excellence, pioneering research, and mentorship, offering a platform to inspire the next generation and contribute to cutting-edge advancements in the field. Explore the guide for insights into the multifaceted responsibilities and skills defining success in this impactful academic role.",
+            "responsibilities":"-Teaching and Instruction\n-Research and Publications\n-Mentorship\n-Service to the Academic Community\n-Professional Development",
             "skills":{
-                "soft":"soft skills",
-                "tech":"tech skills"
+                "soft":"-Communication Skills\n-Mentorship and Advising\n-Collaboration\n-Critical Thinking\n-Networking\n-Cultural Competence\n-Public Speaking\n-Collaborative Research\n-Resilience",
+                "tech":"-Research Proficiency\n-Laboratory Technique\n-Programming and Computational Skills\n-Experimental Design\n-Publication Review\n-Project Management"
             },
-            "courses":"courseid list"
+            "courses":{
+                "soft":"-soft1\n-soft2",
+                "tech":"-Advanced Mathematics Courses\n-research methods and techniques Courses\n-Programming Language Courses\n-Data Structures and Algorithms Courses\n-Software Engineering Principles Courses"
+            }
         }
     ]
 }
