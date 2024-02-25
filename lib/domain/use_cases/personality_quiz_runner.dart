@@ -19,7 +19,7 @@ class PersonalityQuizRunner extends StatefulWidget {
 
 class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
   List<Preference> selectedOptions =
-      List.generate(10, (index) => Preference.na);
+      List.generate(30, (index) => Preference.na);
   List<Question> questionData = [];
   int questionNumber = 0;
 
@@ -230,10 +230,14 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
   }
 
   submit() {
-    int rscore = 0;
+    int ascore = 0;
+    int cscore = 0;
+    int escore = 0;
     int iscore = 0;
+    int rscore = 0;
+    int sscore = 0;
 
-    for (var i = 1; i < questionData.length; i++) {
+    for (var i = 0; i < questionData.length; i++) {
       int prefscore = 0;
 
       switch (selectedOptions[i]) {
@@ -255,148 +259,35 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
         default:
       }
       switch (questionData[i].trait) {
-        case 'R':
-          rscore += prefscore;
+        case 'A':
+          ascore += prefscore;
+          break;
+        case 'C':
+          cscore += prefscore;
+          break;
+        case 'E':
+          escore += prefscore;
           break;
         case 'I':
           iscore += prefscore;
-        default:
+          break;
+        case 'R':
+          rscore += prefscore;
+          break;
+        case 'S':
+          sscore += prefscore;
+          break;
       }
     }
-    //TODO: Implement navigator to parametrized result page and user detail update
-    // User file update..
+    //TODO: User file update
     Navigator.pop(context);
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => QuizResults(
-            quizScores: QuizScores(0, 0, 0, iscore, rscore, 0),
+            quizScores:
+                QuizScores(ascore, cscore, escore, iscore, rscore, sscore),
           ),
         ));
   }
 }
-
-// if (questionData.length == 1) {
-    //   readFile().whenComplete(() => setState(() {
-    //         questionNumber = 1;
-    //       }));
-    // }
-    // return Scaffold(
-    //   appBar: G4CAppBar('Personality Quiz', true),
-    //   body: Column(
-    //     mainAxisAlignment: MainAxisAlignment.center,
-    //     children: [
-    //       Column(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [
-    //           Stack(
-    //             alignment: const Alignment(0, 0),
-    //             children: [
-    //               SizedBox(
-    //                 height: 90.0,
-    //                 width: 90.0,
-    //                 child: CircularProgressIndicator(
-    //                   backgroundColor: Colors.green.shade100,
-    //                   color: Colors.green,
-    //                   value: ((questionNumber + 1) / questionData.length),
-    //                 ),
-    //               ),
-    //               Text(
-    //                 questionNumber.toString(),
-    //                 style: const TextStyle(
-    //                     fontSize: 20.0, fontWeight: FontWeight.w600),
-    //               ),
-    //             ],
-    //           ),
-    //           const SizedBox(
-    //             height: 40.0,
-    //           ),
-    //           Padding(
-    //             padding: const EdgeInsets.all(20.0),
-    //             child: Text(
-    //               questionData[questionNumber].getQuestion(),
-    //               textAlign: TextAlign.center,
-    //               style: const TextStyle(
-    //                 fontWeight: FontWeight.w900,
-    //                 fontSize: 20.0,
-    //               ),
-    //             ),
-    //           ),
-    //           const SizedBox(
-    //             height: 40.0,
-    //           ),
-    //           Row(
-    //             mainAxisAlignment: MainAxisAlignment.center,
-    //             children: [
-    //               Text(
-    //                 "DISAGREE",
-    //                 style: TextStyle(
-    //                   color: Colors.black.withOpacity(0.7),
-    //                 ),
-    //               ),
-    //               prefButton(
-    //                 Preference.disagree,
-    //                 Colors.red.shade400,
-    //                 callback(Preference.disagree),
-    //               ),
-    //               prefButton(
-    //                 Preference.avoid,
-    //                 Colors.amber.shade400,
-    //                 callback(Preference.avoid),
-    //               ),
-    //               prefButton(
-    //                 Preference.neutral,
-    //                 Colors.yellow.shade200,
-    //                 callback(Preference.neutral),
-    //               ),
-    //               prefButton(
-    //                 Preference.tolerate,
-    //                 Colors.green.shade200,
-    //                 callback(Preference.tolerate),
-    //               ),
-    //               prefButton(
-    //                 Preference.agree,
-    //                 Colors.green,
-    //                 callback(Preference.agree),
-    //               ),
-    //               Text(
-    //                 "AGREE",
-    //                 style: TextStyle(
-    //                   color: Colors.black.withOpacity(0.7),
-    //                 ),
-    //               ),
-    //             ],
-    //           ),
-    //         ],
-    //       ),
-    //       const SizedBox(
-    //         height: 50.0,
-    //       ),
-    //       Row(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [
-    //           Visibility(
-    //             visible: questionNumber == 1 ? false : true,
-    //             child: BtnWhite(
-    //               onpressed: previousQuestion,
-    //               btnText: questionNumber == 1 ? '' : 'Previous',
-    //               width: 15.0,
-    //             ),
-    //           ),
-    //           const SizedBox(
-    //             width: 20.0,
-    //           ),
-    //           BtnBlack(
-    //             onpressed: questionNumber == questionData.length - 1
-    //                 ? submit
-    //                 : nextQuestion,
-    //             btnText: questionNumber == questionData.length - 1
-    //                 ? 'Submit'
-    //                 : 'Next',
-    //             width: 20.0,
-    //           ),
-    //         ],
-    //       ),
-    //     ],
-    //   ),
-    // );

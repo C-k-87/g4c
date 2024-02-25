@@ -11,16 +11,17 @@ class PieChartWidget extends StatelessWidget {
     List<PieChartSectionData> sectionList = [];
     for (var element in scores.entries) {
       sectionList.add(PieChartSectionData(
-          value: element.value.toDouble(),
+          value: element.value.toDouble() + 20,
           color: traitColors[element.key],
           showTitle: false,
-          radius: (element.value + 30) * 1.5));
+          radius:
+              (element.value + 30) * MediaQuery.of(context).size.width / 350));
     }
 
     return PieChart(
       PieChartData(
         sections: sectionList,
-        centerSpaceRadius: 30.0,
+        centerSpaceRadius: MediaQuery.of(context).size.width / 15,
         sectionsSpace: 5.0,
       ),
     );
