@@ -9,6 +9,81 @@ class TopCard extends StatelessWidget {
     required this.color,
   });
 
+  const TopCard.artistic({
+    super.key,
+    this.content = const Image(
+      image: AssetImage('asset_lib/images/personalityimages/A.png'),
+      fit: BoxFit.cover,
+    ),
+    this.color = const Color.fromARGB(255, 255, 255, 255),
+  });
+
+  factory TopCard.factory(String trait) {
+    switch (trait) {
+      case "artistic":
+        return const TopCard.artistic();
+      case "conventional":
+        return const TopCard.conventional();
+      case "enterprising":
+        return const TopCard.enterprising();
+      case "investigative":
+        return const TopCard.investigative();
+      case "realistic":
+        return const TopCard.realistic();
+      case "social":
+        return const TopCard.social();
+      default:
+        return const TopCard(
+            content: Text("There should be an image here"),
+            color: Colors.green);
+    }
+  }
+
+  const TopCard.conventional({
+    super.key,
+    this.content = const Image(
+      image: AssetImage('asset_lib/images/personalityimages/C.png'),
+      fit: BoxFit.cover,
+    ),
+    this.color = const Color.fromARGB(255, 255, 255, 255),
+  });
+
+  const TopCard.enterprising({
+    super.key,
+    this.content = const Image(
+      image: AssetImage('asset_lib/images/personalityimages/E.png'),
+      fit: BoxFit.cover,
+    ),
+    this.color = const Color.fromARGB(255, 255, 255, 255),
+  });
+
+  const TopCard.investigative({
+    super.key,
+    this.content = const Image(
+      image: AssetImage('asset_lib/images/personalityimages/I.png'),
+      fit: BoxFit.cover,
+    ),
+    this.color = const Color.fromARGB(255, 255, 255, 255),
+  });
+
+  const TopCard.realistic({
+    super.key,
+    this.content = const Image(
+      image: AssetImage('asset_lib/images/personalityimages/R.png'),
+      fit: BoxFit.cover,
+    ),
+    this.color = const Color.fromARGB(255, 255, 255, 255),
+  });
+
+  const TopCard.social({
+    super.key,
+    this.content = const Image(
+      image: AssetImage('asset_lib/images/personalityimages/S.png'),
+      fit: BoxFit.cover,
+    ),
+    this.color = const Color.fromARGB(255, 255, 255, 255),
+  });
+
   @override
   Widget build(BuildContext context) {
     List<double> resolution = [
