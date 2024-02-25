@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:g4c/data/entities/question.dart';
+import 'package:g4c/data/entities/quiz_scores.dart';
 import 'package:g4c/domain/repositories/enumerations.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_white.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
+import 'package:g4c/presentation/views/quiz_results.dart';
 
 class PersonalityQuizRunner extends StatefulWidget {
   const PersonalityQuizRunner({super.key});
@@ -262,6 +264,15 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
       }
     }
     //TODO: Implement navigator to parametrized result page and user detail update
+    // User file update..
+    Navigator.pop(context);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => QuizResults(
+            quizScores: QuizScores(0, 0, 0, iscore, rscore, 0),
+          ),
+        ));
   }
 }
 

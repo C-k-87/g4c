@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
 import 'package:g4c/domain/repositories/type_descriptions.dart';
-import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/domain/use_cases/set_image.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/legend.dart';
