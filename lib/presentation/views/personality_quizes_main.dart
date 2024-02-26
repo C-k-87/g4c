@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
-import 'package:g4c/domain/use_cases/personality_quiz_runner.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 
 class PersonalityMain extends StatelessWidget {
@@ -49,11 +49,7 @@ class PersonalityMain extends StatelessWidget {
                 child: BtnBlack(
                   btnText: 'Take the Test',
                   onpressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PersonalityQuizRunner()),
-                    );
+                    navtoQuizRunner(context);
                   },
                 ),
               ),

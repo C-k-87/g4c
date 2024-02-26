@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
 import 'package:g4c/domain/repositories/type_descriptions.dart';
 import 'package:g4c/domain/use_cases/create_roles_list.dart';
+import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/domain/use_cases/set_image.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
@@ -12,7 +13,6 @@ import 'package:g4c/presentation/components/legend.dart';
 import 'package:g4c/presentation/components/pie_chart.dart';
 import 'package:g4c/presentation/components/text_fields.dart';
 import 'package:g4c/presentation/components/top_card.dart';
-import 'package:g4c/presentation/views/profile_page.dart';
 
 void main() {
   runApp(const Test());
@@ -111,11 +111,7 @@ class QuizResults extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: BtnBlack(
                           onpressed: () {
-                            Navigator.pop(context);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const ProfilePage()));
+                            navtoProfilePage(context);
                           },
                           btnText: "Go to Profile",
                         ),

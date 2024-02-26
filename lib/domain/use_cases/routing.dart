@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/data/entities/quiz_scores.dart';
 import 'package:g4c/domain/use_cases/personality_quiz_runner.dart';
 import 'package:g4c/presentation/views/job_des.dart';
 import 'package:g4c/presentation/views/job_role_main.dart';
 import 'package:g4c/presentation/views/login.dart';
 import 'package:g4c/presentation/views/personality_quizes_main.dart';
-import 'package:g4c/presentation/views/personality_welcome_page.dart';
 import 'package:g4c/presentation/views/profile_page.dart';
 import 'package:g4c/presentation/views/progress_tracker.dart';
+import 'package:g4c/presentation/views/quiz_results.dart';
 import 'package:g4c/presentation/views/register.dart';
 
-void navtoProfilePage(BuildContext context, bool pop) {
-  pop ? Navigator.pop(context) : null;
-  Navigator.push(
+void navtoProfilePage(BuildContext context) {
+  Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => const ProfilePage()));
 }
 
@@ -23,68 +23,62 @@ void navtoWelcomePage(BuildContext context, bool pop) {
   // MaterialPageRoute(builder: (context) => const WelcomePagePersonality()));
 }
 
-void navtoPersQuiz(BuildContext context, bool pop) {
-  pop ? Navigator.pop(context) : null;
-  Navigator.push(context,
+void navtoPersQuiz(BuildContext context) {
+  Navigator.pushReplacement(context,
       MaterialPageRoute(builder: (context) => const PersonalityMain()));
 }
 
-void navtoQuizRunner(BuildContext context, bool pop) {
-  pop ? Navigator.pop(context) : null;
+void navtoQuizRunner(BuildContext context) {
   Navigator.push(context,
       MaterialPageRoute(builder: (context) => const PersonalityQuizRunner()));
 }
 
-//TODO : UNIMPLEMENTED
-void navtoQuizResults(BuildContext context, bool pop) {
-  throw UnimplementedError();
-  // pop ? Navigator.pop(context) : null;
-  // Navigator.push(context,
-  //     MaterialPageRoute(builder: (context) => const PersQuizResults()));
+void navtoQuizResults(BuildContext context, QuizScores quizScores) {
+  Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => QuizResults(
+          quizScores: quizScores,
+        ),
+      ));
 }
 
-void navtoProgressTracker(BuildContext context, bool pop) {
-  pop ? Navigator.pop(context) : null;
-  Navigator.push(context,
+void navtoProgressTracker(BuildContext context) {
+  Navigator.pushReplacement(context,
       MaterialPageRoute(builder: (context) => const ProgressTracker()));
 }
 
 //TODO : UNIMPLEMENTED
-void navtoProgTrackCourseDetails(BuildContext context, bool pop) {
+void navtoProgTrackCourseDetails(BuildContext context) {
   throw UnimplementedError();
-  // pop ? Navigator.pop(context) : null;
   // Navigator.push(context,
-  //     MaterialPageRoute(builder: (context) => const PersQuizResults()));
+  //     MaterialPageRoute(builder: (context) => const ___()));
 }
 
 //TODO : UNIMPLEMENTED
-void navtoProgTrackAddCourse(BuildContext context, bool pop) {
+void navtoProgTrackAddCourse(BuildContext context) {
   throw UnimplementedError();
-  // pop ? Navigator.pop(context) : null;
   // Navigator.push(context,
-  //     MaterialPageRoute(builder: (context) => const PersQuizResults()));
+  //     MaterialPageRoute(builder: (context) => const ___()));
 }
 
-void navtoJobRoles(BuildContext context, bool pop) {
-  pop ? Navigator.pop(context) : null;
-  Navigator.push(
+void navtoJobRoles(BuildContext context) {
+  Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => const JobRoleMain()));
 }
 
-void navtoJobDescription(BuildContext context, bool pop, role) {
-  pop ? Navigator.pop(context) : null;
+void navtoJobDescription(BuildContext context, role) {
   Navigator.push(context,
       MaterialPageRoute(builder: (context) => JobDescription(role: role)));
 }
 
-void navtoLogin(BuildContext context, bool pop) {
-  pop ? Navigator.pop(context) : null;
+void navtoLogin(BuildContext context) {
+  Navigator.popUntil(context, (route) => false);
   Navigator.push(
       context, MaterialPageRoute(builder: (context) => const LoginPage()));
 }
 
-void navtoRegistration(BuildContext context, bool pop) {
-  pop ? Navigator.pop(context) : null;
+void navtoRegistration(BuildContext context) {
   Navigator.push(
       context, MaterialPageRoute(builder: (context) => const RegisterPage()));
 }
@@ -93,16 +87,11 @@ void navtoRegistration(BuildContext context, bool pop) {
 void navtoUserDetailEntry(BuildContext context, bool pop) {
   throw UnimplementedError();
   // pop ? Navigator.pop(context) : null;
-  // Navigator.push(context,
+  // Navigator.pushReplacement(context,
   //     MaterialPageRoute(builder: (context) => const UserDetailEntry()));
 }
 
 void logout(BuildContext context) {
-  Navigator.pop(context);
   //TODO : Implement sessions logout
-  Navigator.popUntil(context, (route) => false);
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const LoginPage()),
-  );
+  navtoLogin(context);
 }
