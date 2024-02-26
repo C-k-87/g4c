@@ -34,7 +34,7 @@ class G4CRunner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: LoginPage(),
+      body: LoginPage()
     );
   }
 }

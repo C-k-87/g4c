@@ -9,10 +9,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:g4c/presentation/components/toast.dart';
 import 'package:g4c/presentation/views/profile_page.dart';
 
+import 'package:g4c/presentation/views/user_info.dart'; // Import UserDetails page
+
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  const RegisterPage({Key? key}) : super(key: key);
+
   @override
-  // ignore: library_private_types_in_public_api
   _RegisterPageState createState() => _RegisterPageState();
 }
 
@@ -130,17 +132,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 BtnBlack(
                   btnText: 'Register',
                   onpressed: () {
-                    /*showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          // Retrieve the text the that user has entered by using the
-                          // TextEditingController.
-                          content: Text(
-                              'Name: ${nameController.text}\nEmail: ${emailController.text}'),
-                        );
-                      },
-                    );*/
                     _signUp();
                   },
                 ),
@@ -186,15 +177,17 @@ class _RegisterPageState extends State<RegisterPage> {
         showToast(message: "User is successfully created");
         // ignore: use_build_context_synchronously
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ProfilePage(),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                UserDetails(username: username), // Pass username to UserDetails
+          ),
+        );
       } else {
-        showToast(message: "Some error happend");
+        showToast(message: "Some error happened");
       }
     } else {
-      showToast(message: "some error happend");
+      showToast(message: "Passwords do not match");
     }
   }
 }

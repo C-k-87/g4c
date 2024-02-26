@@ -8,6 +8,7 @@ import 'package:g4c/presentation/components/txt_input.dart';
 import 'package:g4c/presentation/views/profile_page.dart';
 import 'package:g4c/presentation/views/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:g4c/presentation/views/user_info.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:g4c/presentation/components/toast.dart';
 
@@ -142,12 +143,14 @@ class _LoginPageState extends State<LoginPage> {
 
     if (user != null) {
       showToast(message: "User is successfully signed in");
+      String username = email.split('@')[0];
       // ignore: use_build_context_synchronously
       Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ProfilePage(),
-          ));
+        context,
+        MaterialPageRoute(
+          builder: (context) => UserDetails(username: username),
+        ),
+      );
     } else {
       showToast(message: "some error occured");
     }
@@ -169,13 +172,24 @@ class _LoginPageState extends State<LoginPage> {
           accessToken: googleSignInAuthentication.accessToken,
         );
 
-        await _firebaseAuth.signInWithCredential(credential);
-        // ignore: use_build_context_synchronously
-        Navigator.push(
+        final UserCredential userCredential =
+            await _firebaseAuth.signInWithCredential(credential);
+
+        final User? user = userCredential.user;
+
+        if (user != null) {
+          String? displayName = user.displayName;
+          String username =
+              displayName ?? googleSignInAccount.displayName ?? '';
+
+          // ignore: use_build_context_synchronously
+          Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const ProfilePage(),
-            ));
+              builder: (context) => UserDetails(username: username),
+            ),
+          );
+        }
       }
     } catch (e) {
       showToast(message: "some error occured $e");
