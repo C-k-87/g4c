@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/btn_black_icon.dart';
 import 'package:g4c/presentation/components/btn_navigation.dart';
-import 'package:g4c/presentation/views/job_role_main.dart';
-import 'package:g4c/presentation/views/login.dart';
-import 'package:g4c/presentation/views/personality_quizes_main.dart';
-import 'package:g4c/presentation/views/profile_page.dart';
-import 'package:g4c/presentation/views/progress_tracker.dart';
 
 class G4CDrawer extends StatelessWidget {
   const G4CDrawer({
@@ -58,59 +54,32 @@ class G4CDrawer extends StatelessWidget {
                 BtnNavigation(
                     btnText: "Personality Quiz",
                     onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const PersonalityMain()),
-                      );
+                      navtoPersQuiz(context);
                     },
                     iconData: Icons.search),
                 BtnNavigation(
                     btnText: "Progress Tracker",
                     onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProgressTracker()),
-                      );
+                      navtoProgressTracker(context);
                     },
                     iconData: Icons.trending_up),
                 BtnNavigation(
                     btnText: "Job Roles",
                     onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const JobRoleMain()),
-                      );
+                      navtoJobRoles(context);
                     },
                     iconData: Icons.castle),
                 BtnNavigation(
                     btnText: "Profile",
                     onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProfilePage()),
-                      );
+                      navtoProfilePage(context);
                     },
                     iconData: Icons.supervised_user_circle),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 50.0),
                   child: BtnBlackIcon(
                     onpressed: () {
-                      Navigator.pop(context);
-                      //TODO : Implement sessions logout
-                      Navigator.popUntil(context, (route) => false);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage()),
-                      );
+                      logout(context);
                     },
                     btnText: 'Logout',
                     iconData: Icons.logout,
