@@ -204,7 +204,6 @@
                 "soft":"-Communication Skills\n-Problem-Solving\n-Teamwork\n-Adaptability\n-Time Management\n-Leadership\n-Creativity\n-Emotional Intelligence\n-Conflict Resolution\n-Customer Service",
                 "tech":"-Industry Knowledge-Programming Languages(e.g., Python, Java, C++, etc.)\n-Data Analysis\n-Technical Proficiency\n-IT Security\n-Networking\n-Project Management\n-Cloud Computing\n-Database Management"
             },
-            "courses":"courseid list",
             "traits": ["E","C"],
             "courses":{
                 "soft":"-soft1\n-soft2",
