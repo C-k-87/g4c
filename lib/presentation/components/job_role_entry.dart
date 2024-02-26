@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/presentation/views/job_des.dart';
+import 'package:g4c/domain/use_cases/routing.dart';
 
 class JobRoleEntry extends StatelessWidget {
   const JobRoleEntry({
@@ -13,11 +13,7 @@ class JobRoleEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => JobDescription(role: role),
-            ));
+        navtoJobDescription(context, role);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(

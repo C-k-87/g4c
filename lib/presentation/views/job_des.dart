@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/components/job_role_card.dart';
+import 'package:g4c/presentation/components/text_fields.dart';
 
 class JobDescription extends StatelessWidget {
   final dynamic role;
@@ -9,52 +10,6 @@ class JobDescription extends StatelessWidget {
     super.key,
     required this.role,
   });
-
-  heading(String text) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        text,
-        style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
-
-  subheading(String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-      child: Text(
-        text,
-        style: const TextStyle(fontSize: 15.0),
-      ),
-    );
-  }
-
-  body(text) {
-    String data = '';
-    try {
-      data = text;
-    } catch (e) {
-      data = 'Steps: \n';
-      for (var step in text["steps"]) {
-        data += "\t $step \n";
-      }
-    }
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Text(
-        data,
-        textAlign: TextAlign.justify,
-      ),
-    );
-  }
-
-  courseCard(text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Text(text),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,12 +31,23 @@ class JobDescription extends StatelessWidget {
           const SizedBox(height: 20.0),
           heading("Skills"),
           subheading("Soft Skills"),
+          const SizedBox(height: 5.0),
           body(role["skills"]["soft"]),
+          const SizedBox(height: 15.0),
           subheading("Technical Skills"),
+          const SizedBox(height: 5.0),
           body(role["skills"]["tech"]),
           const SizedBox(height: 20.0),
+          //heading("Related Course Modules"),
+          //courseCard(role["courses"]),
           heading("Related Course Modules"),
-          courseCard(role["courses"]),
+          subheading("Soft Skill Courses "),
+          const SizedBox(height: 5.0),
+          body(role["courses"]["soft"]),
+          const SizedBox(height: 15.0),
+          subheading("Technical Skill Courses"),
+          const SizedBox(height: 5.0),
+          body(role["courses"]["tech"]),
         ],
       ),
     );
