@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/data/data_sources/firebase_auth_services.dart';
+import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_sign_in_google.dart';
 import 'package:g4c/presentation/components/pwd_input.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/components/txt_input.dart';
-import 'package:g4c/presentation/views/profile_page.dart';
-import 'package:g4c/presentation/views/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:g4c/presentation/components/toast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
   @override
-  // ignore: library_private_types_in_public_api
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   bool _isPasswordVisible = false;
-  bool _isSigning = false;
   final FirebaseAuthService _auth = FirebaseAuthService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final col1 = const Color.fromARGB(255, 195, 255, 195);
   final unameController = TextEditingController();
   final pwdController = TextEditingController();
 
@@ -37,7 +33,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: col1, toolbarHeight: 35.0),
+      appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 195, 255, 195),
+          toolbarHeight: 35.0),
       body: ListView(
         children: [
           Center(
@@ -88,27 +86,29 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 50.0),
                 BtnBlack(
-                  onpressed: () {
+                  onpressed: () async {
                     String uname = unameController.text.trim();
                     String pwd = pwdController.text;
-
-                    _signIn();
+                    await _signIn(uname, pwd).then((value) {
+                      print(value?.displayName);
+                      print(value?.email);
+                    }).then((value) =>
+                        value != null ? navtoProfilePage(context) : null);
                   },
                   btnText: 'Sign In',
                 ),
                 const SizedBox(height: 20.0),
-                BtnSignInGoogle(onPressed: () {
-                  _signInWithGoogle();
+                BtnSignInGoogle(onPressed: () async {
+                  await _signInWithGoogle().then((value) {
+                    setUserProfile(value);
+                    return value;
+                  }).then((value) =>
+                      value != null ? navtoProfilePage(context) : null);
                 }),
                 const SizedBox(height: 30.0),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegisterPage(),
-                      ),
-                    );
+                    navtoRegistration(context);
                   },
                   child: Text(
                     "Don't have an account yet?",
@@ -126,39 +126,24 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _signIn() async {
-    setState(() {
-      _isSigning = true;
-    });
-
-    String email = unameController.text;
-    String password = pwdController.text;
-
+  Future<User?> _signIn(String email, String password) async {
     User? user = await _auth.signInWithEmailAndPassword(email, password);
 
-    setState(() {
-      _isSigning = false;
-    });
-
     if (user != null) {
-      showToast(message: "User is successfully signed in");
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ProfilePage(),
-          ));
-    } else {
-      showToast(message: "some error occured");
-    }
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('isSignedIn', true);
+      return user;
+    } else {}
+    return null;
   }
 
-  _signInWithGoogle() async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
-
+  Future<User?> _signInWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+        clientId:
+            "565471500049-too7gv7ufbarpssak0itep2035cm8kvv.apps.googleusercontent.com");
     try {
       final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
+          await googleSignIn.signIn();
 
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
@@ -169,16 +154,29 @@ class _LoginPageState extends State<LoginPage> {
           accessToken: googleSignInAuthentication.accessToken,
         );
 
-        await _firebaseAuth.signInWithCredential(credential);
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ProfilePage(),
-            ));
+        final UserCredential authResult =
+            await _firebaseAuth.signInWithCredential(credential);
+        final User? user = authResult.user;
+        print("Got user ${user?.email}. Hello ${user?.displayName}");
+        return user;
       }
     } catch (e) {
-      showToast(message: "some error occured $e");
+      print("Sign in failed : ${e.toString()}");
+    }
+
+    return null;
+  }
+
+  void setUserProfile(User? user) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (user != null) {
+      prefs.setString('name', user.displayName ?? user.uid);
+      prefs.setString('uid', user.uid);
+      prefs.setString('email', user.email ?? "");
+      prefs.setString(
+          'imageURL',
+          user.photoURL ??
+              "https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg");
     }
   }
 }

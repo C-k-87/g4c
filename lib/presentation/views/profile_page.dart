@@ -2,11 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:g4c/presentation/components/card_widget.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/components/top_card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfilePage extends StatelessWidget {
-  final double fontsize = 15.0;
+void main() {
+  runApp(const ProfilePage());
+}
 
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final double fontsize = 15.0;
+  String? username;
+  Image? userImage;
+  // = const Image(image: AssetImage('asset_lib/images/glogo.png'));
+
+  @override
+  void initState() {
+    super.initState();
+    getUserVars();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +53,11 @@ class ProfilePage extends StatelessWidget {
                       color: const Color.fromARGB(255, 195, 255, 195),
                     ),
                   ),
-                  const Positioned(
+                  Positioned(
                     top: 50.0,
                     child: Text(
-                      'User Name',
-                      style: TextStyle(
+                      username ?? " ", // USERNAME
+                      style: const TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.w500,
                       ),
@@ -49,15 +68,11 @@ class ProfilePage extends StatelessWidget {
                     child: Container(
                       width: 200.0,
                       height: 200.0,
+                      clipBehavior: Clip.antiAlias,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.black,
                       ),
-                      child: Icon(
-                        Icons.supervised_user_circle,
-                        color: Colors.blue[100],
-                        size: 200.0,
-                      ), // TODO: implement Profile Picture
+                      child: userImage, // PROFILE PICTURE
                     ),
                   ),
                 ],
@@ -89,5 +104,31 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> getUserVars() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('name'));
+    print(prefs.getString('imageURL'));
+
+    setState(() {
+      username = prefs.getString('name')!;
+      userImage = Image.network(prefs.getString('imageURL')!, fit: BoxFit.cover,
+          errorBuilder:
+              (BuildContext context, Object exception, StackTrace? stackTrace) {
+        return const Text('Failed to load image.');
+      }, loadingBuilder: (BuildContext context, Widget child,
+              ImageChunkEvent? loadingProgress) {
+        if (loadingProgress == null) return child;
+        return Center(
+          child: CircularProgressIndicator(
+            value: loadingProgress.expectedTotalBytes != null
+                ? loadingProgress.cumulativeBytesLoaded /
+                    loadingProgress.expectedTotalBytes!
+                : null,
+          ),
+        );
+      });
+    });
   }
 }

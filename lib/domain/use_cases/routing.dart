@@ -9,6 +9,7 @@ import 'package:g4c/presentation/views/profile_page.dart';
 import 'package:g4c/presentation/views/progress_tracker.dart';
 import 'package:g4c/presentation/views/quiz_results.dart';
 import 'package:g4c/presentation/views/register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void navtoProfilePage(BuildContext context) {
   Navigator.pushReplacement(
@@ -92,6 +93,12 @@ void navtoUserDetailEntry(BuildContext context, bool pop) {
 }
 
 void logout(BuildContext context) {
-  //TODO : Implement sessions logout
+  logoutSession();
   navtoLogin(context);
+  print("logged out");
+}
+
+Future<void> logoutSession() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setBool('isSignedIn', false);
 }

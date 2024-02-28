@@ -6,7 +6,6 @@ import 'package:g4c/presentation/components/pwd_input.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/components/txt_input.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:g4c/presentation/components/toast.dart';
 import 'package:g4c/presentation/views/profile_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -183,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
         isSigningUp = false;
       });
       if (user != null) {
-        showToast(message: "User is successfully created");
+        print("User is successfully created");
         // ignore: use_build_context_synchronously
         Navigator.push(
             context,
@@ -191,10 +190,10 @@ class _RegisterPageState extends State<RegisterPage> {
               builder: (context) => const ProfilePage(),
             ));
       } else {
-        showToast(message: "Some error happend");
+        print("Some error happened");
       }
     } else {
-      showToast(message: "some error happend");
+      print("some error happened");
     }
   }
 }
