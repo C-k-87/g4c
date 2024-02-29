@@ -61,7 +61,7 @@ class QuizResults extends StatelessWidget {
             );
           } else if (snapshot.hasError) {
             return const Scaffold(
-              body: Text("Error"),
+              body: Icon(Icons.android),
             );
           } else {
             return Scaffold(

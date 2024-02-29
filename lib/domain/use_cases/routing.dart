@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
-import 'package:g4c/domain/use_cases/personality_quiz_runner.dart';
+import 'package:g4c/presentation/views/personality_quiz_runner.dart';
 import 'package:g4c/domain/use_cases/sign_in.dart';
 import 'package:g4c/presentation/views/job_des.dart';
 import 'package:g4c/presentation/views/job_role_main.dart';
@@ -40,6 +40,16 @@ void navtoQuizResults(BuildContext context, QuizScores quizScores) {
       MaterialPageRoute(
         builder: (context) => QuizResults(
           quizScores: quizScores,
+        ),
+      ));
+}
+
+void navtoQuizRetake(BuildContext context, QuizScores quizScores) {
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => QuizResults(
+          quizScores: quizScores, //TODO : implement score write here
         ),
       ));
 }
