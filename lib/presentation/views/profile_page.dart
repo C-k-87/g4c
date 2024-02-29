@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/presentation/components/card_widget.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
+import 'package:g4c/presentation/components/prof_pic.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,7 +19,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final double fontsize = 15.0;
   String? username;
-  Image? userImage;
+  String? userImage;
   // = const Image(image: AssetImage('asset_lib/images/glogo.png'));
 
   @override
@@ -72,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
-                      child: userImage, // PROFILE PICTURE
+                      child: ProfPic(url: userImage), // PROFILE PICTURE
                     ),
                   ),
                 ],
@@ -113,22 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     setState(() {
       username = prefs.getString('name')!;
-      userImage = Image.network(prefs.getString('imageURL')!, fit: BoxFit.cover,
-          errorBuilder:
-              (BuildContext context, Object exception, StackTrace? stackTrace) {
-        return const Text('Failed to load image.');
-      }, loadingBuilder: (BuildContext context, Widget child,
-              ImageChunkEvent? loadingProgress) {
-        if (loadingProgress == null) return child;
-        return Center(
-          child: CircularProgressIndicator(
-            value: loadingProgress.expectedTotalBytes != null
-                ? loadingProgress.cumulativeBytesLoaded /
-                    loadingProgress.expectedTotalBytes!
-                : null,
-          ),
-        );
-      });
+      userImage = prefs.getString('imageURL');
     });
   }
 }
