@@ -4,6 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final FirebaseAuthService authService = FirebaseAuthService();
 final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+final GoogleSignIn googleSignIn = GoogleSignIn(
+    clientId:
+        "565471500049-too7gv7ufbarpssak0itep2035cm8kvv.apps.googleusercontent.com");
 
 Future<User?> signIn(String email, String password) async {
   User? user = await authService.signInWithEmailAndPassword(email, password);
@@ -19,9 +22,6 @@ Future<User?> signIn(String email, String password) async {
 }
 
 Future<User?> signInWithGoogle() async {
-  final GoogleSignIn googleSignIn = GoogleSignIn(
-      clientId:
-          "565471500049-too7gv7ufbarpssak0itep2035cm8kvv.apps.googleusercontent.com");
   SharedPreferences prefs = await SharedPreferences.getInstance();
   try {
     final GoogleSignInAccount? googleSignInAccount =
@@ -53,6 +53,13 @@ Future<User?> signInWithGoogle() async {
 Future<User?> signUp(String email, String password, String username) async {
   User? user = await authService.signUp(email, password, username);
   return user;
+}
+
+Future<void> logoutSession() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await googleSignIn.signOut();
+  await firebaseAuth.signOut();
+  await prefs.setBool('isSignedIn', false);
 }
 
 class FirebaseAuthService {
