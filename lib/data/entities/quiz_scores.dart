@@ -1,10 +1,10 @@
 class QuizScores {
-  final int artistic;
-  final int conventional;
-  final int enterprising;
-  final int investigative;
-  final int realistic;
-  final int social;
+  int artistic;
+  int conventional;
+  int enterprising;
+  int investigative;
+  int realistic;
+  int social;
 
   QuizScores(this.artistic, this.conventional, this.enterprising,
       this.investigative, this.realistic, this.social);
@@ -30,5 +30,28 @@ class QuizScores {
 
   String getType() {
     return getSortedScores().entries.last.key;
+  }
+
+  void setScore(String key, int score) {
+    switch (key) {
+      case 'a':
+        artistic = score;
+        break;
+      case 'c':
+        conventional = score;
+        break;
+      case 'e':
+        enterprising = score;
+        break;
+      case 'i':
+        investigative = score;
+        break;
+      case 'r':
+        realistic = score;
+        break;
+      case 's':
+        social = score;
+        break;
+    }
   }
 }

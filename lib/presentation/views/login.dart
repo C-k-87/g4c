@@ -1,29 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/data/data_sources/firebase_auth_services.dart';
+import 'package:g4c/domain/use_cases/routing.dart';
+import 'package:g4c/domain/use_cases/user_profile.dart';
+import 'package:g4c/domain/use_cases/sign_in.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_sign_in_google.dart';
 import 'package:g4c/presentation/components/pwd_input.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/components/txt_input.dart';
-import 'package:g4c/presentation/views/profile_page.dart';
-import 'package:g4c/presentation/views/register.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:g4c/presentation/components/toast.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
   @override
-  // ignore: library_private_types_in_public_api
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   bool _isPasswordVisible = false;
-  bool _isSigning = false;
-  final FirebaseAuthService _auth = FirebaseAuthService();
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final col1 = const Color.fromARGB(255, 195, 255, 195);
+  // final FirebaseAuthService auth = FirebaseAuthService();
+  // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final unameController = TextEditingController();
   final pwdController = TextEditingController();
 
@@ -37,7 +31,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: col1, toolbarHeight: 35.0),
+      appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 195, 255, 195),
+          toolbarHeight: 35.0),
       body: ListView(
         children: [
           Center(
@@ -88,27 +84,30 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 50.0),
                 BtnBlack(
-                  onpressed: () {
+                  onpressed: () async {
                     String uname = unameController.text.trim();
                     String pwd = pwdController.text;
+                    await signIn(uname, pwd).then((value) {
+                      setUserProfile(value);
 
-                    _signIn();
+                      return value;
+                    }).then((value) =>
+                        value != null ? navtoProfilePage(context) : null);
                   },
                   btnText: 'Sign In',
                 ),
                 const SizedBox(height: 20.0),
-                BtnSignInGoogle(onPressed: () {
-                  _signInWithGoogle();
+                BtnSignInGoogle(onPressed: () async {
+                  await signInWithGoogle().then((value) {
+                    setUserProfile(value);
+                    return value;
+                  }).then((value) =>
+                      value != null ? navtoProfilePage(context) : null);
                 }),
                 const SizedBox(height: 30.0),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegisterPage(),
-                      ),
-                    );
+                    navtoRegistration(context);
                   },
                   child: Text(
                     "Don't have an account yet?",
@@ -124,61 +123,5 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
-  }
-
-  void _signIn() async {
-    setState(() {
-      _isSigning = true;
-    });
-
-    String email = unameController.text;
-    String password = pwdController.text;
-
-    User? user = await _auth.signInWithEmailAndPassword(email, password);
-
-    setState(() {
-      _isSigning = false;
-    });
-
-    if (user != null) {
-      showToast(message: "User is successfully signed in");
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ProfilePage(),
-          ));
-    } else {
-      showToast(message: "some error occured");
-    }
-  }
-
-  _signInWithGoogle() async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
-
-    try {
-      final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
-
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication =
-            await googleSignInAccount.authentication;
-
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          idToken: googleSignInAuthentication.idToken,
-          accessToken: googleSignInAuthentication.accessToken,
-        );
-
-        await _firebaseAuth.signInWithCredential(credential);
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ProfilePage(),
-            ));
-      }
-    } catch (e) {
-      showToast(message: "some error occured $e");
-    }
   }
 }
