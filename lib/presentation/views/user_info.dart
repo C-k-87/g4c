@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_arrow_icon.dart';
 import 'package:g4c/presentation/components/top_card.dart';
+import 'package:g4c/presentation/views/extra_course.dart';
 import 'package:g4c/presentation/views/personality_quizes_main.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -139,7 +140,11 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                     BtnNavigation1(
                       onPressed: () {
-                        // Define onPressed behavior here
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ExtraActivity()),
+                        );
                       },
                       iconData: Icons.arrow_forward,
                     ),
@@ -164,7 +169,11 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                     BtnNavigation1(
                       onPressed: () {
-                        // Define onPressed behavior here
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ExtraActivity()),
+                        );
                       },
                       iconData: Icons.arrow_forward,
                     ),
