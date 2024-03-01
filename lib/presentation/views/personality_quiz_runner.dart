@@ -8,6 +8,7 @@ import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_white.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PersonalityQuizRunner extends StatefulWidget {
   const PersonalityQuizRunner({super.key});
@@ -17,29 +18,16 @@ class PersonalityQuizRunner extends StatefulWidget {
 }
 
 class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
+  int questionNumber = 0;
+  List<Question> questionData = [];
   List<Preference> selectedOptions =
       List.generate(30, (index) => Preference.na);
-  List<Question> questionData = [];
-  int questionNumber = 0;
-
-  Future<void> readFile() async {
-    if (questionData.isEmpty) {
-      final String resp = await rootBundle
-          .loadString('lib/data/data_sources/json/questions.json');
-      final data = await jsonDecode(resp);
-
-      for (var element in data["questions"]) {
-        questionData.add(
-          Question(questionText: element["text"], trait: element["trait"]),
-        );
-      }
-    }
-  }
+  QuizScores? quizScores;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: readFile(),
+      future: readRoleList(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
@@ -161,7 +149,14 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
                           : true,
                       child: BtnBlack(
                         onpressed: questionNumber == questionData.length - 1
-                            ? submit
+                            ? () {
+                                submit().whenComplete(
+                                  () => navtoQuizResults(
+                                    context,
+                                    quizScores ?? QuizScores(0, 0, 0, 0, 0, 0),
+                                  ),
+                                );
+                              }
                             : nextQuestion,
                         btnText: questionNumber == questionData.length - 1
                             ? 'Submit'
@@ -228,13 +223,28 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
     }
   }
 
-  submit() {
+  Future<void> readRoleList() async {
+    if (questionData.isEmpty) {
+      final String resp = await rootBundle
+          .loadString('lib/data/data_sources/json/questions.json');
+      final data = await jsonDecode(resp);
+
+      for (var element in data["questions"]) {
+        questionData.add(
+          Question(questionText: element["text"], trait: element["trait"]),
+        );
+      }
+    }
+  }
+
+  Future<void> submit() async {
     int ascore = 0;
     int cscore = 0;
     int escore = 0;
     int iscore = 0;
     int rscore = 0;
     int sscore = 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     for (var i = 0; i < questionData.length; i++) {
       int prefscore = 0;
@@ -278,11 +288,16 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
           break;
       }
     }
-    //TODO: User file update
 
-    navtoQuizResults(
-      context,
-      QuizScores(ascore, cscore, escore, iscore, rscore, sscore),
-    );
+    await prefs.setInt('ascore', ascore);
+    await prefs.setInt('cscore', cscore);
+    await prefs.setInt('escore', escore);
+    await prefs.setInt('iscore', iscore);
+    await prefs.setInt('rscore', rscore);
+    await prefs.setInt('sscore', sscore);
+
+    setState(() {
+      quizScores = QuizScores(ascore, cscore, escore, iscore, rscore, sscore);
+    });
   }
 }

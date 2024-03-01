@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/presentation/views/extra_course.dart';
 import 'package:g4c/presentation/views/login.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:g4c/presentation/views/profile_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../data/data_sources/firebase_options.dart';
 
 void main() async {
@@ -10,11 +11,21 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   debugProfileBuildsEnabled = true;
-  runApp(const MyApp());
+  bool isSignedIn = await isLogged();
+  runApp(G4CApp(
+    isSignedIn: isSignedIn,
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+Future<bool> isLogged() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getBool('isSignedIn') ?? false;
+}
+
+class G4CApp extends StatelessWidget {
+  final bool isSignedIn;
+
+  const G4CApp({super.key, required this.isSignedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade200),
         useMaterial3: true,
       ),
-      home: const G4CRunner(),
+      home: isSignedIn ? const ProfilePage() : const LoginPage(),
     );
-  }
-}
-
-class G4CRunner extends StatelessWidget {
-  const G4CRunner({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(body: LoginPage());
   }
 }
