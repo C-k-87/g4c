@@ -1,10 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
 import 'package:g4c/domain/use_cases/create_roles_list.dart';
+import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
+import 'package:g4c/domain/use_cases/firestore_sp.dart';
 import 'package:g4c/presentation/components/card_widget.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/components/prof_pic.dart';
@@ -27,15 +26,9 @@ class _ProfilePageState extends State<ProfilePage> {
   List rolesList = [];
 
   @override
-  void initState() {
-    super.initState();
-    getUserVars();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: readRoleList(),
+        future: loadProfilePage(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Scaffold(
@@ -48,6 +41,7 @@ class _ProfilePageState extends State<ProfilePage> {
               body: Icon(Icons.android),
             );
           } else {
+            rolesList = snapshot.data;
             return Scaffold(
               appBar: G4CAppBar('Profile Page', false),
               drawer: const G4CDrawer(),
@@ -62,11 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           SizedBox(
                             height: 220.0,
                             child: TopCard(
-                              content: //Image(
-                                  //fit: BoxFit.fill,
-                                  //image: AssetImage('asset_lib/images/back.png'),
-                                  //),
-                                  Container(
+                              content: Container(
                                 color: const Color.fromARGB(255, 195, 255, 195),
                               ),
                               color: const Color.fromARGB(255, 195, 255, 195),
@@ -169,28 +159,17 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
 
-  Future<void> readRoleList() async {
-    final String resp = await rootBundle
-        .loadString('lib/data/data_sources/json/job_roles.json');
-    final data = await jsonDecode(resp);
-
-    rolesList = data["roles"];
-  }
-
-  Future<void> getUserVars() async {
+  Future<dynamic> loadProfilePage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(prefs.getString('name'));
-    print(prefs.getString('imageURL'));
-
-    setState(() {
-      username = prefs.getString('name');
-      userImage = prefs.getString('imageURL');
-      quizScores.setScore('a', prefs.getInt('ascore') ?? 0);
-      quizScores.setScore('c', prefs.getInt('cscore') ?? 0);
-      quizScores.setScore('e', prefs.getInt('escore') ?? 0);
-      quizScores.setScore('i', prefs.getInt('iscore') ?? 0);
-      quizScores.setScore('r', prefs.getInt('rscore') ?? 0);
-      quizScores.setScore('s', prefs.getInt('sscore') ?? 0);
-    });
+    await setUserProfile(prefs.getString('uid')!);
+    username = prefs.getString('name');
+    userImage = prefs.getString('imageURL');
+    quizScores.setScore('a', prefs.getInt('ascore') ?? 0);
+    quizScores.setScore('c', prefs.getInt('cscore') ?? 0);
+    quizScores.setScore('e', prefs.getInt('escore') ?? 0);
+    quizScores.setScore('i', prefs.getInt('iscore') ?? 0);
+    quizScores.setScore('r', prefs.getInt('rscore') ?? 0);
+    quizScores.setScore('s', prefs.getInt('sscore') ?? 0);
+    return await DataHandler().getRolesList();
   }
 }

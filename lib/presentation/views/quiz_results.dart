@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
 import 'package:g4c/domain/repositories/type_descriptions.dart';
 import 'package:g4c/domain/use_cases/create_roles_list.dart';
+import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/domain/use_cases/set_image.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
@@ -13,20 +11,6 @@ import 'package:g4c/presentation/components/legend.dart';
 import 'package:g4c/presentation/components/pie_chart.dart';
 import 'package:g4c/presentation/components/text_fields.dart';
 import 'package:g4c/presentation/components/top_card.dart';
-
-void main() {
-  runApp(const Test());
-}
-
-class Test extends StatelessWidget {
-  const Test({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: QuizResults(quizScores: QuizScores(2, 4, 12, 4, 19, 8)),
-    );
-  }
-}
 
 class QuizResults extends StatelessWidget {
   final QuizScores quizScores;
@@ -42,16 +26,8 @@ class QuizResults extends StatelessWidget {
     Image typeText = setImage(persList.keys.last);
     List rolesList = [];
 
-    Future<void> readFile() async {
-      final String resp = await rootBundle
-          .loadString('lib/data/data_sources/json/job_roles.json');
-      final data = await jsonDecode(resp);
-
-      rolesList = data["roles"];
-    }
-
     return FutureBuilder(
-        future: readFile(),
+        future: DataHandler().getRolesList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Scaffold(
@@ -64,6 +40,7 @@ class QuizResults extends StatelessWidget {
               body: Icon(Icons.android),
             );
           } else {
+            rolesList = snapshot.data;
             return Scaffold(
               appBar: G4CAppBar("Quiz Results", false),
               body: ListView(

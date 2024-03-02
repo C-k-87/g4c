@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/btn_black_icon.dart';
 
 class WelcomePagePersonality extends StatelessWidget {
@@ -49,7 +50,9 @@ class WelcomePagePersonality extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 50.0),
                 child: BtnBlackIcon(
-                  onpressed: () {},
+                  onpressed: () {
+                    navtoQuizRunner(context, initial: true);
+                  },
                   btnText: 'Next',
                   iconData: Icons.logout,
                 ),

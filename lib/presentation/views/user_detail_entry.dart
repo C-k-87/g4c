@@ -2,26 +2,26 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_arrow_icon.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/views/extra_course.dart';
-import 'package:g4c/presentation/views/personality_quizes_main.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserDetails extends StatefulWidget {
-  final String username; // Add username as a parameter
+  final String? username; // Add username as a parameter
 
-  const UserDetails({Key? key, required this.username}) : super(key: key);
+  const UserDetails({super.key, this.username});
 
   @override
-  _UserDetailsState createState() => _UserDetailsState();
+  State<UserDetails> createState() => _UserDetailsState();
 }
 
 class _UserDetailsState extends State<UserDetails> {
   String? dropdownValue;
   Uint8List? _image;
-  File? selectedIMage;
+  File? selectedImage;
 
   @override
   void initState() {
@@ -31,12 +31,11 @@ class _UserDetailsState extends State<UserDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final col1 = const Color.fromARGB(255, 195, 255, 195);
     var items = ['BCS General Degree', "Other"];
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: col1,
+        backgroundColor: const Color.fromARGB(255, 195, 255, 195),
         toolbarHeight: 35.0,
       ),
       body: Container(
@@ -46,9 +45,9 @@ class _UserDetailsState extends State<UserDetails> {
           shrinkWrap: true,
           padding: null,
           children: [
-            SizedBox(
+            const SizedBox(
               child: TopCard(
-                content: const Center(
+                content: Center(
                   child: Image(
                     image: AssetImage(
                       'asset_lib/images/G4C_logo_transparent.png',
@@ -56,7 +55,7 @@ class _UserDetailsState extends State<UserDetails> {
                     width: 200.0,
                   ),
                 ),
-                color: col1,
+                color: Color.fromARGB(255, 195, 255, 195),
               ),
             ),
             const SizedBox(
@@ -74,7 +73,7 @@ class _UserDetailsState extends State<UserDetails> {
                   ),
                 ),
                 Text(
-                  widget.username,
+                  widget.username ?? "user",
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 40,
@@ -185,12 +184,9 @@ class _UserDetailsState extends State<UserDetails> {
                 BtnBlack(
                   btnText: 'Save',
                   onpressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const PersonalityMain(),
-                      ),
-                    );
+                    print("Setting varaibles");
+                    // TODO : SAVE VARIABLES TO FIRESTORE AND SET SHARED PREFERENCES
+                    navtoWelcomePage(context);
                   },
                 ),
                 const SizedBox(
@@ -284,11 +280,12 @@ class _UserDetailsState extends State<UserDetails> {
   Future _PickImageFromGallery() async {
     final returnImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (returnImage == null) return;
-    setState(() {
-      var selectedIMage = File(returnImage.path);
-      _image = File(returnImage.path).readAsBytesSync();
-    });
+    if (returnImage != null) {
+      setState(() {
+        _image = File(returnImage.path).readAsBytesSync();
+      });
+    }
+
     // ignore: use_build_context_synchronously
     Navigator.of(context).pop();
   }

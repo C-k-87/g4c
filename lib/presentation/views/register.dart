@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/domain/use_cases/show_dialog.dart';
 import 'package:g4c/domain/use_cases/sign_in.dart';
-import 'package:g4c/domain/use_cases/user_profile.dart';
+import 'package:g4c/domain/use_cases/firestore_sp.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_white.dart';
+import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/components/pwd_input.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/components/txt_input.dart';
@@ -37,10 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 195, 255, 195),
-        toolbarHeight: 35.0,
-      ),
+      appBar: G4CAppBar('', false, login: true),
       body: Container(
         alignment: Alignment.topCenter,
         child: ListView(
@@ -132,11 +130,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     String email = emailController.text;
 
                     if (password == confPwdController.text) {
-                      signUp(email, password, username).then((value) {
-                        setUserProfile(value);
-                        return value;
-                      }).then((value) => value != null
-                          ? navtoProfilePage(context)
+                      signUp(email, password, username).then((user) {
+                        user != null
+                            ? initializeUserProfile(user)
+                            : print("Error registering");
+                        return user;
+                      }).then((user) => user != null
+                          ? navtoUserDetailEntry(context)
                           : print("nav rejected"));
                     } else {
                       showAlert(context, "Passwords do not match");

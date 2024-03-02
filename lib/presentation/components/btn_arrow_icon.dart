@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class BtnNavigation1 extends StatelessWidget {
   const BtnNavigation1({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.iconData,
     this.iconSize = 20.0,
     this.buttonWidth = 40.0,
     this.buttonHeight = 20.0,
-  }) : super(key: key);
+  });
 
   final Function()? onPressed;
   final IconData iconData;
