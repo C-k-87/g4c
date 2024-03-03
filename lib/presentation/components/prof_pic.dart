@@ -17,7 +17,6 @@ class _ProfPicState extends State<ProfPic> {
         widget.url!,
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) {
-          print(stackTrace);
           return Image.asset('asset_lib/images/prof_pic_default.png');
         },
       );

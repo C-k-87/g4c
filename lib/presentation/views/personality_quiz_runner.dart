@@ -5,10 +5,10 @@ import 'package:g4c/data/entities/question.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
 import 'package:g4c/domain/repositories/enumerations.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
+import 'package:g4c/domain/use_cases/firestore_sp.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_white.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PersonalityQuizRunner extends StatefulWidget {
   const PersonalityQuizRunner({super.key});
@@ -244,7 +244,6 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
     int iscore = 0;
     int rscore = 0;
     int sscore = 0;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     for (var i = 0; i < questionData.length; i++) {
       int prefscore = 0;
@@ -289,15 +288,13 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
       }
     }
 
-    await prefs.setInt('ascore', ascore);
-    await prefs.setInt('cscore', cscore);
-    await prefs.setInt('escore', escore);
-    await prefs.setInt('iscore', iscore);
-    await prefs.setInt('rscore', rscore);
-    await prefs.setInt('sscore', sscore);
+    QuizScores results =
+        QuizScores(ascore, cscore, escore, iscore, rscore, sscore);
+
+    await updateQuizResults(results);
 
     setState(() {
-      quizScores = QuizScores(ascore, cscore, escore, iscore, rscore, sscore);
+      quizScores = results;
     });
   }
 }
