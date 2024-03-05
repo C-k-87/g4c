@@ -11,6 +11,7 @@ import 'package:g4c/presentation/components/legend.dart';
 import 'package:g4c/presentation/components/pie_chart.dart';
 import 'package:g4c/presentation/components/text_fields.dart';
 import 'package:g4c/presentation/components/top_card.dart';
+import 'package:g4c/presentation/views/loader.dart';
 
 class QuizResults extends StatelessWidget {
   final QuizScores quizScores;
@@ -30,15 +31,9 @@ class QuizResults extends StatelessWidget {
         future: DataHandler().getRolesList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
+            return const Loader();
           } else if (snapshot.hasError) {
-            return const Scaffold(
-              body: Icon(Icons.android),
-            );
+            return const ErrorScreen();
           } else {
             rolesList = snapshot.data;
             return Scaffold(

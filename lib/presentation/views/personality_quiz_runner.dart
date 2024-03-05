@@ -9,6 +9,7 @@ import 'package:g4c/domain/use_cases/firestore_sp.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_white.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
+import 'package:g4c/presentation/views/loader.dart';
 
 class PersonalityQuizRunner extends StatefulWidget {
   const PersonalityQuizRunner({super.key});
@@ -30,13 +31,9 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
       future: readRoleList(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-              body: Center(child: CircularProgressIndicator()));
+          return const Loader();
         } else if (snapshot.hasError) {
-          return const Scaffold(
-              body: Center(
-            child: Text("error"),
-          ));
+          return const ErrorScreen();
         } else {
           return Scaffold(
             appBar: G4CAppBar('Personality Quiz', true),
