@@ -9,6 +9,7 @@ import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/components/prof_pic.dart';
 import 'package:g4c/presentation/components/text_fields.dart';
 import 'package:g4c/presentation/components/top_card.dart';
+import 'package:g4c/presentation/views/loader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -31,15 +32,9 @@ class _ProfilePageState extends State<ProfilePage> {
         future: loadProfilePage(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
+            return const Loader();
           } else if (snapshot.hasError) {
-            return const Scaffold(
-              body: Icon(Icons.android),
-            );
+            return const ErrorScreen();
           } else {
             rolesList = snapshot.data;
             return Scaffold(

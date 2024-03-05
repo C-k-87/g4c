@@ -34,7 +34,7 @@ class LoadingPage extends StatelessWidget {
             const SizedBox(height: 20),
             const SpinKitThreeBounce(
               duration: Duration(seconds: 2),
-              size: 40,
+              size: 30,
               color: Colors.black,
             ),
           ],
