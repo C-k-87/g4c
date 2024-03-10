@@ -18,7 +18,6 @@ void navtoProfilePage(BuildContext context) {
       context, MaterialPageRoute(builder: (context) => const ProfilePage()));
 }
 
-//TODO : UNIMPLEMENTED
 void navtoWelcomePage(BuildContext context) {
   Navigator.pushReplacement(context,
       MaterialPageRoute(builder: (context) => const WelcomePagePersonality()));
@@ -56,7 +55,7 @@ void navtoQuizRetake(BuildContext context, QuizScores quizScores) {
       context,
       MaterialPageRoute(
         builder: (context) => QuizResults(
-          quizScores: quizScores, //TODO : implement score write here
+          quizScores: quizScores,
         ),
       ));
 }
