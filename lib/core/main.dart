@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/domain/use_cases/firestore_sp.dart';
+import 'package:g4c/data/entities/data_provider.dart';
+import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/presentation/views/loading_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import '../data/data_sources/firebase_options.dart';
 
 void main() async {
@@ -9,10 +11,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  bool isSignedIn = await isLogged();
-  runApp(G4CApp(
-    isSignedIn: isSignedIn,
+  runApp(ChangeNotifierProvider(
+    create: (BuildContext context) => DataProvider(),
+    child: G4CApp(
+      isSignedIn: await DataHandler().isLogged(),
+    ),
   ));
 }
 

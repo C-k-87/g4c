@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:g4c/data/entities/question.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
 import 'package:g4c/domain/repositories/enumerations.dart';
+import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
-import 'package:g4c/domain/use_cases/firestore_sp.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_white.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
@@ -288,7 +288,7 @@ class _PersonalityQuizRunnerState extends State<PersonalityQuizRunner> {
     QuizScores results =
         QuizScores(ascore, cscore, escore, iscore, rscore, sscore);
 
-    await updateQuizResults(results);
+    await DataHandler().updateQuizResults(results, context);
 
     setState(() {
       quizScores = results;

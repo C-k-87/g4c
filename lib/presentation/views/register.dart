@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/domain/use_cases/show_dialog.dart';
 import 'package:g4c/domain/use_cases/sign_in.dart';
-import 'package:g4c/domain/use_cases/firestore_sp.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_white.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
@@ -132,7 +132,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     if (password == confPwdController.text) {
                       signUp(email, password, username).then((user) {
                         user != null
-                            ? initializeUserProfile(user)
+                            ? DataHandler().initializeUserProfile(user)
                             : print("Error registering");
                         return user;
                       }).then((user) => user != null
