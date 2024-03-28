@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/data/entities/data_provider.dart';
 import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/domain/use_cases/show_dialog.dart';
@@ -9,6 +10,7 @@ import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/components/pwd_input.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/components/txt_input.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -37,6 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    DataProvider provider = Provider.of<DataProvider>(context);
     return Scaffold(
       appBar: G4CAppBar('', false, login: true),
       body: Container(
@@ -130,10 +133,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     String email = emailController.text;
 
                     if (password == confPwdController.text) {
-                      signUp(email, password, username).then((user) {
-                        user != null
-                            ? DataHandler().initializeUserProfile(user)
-                            : print("Error registering");
+                      signUp(email, password, username).then((user) async{
+                        // user != null
+                        //     ? DataHandler().initializeUserProfile(user)
+                        //     : print("Error registering");
+                        if(user != null){
+                          DataHandler().initializeUserProfile(user);
+                          await provider.refreshUserData(user.uid);
+                        }
                         return user;
                       }).then((user) => user != null
                           ? navtoUserDetailEntry(context)

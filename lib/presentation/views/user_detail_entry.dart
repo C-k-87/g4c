@@ -184,7 +184,6 @@ class _UserDetailsState extends State<UserDetails> {
                 BtnBlack(
                   btnText: 'Save',
                   onpressed: () {
-                    print("Setting varaibles");
                     // TODO : SAVE VARIABLES TO FIRESTORE AND SET SHARED PREFERENCES
                     navtoWelcomePage(context);
                   },
