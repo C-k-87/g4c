@@ -17,10 +17,6 @@ class PieChartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     List<PieChartSectionData> sectionList = [];
     int i = 0;
-    int total = 0;
-    for (var element in scores.entries) {
-      total += element.value;
-    }
     for (var element in scores.entries) {
       sectionList.add(PieChartSectionData(
           value: element.value.toDouble() + 20,
