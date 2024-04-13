@@ -54,4 +54,24 @@ class QuizScores {
         break;
     }
   }
+
+  void setMap(Map<String, int> map) {
+    artistic = map['a'] ?? 0;
+    conventional = map['c'] ?? 0;
+    enterprising = map['e'] ?? 0;
+    investigative = map['i'] ?? 0;
+    realistic = map['r'] ?? 0;
+    social = map['s'] ?? 0;
+  }
+
+  Map<String, int> getMap() {
+    return {
+      "ascore": artistic,
+      "cscore": conventional,
+      "escore": enterprising,
+      "iscore": investigative,
+      "rscore": realistic,
+      "sscore": social,
+    };
+  }
 }

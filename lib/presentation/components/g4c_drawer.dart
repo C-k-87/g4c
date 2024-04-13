@@ -94,33 +94,39 @@ class G4CDrawer extends StatelessWidget {
   }
 }
 
-AppBar G4CAppBar(String pageTitle, bool rounded) {
-  return AppBar(
-    shape: rounded
-        ? const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.0),
-              bottomRight: Radius.circular(20.0),
+AppBar G4CAppBar(String pageTitle, bool rounded, {bool login = false}) {
+  return login
+      ? AppBar(
+          scrolledUnderElevation: 0,
+          backgroundColor: const Color.fromARGB(255, 195, 255, 195),
+          toolbarHeight: 35.0)
+      : AppBar(
+          scrolledUnderElevation: 0,
+          shape: rounded
+              ? const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0),
+                  ),
+                )
+              : null,
+          title: Text(
+            pageTitle,
+            style: const TextStyle(
+              fontSize: 15.0,
+              fontWeight: FontWeight.bold,
             ),
-          )
-        : null,
-    title: Text(
-      pageTitle,
-      style: const TextStyle(
-        fontSize: 15.0,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    backgroundColor: const Color.fromARGB(255, 195, 255, 195),
-    centerTitle: false,
-    actions: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Image.asset(
-          'asset_lib/images/G4C_logo_text.png',
-          width: 50.0,
-        ),
-      ),
-    ],
-  );
+          ),
+          backgroundColor: const Color.fromARGB(255, 195, 255, 195),
+          centerTitle: false,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Image.asset(
+                'asset_lib/images/G4C_logo_text.png',
+                width: 50.0,
+              ),
+            ),
+          ],
+        );
 }

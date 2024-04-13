@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g4c/domain/use_cases/create_roles_list.dart';
+import 'package:g4c/domain/use_cases/data_handler.dart';
+import 'package:g4c/presentation/views/loader.dart';
 
 class JobRoleList extends StatefulWidget {
   final String searchParam;
@@ -15,12 +17,12 @@ class JobRoleList extends StatefulWidget {
 class _JobRoleListState extends State<JobRoleList> {
   List rolesList = [];
 
-  Future<void> readFile() async {
+  Future<dynamic> readFile() async {
     final String resp = await rootBundle
         .loadString('lib/data/data_sources/json/job_roles.json');
     final data = await jsonDecode(resp);
 
-    rolesList = data["roles"];
+    return data["roles"];
   }
 
   @override
@@ -28,13 +30,14 @@ class _JobRoleListState extends State<JobRoleList> {
     String searchParam = widget.searchParam;
 
     return FutureBuilder(
-        future: readFile(),
+        future: DataHandler().getRolesList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const Loader();
           } else if (snapshot.hasError) {
-            return const Text("error");
+            return const ErrorScreen();
           } else {
+            rolesList = snapshot.data;
             List<Widget> children = createRolesList(rolesList, searchParam);
             return Column(
               children: children,

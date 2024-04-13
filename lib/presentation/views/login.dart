@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
-import 'package:g4c/domain/use_cases/user_profile.dart';
 import 'package:g4c/domain/use_cases/sign_in.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_sign_in_google.dart';
+import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/components/pwd_input.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/components/txt_input.dart';
@@ -31,9 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 195, 255, 195),
-          toolbarHeight: 35.0),
+      appBar: G4CAppBar('', false, login: true),
       body: ListView(
         children: [
           Center(
@@ -87,22 +86,45 @@ class _LoginPageState extends State<LoginPage> {
                   onpressed: () async {
                     String uname = unameController.text.trim();
                     String pwd = pwdController.text;
-                    await signIn(uname, pwd).then((value) {
-                      setUserProfile(value);
-
-                      return value;
-                    }).then((value) =>
-                        value != null ? navtoProfilePage(context) : null);
+                    await signIn(uname, pwd).then((user) async {
+                      if (user != null) {
+                        bool registered =
+                            await DataHandler().isRegistered(user.uid);
+                        if (registered) {
+                          DataHandler().setPrefs(user);
+                        } else {
+                          DataHandler().initializeUserProfile(user);
+                        }
+                        return registered;
+                      }
+                      throw (Exception("User not found"));
+                    }).then(
+                      (isRegistered) => isRegistered
+                          ? navtoProfilePage(context)
+                          : navtoUserDetailEntry(context),
+                    );
                   },
                   btnText: 'Sign In',
                 ),
                 const SizedBox(height: 20.0),
                 BtnSignInGoogle(onPressed: () async {
-                  await signInWithGoogle().then((value) {
-                    setUserProfile(value);
-                    return value;
-                  }).then((value) =>
-                      value != null ? navtoProfilePage(context) : null);
+                  await signInWithGoogle().then((user) async {
+                    if (user != null) {
+                      bool registered =
+                          await DataHandler().isRegistered(user.uid);
+                      if (registered) {
+                        DataHandler().setPrefs(user);
+                      } else {
+                        DataHandler().initializeUserProfile(user);
+                      }
+                      return registered;
+                    }
+                    throw (Exception("User not found"));
+                  }).then(
+                    (isRegistered) => isRegistered
+                        ? navtoProfilePage(context)
+                        : navtoUserDetailEntry(context),
+                  );
                 }),
                 const SizedBox(height: 30.0),
                 TextButton(
