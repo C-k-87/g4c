@@ -36,64 +36,86 @@ class QuizResults extends StatelessWidget {
             return const ErrorScreen();
           } else {
             rolesList = snapshot.data;
-            return Scaffold(
-              appBar: G4CAppBar("Quiz Results", false),
-              body: ListView(
+            return Page(
+                typeCard: typeCard,
+                typeText: typeText,
+                quizScores: quizScores,
+                rolesList: rolesList);
+          }
+        });
+  }
+}
+
+class Page extends StatelessWidget {
+  final TopCard typeCard;
+  final Image typeText;
+  final QuizScores quizScores;
+  final List rolesList;
+
+  const Page(
+      {super.key,
+      required this.typeCard,
+      required this.typeText,
+      required this.quizScores,
+      required this.rolesList});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: G4CAppBar("Quiz Results", false),
+      body: ListView(
+        children: [
+          Column(
+            children: [
+              typeCard,
+              const SizedBox(
+                height: 25.0,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 2,
+                child: typeText,
+              ),
+              const SizedBox(height: 10.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    children: [
-                      typeCard,
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 2,
-                        child: typeText,
-                      ),
-                      const SizedBox(height: 10.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(
-                            child: Legend(),
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.width / 2,
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: PieChartWidget(
-                              scores: quizScores.getScores(),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Center(
-                        child: heading("WHAT DOES THAT MEAN?"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: body(getDescription(quizScores.getType())),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: heading("Recommended jobs:"),
-                      ),
-                      ...createRecommendedRoles(
-                          rolesList, quizScores.getType()),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20.0),
-                        child: BtnBlack(
-                          onpressed: () {
-                            navtoProfilePage(context);
-                          },
-                          btnText: "Go to Profile",
-                        ),
-                      ),
-                    ],
+                  const SizedBox(
+                    child: Legend(),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 2,
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: PieChartWidget(
+                      scores: quizScores.getScores(),
+                    ),
                   ),
                 ],
               ),
-            );
-          }
-        });
+              Center(
+                child: heading("WHAT DOES THAT MEAN?"),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: body(getDescription(quizScores.getType())),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: heading("Recommended jobs:"),
+              ),
+              ...createRecommendedRoles(rolesList, quizScores.getType()),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: BtnBlack(
+                  onpressed: () {
+                    navtoProfilePage(context);
+                  },
+                  btnText: "Go to Profile",
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:g4c/domain/use_cases/create_roles_list.dart';
 import 'package:g4c/domain/use_cases/data_handler.dart';
+import 'package:g4c/presentation/views/loader.dart';
 
 class JobRoleList extends StatefulWidget {
   final String searchParam;
@@ -32,9 +33,9 @@ class _JobRoleListState extends State<JobRoleList> {
         future: DataHandler().getRolesList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const Loader();
           } else if (snapshot.hasError) {
-            return const Text("error");
+            return const ErrorScreen();
           } else {
             rolesList = snapshot.data;
             List<Widget> children = createRolesList(rolesList, searchParam);
