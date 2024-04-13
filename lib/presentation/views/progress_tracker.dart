@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
 
@@ -46,7 +47,17 @@ class CourseCard extends StatelessWidget {
             decoration:
                 BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
             clipBehavior: Clip.antiAlias,
-            child: Image.asset('asset_lib/images/back.png'),
+            child: Column(
+              children: [
+                LineChart(LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: const [FlSpot(0, 1),FlSpot(1, 3),FlSpot(3, 5),FlSpot(4, 2)], // TODO : DATA
+                    )
+                  ]
+                ))
+              ],
+            ),
           ),
         ],
       ),
