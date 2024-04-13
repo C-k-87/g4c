@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
+import 'package:g4c/presentation/views/contact_us.dart';
 import 'package:g4c/presentation/views/personality_quiz_runner.dart';
 import 'package:g4c/domain/use_cases/sign_in.dart';
 import 'package:g4c/presentation/views/job_des.dart';
@@ -103,6 +104,11 @@ void navtoRegistration(BuildContext context) {
 void navtoUserDetailEntry(BuildContext context) {
   Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => const UserDetails()));
+}
+
+void navtoContactUs(BuildContext context){
+  Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => const ContactUs()));
 }
 
 void logout(BuildContext context) {
