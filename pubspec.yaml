@@ -41,6 +41,7 @@ dependencies:
   firebase_auth: ^4.17.6
   google_sign_in: ^6.1.5
   image_picker: ^1.0.7
+  cloud_firestore: ^4.15.6
   fl_chart: ^0.66.2
   shared_preferences: ^2.2.2
   path_provider: ^2.1.2
