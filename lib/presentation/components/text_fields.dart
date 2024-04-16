@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-heading(String text) {
+Widget heading(String text, {double padding = 8.0}) {
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding:  EdgeInsets.all(padding),
     child: Text(
       text,
       style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
@@ -10,9 +10,9 @@ heading(String text) {
   );
 }
 
-subheading(String text) {
+Widget subheading(String text, {double hrPadding = 15.0}) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+    padding:  EdgeInsets.symmetric(horizontal: hrPadding),
     child: Text(
       text,
       style: const TextStyle(fontSize: 15.0),
@@ -20,7 +20,7 @@ subheading(String text) {
   );
 }
 
-body(text) {
+Widget body(text) {
   String data = '';
   try {
     data = text;
@@ -39,7 +39,7 @@ body(text) {
   );
 }
 
-courseCard(text) {
+Widget courseCard(text) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20.0),
     child: Text(text),
