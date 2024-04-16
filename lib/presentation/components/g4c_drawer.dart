@@ -75,6 +75,13 @@ class G4CDrawer extends StatelessWidget {
                       navtoProfilePage(context);
                     },
                     iconData: Icons.supervised_user_circle),
+                BtnNavigation(
+                  btnText: "Contact Us",
+                  onPressed: () {
+                    navtoContactUs(context);
+                  },
+                  iconData: Icons.phone,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 50.0),
                   child: BtnBlackIcon(
