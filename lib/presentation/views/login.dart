@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
-import 'package:g4c/domain/use_cases/firestore_sp.dart';
 import 'package:g4c/domain/use_cases/sign_in.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_sign_in_google.dart';
@@ -88,11 +88,12 @@ class _LoginPageState extends State<LoginPage> {
                     String pwd = pwdController.text;
                     await signIn(uname, pwd).then((user) async {
                       if (user != null) {
-                        bool registered = await isRegistered(user.uid);
+                        bool registered =
+                            await DataHandler().isRegistered(user.uid);
                         if (registered) {
-                          setPrefs(user);
+                          DataHandler().setPrefs(user);
                         } else {
-                          initializeUserProfile(user);
+                          DataHandler().initializeUserProfile(user);
                         }
                         return registered;
                       }
@@ -109,11 +110,12 @@ class _LoginPageState extends State<LoginPage> {
                 BtnSignInGoogle(onPressed: () async {
                   await signInWithGoogle().then((user) async {
                     if (user != null) {
-                      bool registered = await isRegistered(user.uid);
+                      bool registered =
+                          await DataHandler().isRegistered(user.uid);
                       if (registered) {
-                        setPrefs(user);
+                        DataHandler().setPrefs(user);
                       } else {
-                        initializeUserProfile(user);
+                        DataHandler().initializeUserProfile(user);
                       }
                       return registered;
                     }

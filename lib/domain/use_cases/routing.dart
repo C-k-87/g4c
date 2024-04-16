@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
+import 'package:g4c/presentation/views/contact_us.dart';
 import 'package:g4c/presentation/views/personality_quiz_runner.dart';
 import 'package:g4c/domain/use_cases/sign_in.dart';
 import 'package:g4c/presentation/views/job_des.dart';
@@ -18,7 +19,6 @@ void navtoProfilePage(BuildContext context) {
       context, MaterialPageRoute(builder: (context) => const ProfilePage()));
 }
 
-//TODO : UNIMPLEMENTED
 void navtoWelcomePage(BuildContext context) {
   Navigator.pushReplacement(context,
       MaterialPageRoute(builder: (context) => const WelcomePagePersonality()));
@@ -56,7 +56,7 @@ void navtoQuizRetake(BuildContext context, QuizScores quizScores) {
       context,
       MaterialPageRoute(
         builder: (context) => QuizResults(
-          quizScores: quizScores, //TODO : implement score write here
+          quizScores: quizScores,
         ),
       ));
 }
@@ -104,6 +104,11 @@ void navtoRegistration(BuildContext context) {
 void navtoUserDetailEntry(BuildContext context) {
   Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => const UserDetails()));
+}
+
+void navtoContactUs(BuildContext context){
+  Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => const ContactUs()));
 }
 
 void logout(BuildContext context) {
