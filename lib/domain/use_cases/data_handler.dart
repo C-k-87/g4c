@@ -58,6 +58,12 @@ class DataHandler {
       "name": user.displayName,
       "email": user.email,
       "imageURL": user.photoURL,
+      "ascore":0,
+      "cscore":0,
+      "escore":0,
+      "iscore":0,
+      "rscore":0,
+      "sscore":0,
     };
     userDB.doc(user.uid).set(userInfo);
     setPrefs(user);
@@ -66,12 +72,15 @@ class DataHandler {
   Future<void> setPrefs(User user) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('uid', user.uid);
+    print("Set the user ID as ${prefs.getString('uid')}");
   }
 
   Future<void> updateQuizResults(
       QuizScores quizScores, BuildContext context) async {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
+    
     DataProvider provider = Provider.of<DataProvider>(context, listen: false);
+    print("updating quiz results on user ${provider.userID}");
     provider.quizScores = quizScores;
     await userDB
         .doc(provider.userID)

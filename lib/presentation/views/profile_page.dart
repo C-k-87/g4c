@@ -11,7 +11,6 @@ import 'package:g4c/presentation/components/text_fields.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/views/loader.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -31,15 +30,19 @@ class _ProfilePageState extends State<ProfilePage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Loader();
         } else if (snapshot.hasError) {
+          print(snapshot.error);
           return const ErrorScreen();
         } else {
           return Consumer<DataProvider>(
-            builder: (context, user, child) => Page(
+            builder: (context, user, child){
+              print("Profile page reads ${user.userID}");
+              return Page(
                 username: user.userName,
                 userImage: user.userProfPic,
                 quizScores: user.userScores,
                 fontsize: fontsize,
-                rolesList: snapshot.data),
+                rolesList: snapshot.data);
+            } 
           );
         }
       },
@@ -47,9 +50,10 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<dynamic> loadProfilePage() async {
-    DataProvider provider = Provider.of<DataProvider>(context);
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await provider.refreshUserData(prefs.getString('uid') ?? '');
+    Future.delayed(Durations.long1);
+    // DataProvider provider = Provider.of<DataProvider>(context);
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // await provider.refreshUserData(prefs.getString('uid') ?? '');
     return await DataHandler().getRolesList();
   }
 }

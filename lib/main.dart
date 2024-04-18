@@ -4,7 +4,7 @@ import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/presentation/views/loading_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import '../data/data_sources/firebase_options.dart';
+import 'data/data_sources/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

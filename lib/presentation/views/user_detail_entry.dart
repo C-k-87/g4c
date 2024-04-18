@@ -6,6 +6,7 @@ import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_arrow_icon.dart';
 import 'package:g4c/presentation/components/top_card.dart';
+import 'package:g4c/presentation/views/extra_activity.dart';
 import 'package:g4c/presentation/views/extra_course.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -167,11 +168,12 @@ class _UserDetailsState extends State<UserDetails> {
                       width: 83,
                     ),
                     BtnNavigation1(
+                      
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ExtraActivity()),
+                              builder: (context) => const ExtraCourse()),
                         );
                       },
                       iconData: Icons.arrow_forward,
@@ -184,7 +186,6 @@ class _UserDetailsState extends State<UserDetails> {
                 BtnBlack(
                   btnText: 'Save',
                   onpressed: () {
-                    print("Setting varaibles");
                     // TODO : SAVE VARIABLES TO FIRESTORE AND SET SHARED PREFERENCES
                     navtoWelcomePage(context);
                   },

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/presentation/components/course_card.dart';
 
-class ExtraActivity extends StatefulWidget {
-  const ExtraActivity({Key? key}) : super(key: key);
+class ExtraCourse extends StatefulWidget {
+  const ExtraCourse({Key? key}) : super(key: key);
 
   @override
-  _ExtraActivityState createState() => _ExtraActivityState();
+  _ExtraCourseState createState() => _ExtraCourseState();
 }
 
-class _ExtraActivityState extends State<ExtraActivity> {
+class _ExtraCourseState extends State<ExtraCourse> {
   final col1 = const Color.fromARGB(255, 195, 255, 195);
 
   List<String> courses = [];
@@ -70,7 +70,7 @@ class _ExtraActivityState extends State<ExtraActivity> {
               ),
             ),
             const Text(
-              'YOUR EXTRA COURSE',
+              'YOUR EXTRA COURSES',
               style: TextStyle(
                 fontSize: 30.0,
               ),
