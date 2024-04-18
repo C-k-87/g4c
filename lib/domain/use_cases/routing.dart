@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
 import 'package:g4c/presentation/views/contact_us.dart';
@@ -9,6 +10,7 @@ import 'package:g4c/presentation/views/login.dart';
 import 'package:g4c/presentation/views/personality_quizes_main.dart';
 import 'package:g4c/presentation/views/personality_welcome_page.dart';
 import 'package:g4c/presentation/views/profile_page.dart';
+import 'package:g4c/presentation/views/prog_track_details.dart';
 import 'package:g4c/presentation/views/progress_tracker.dart';
 import 'package:g4c/presentation/views/quiz_results.dart';
 import 'package:g4c/presentation/views/register.dart';
@@ -63,14 +65,12 @@ void navtoQuizRetake(BuildContext context, QuizScores quizScores) {
 
 void navtoProgressTracker(BuildContext context) {
   Navigator.pushReplacement(context,
-      MaterialPageRoute(builder: (context) => const ProgressTracker()));
+      MaterialPageRoute(builder: (context) => ProgressTracker()));
 }
 
-//TODO : UNIMPLEMENTED
-void navtoProgTrackCourseDetails(BuildContext context) {
-  throw UnimplementedError();
-  // Navigator.push(context,
-  //     MaterialPageRoute(builder: (context) => const ___()));
+void navtoProgTrackCourseDetails(BuildContext context, LineChartData data) {
+  Navigator.push(context,
+      MaterialPageRoute(builder: (context) => ProgTrackDetails(data: data,)));
 }
 
 //TODO : UNIMPLEMENTED

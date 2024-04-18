@@ -18,13 +18,14 @@ class DataProvider extends ChangeNotifier {
 
   Future<void> refreshUserData(String? uid) async {
     if (uid != null) {
+      print("refreshing data for $uid");
       Map<String, dynamic> userDoc = {};
       CollectionReference userDB =
           FirebaseFirestore.instance.collection('Users');
       await userDB.doc(uid).get().then((value) {
         userDoc = value.data() as Map<String, dynamic>;
       });
-
+      
       _userID = userDoc['uid'];
       _userEmail = userDoc['email'];
       _userName = userDoc['name'];
