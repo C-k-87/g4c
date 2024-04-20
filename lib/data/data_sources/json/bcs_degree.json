@@ -1,0 +1,56 @@
+{
+    "courseName": "Bachelor's of Computer Science (General)",
+    "courseData": {
+        "semester 1": [
+            {
+                "course": "Course1",
+                "id": "CSC1111",
+                "credits": 1.0
+            },
+            {
+                "course": "Course2",
+                "id": "CSC1112",
+                "credits": 3.0
+            },
+            {
+                "course": "Course3",
+                "id": "CSC1113",
+                "credits": 2.0
+            }
+        ],
+        "semester 2": [
+            {
+                "course": "Course1",
+                "id": "CSC1211",
+                "credits": 1.0
+            },
+            {
+                "course": "Course2",
+                "id": "CSC1212",
+                "credits": 3.0
+            },
+            {
+                "course": "Course3",
+                "id": "CSC1213",
+                "credits": 2.0
+            }
+        ],
+        "semester 3": [
+            {
+                "course": "Course1",
+                "id": "CSC2111",
+                "credits": 1.0
+            },
+            {
+                "course": "Course2",
+                "id": "CSC2112",
+                "credits": 3.0
+            },
+            {
+                "course": "Course3",
+                "id": "CSC2113",
+                "credits": 2.0
+            }
+        ]
+    }
+}

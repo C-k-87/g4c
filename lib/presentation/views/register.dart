@@ -133,17 +133,17 @@ class _RegisterPageState extends State<RegisterPage> {
                     String email = emailController.text;
 
                     if (password == confPwdController.text) {
-                      signUp(email, password, username).then((user) async{
+                      signUp(email, password, username).then((user) async {
                         // user != null
                         //     ? DataHandler().initializeUserProfile(user)
                         //     : print("Error registering");
-                        if(user != null){
+                        if (user != null) {
                           DataHandler().initializeUserProfile(user);
                           await provider.refreshUserData(user.uid);
                         }
                         return user;
                       }).then((user) => user != null
-                          ? navtoUserDetailEntry(context)
+                          ? navtoUserDetailEntry(context, user.displayName)
                           : print("nav rejected"));
                     } else {
                       showAlert(context, "Passwords do not match");

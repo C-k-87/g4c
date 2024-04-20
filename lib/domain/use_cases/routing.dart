@@ -16,6 +16,8 @@ import 'package:g4c/presentation/views/quiz_results.dart';
 import 'package:g4c/presentation/views/register.dart';
 import 'package:g4c/presentation/views/user_detail_entry.dart';
 
+import '../../data/entities/semester_item.dart';
+
 void navtoProfilePage(BuildContext context) {
   Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => const ProfilePage()));
@@ -65,12 +67,29 @@ void navtoQuizRetake(BuildContext context, QuizScores quizScores) {
 
 void navtoProgressTracker(BuildContext context) {
   Navigator.pushReplacement(context,
-      MaterialPageRoute(builder: (context) => ProgressTracker()));
+      MaterialPageRoute(builder: (context) => const ProgressTracker()));
 }
 
-void navtoProgTrackCourseDetails(BuildContext context, LineChartData data) {
-  Navigator.push(context,
-      MaterialPageRoute(builder: (context) => ProgTrackDetails(data: data,)));
+void navtoProgTrackCourseDetails(
+    BuildContext context,
+    String courseCode,
+    List<SemesterItem> semesterItems,
+    String degreeName,
+    double gpa,
+    double progress,
+    List<FlSpot> spots) {
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProgTrackDetails(
+          courseCode: courseCode,
+          semesterItems: semesterItems,
+          degreeName: degreeName,
+          gpa: gpa,
+          progress: progress,
+          spots: spots,
+        ),
+      ));
 }
 
 //TODO : UNIMPLEMENTED
@@ -101,12 +120,16 @@ void navtoRegistration(BuildContext context) {
       context, MaterialPageRoute(builder: (context) => const RegisterPage()));
 }
 
-void navtoUserDetailEntry(BuildContext context) {
+void navtoUserDetailEntry(BuildContext context, [String? username]) {
   Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => const UserDetails()));
+      context,
+      MaterialPageRoute(
+          builder: (context) => UserDetails(
+                username: username,
+              )));
 }
 
-void navtoContactUs(BuildContext context){
+void navtoContactUs(BuildContext context) {
   Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => const ContactUs()));
 }

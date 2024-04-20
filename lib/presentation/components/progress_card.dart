@@ -3,34 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/text_fields.dart';
 
+import '../../data/entities/semester_item.dart';
+import '../../domain/use_cases/generate_bars.dart';
+
 class ProgressCard extends StatelessWidget {
+  const ProgressCard(
+      {super.key,
+      required this.gpa,
+      required this.progress,
+      required this.spots,
+      required this.degreeName,
+      required this.semesterItems});
   final double gpa;
   final double progress;
-  final List<FlSpot> data;
-
-  const ProgressCard({super.key, this.gpa=2.5, this.progress=10, required this.data});
-
-  LineChartData bars() {
-    return LineChartData(
-      backgroundColor: Colors.black87,
-      lineBarsData: [
-        LineChartBarData(
-          spots: data,
-          isCurved: true,
-          gradient: const LinearGradient(
-            colors: [Colors.cyan, Colors.blue],
-          ),
-          barWidth: 5,
-          belowBarData: BarAreaData(
-            show: true,
-            gradient: const LinearGradient(
-              colors: [Colors.blue, Colors.blueGrey],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+  final List<FlSpot> spots;
+  final String degreeName;
+  final List<SemesterItem> semesterItems;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +27,10 @@ class ProgressCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       color: const Color.fromARGB(255, 195, 255, 195),
       child: InkWell(
-        onTap: (){navtoProgTrackCourseDetails(context,bars());},
+        onTap: () {
+          navtoProgTrackCourseDetails(context, degreeName, semesterItems,
+              degreeName, gpa, progress, spots);
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,11 +41,12 @@ class ProgressCard extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10.0),
                       bottomRight: Radius.circular(10.0))),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 100.0, vertical: 10.0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 100.0, vertical: 10.0),
                 child: Text(
-                  "Course Name",
-                  style: TextStyle(color: Colors.white),
+                  degreeName,
+                  style: const TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -66,7 +58,7 @@ class ProgressCard extends StatelessWidget {
                 elevation: 10.0,
                 child: AspectRatio(
                   aspectRatio: 1.8,
-                  child: LineChart(bars()),
+                  child: LineChart(generateBars(spots)),
                 ),
               ),
             ),
@@ -76,7 +68,7 @@ class ProgressCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   subheading("Progress: $progress%"),
-                  subheading("GPA:$gpa"),
+                  subheading("GPA: $gpa"),
                 ],
               ),
             ),

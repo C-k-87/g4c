@@ -7,12 +7,14 @@ class DataProvider extends ChangeNotifier {
   String _userID = 'n/a';
   String _userEmail = 'n/a';
   String _userName = 'Username';
+  String _userDegree = 'n/a';
   ProfPic _userProfPic = const ProfPic();
   QuizScores _userScores = QuizScores(0, 0, 0, 0, 0, 0);
 
   String get userID => _userID;
   String get userEmail => _userEmail;
   String get userName => _userName;
+  String get userDegree => _userDegree;
   ProfPic get userProfPic => _userProfPic;
   QuizScores get userScores => _userScores;
 
@@ -25,7 +27,7 @@ class DataProvider extends ChangeNotifier {
       await userDB.doc(uid).get().then((value) {
         userDoc = value.data() as Map<String, dynamic>;
       });
-      
+
       _userID = userDoc['uid'];
       _userEmail = userDoc['email'];
       _userName = userDoc['name'];
@@ -52,6 +54,11 @@ class DataProvider extends ChangeNotifier {
 
   set userProfPic(ProfPic profPic) {
     _userProfPic = profPic;
+    notifyListeners();
+  }
+
+  set userDegree(String userDegree) {
+    _userDegree = userDegree;
     notifyListeners();
   }
 }
