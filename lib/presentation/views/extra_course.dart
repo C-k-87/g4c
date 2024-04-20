@@ -47,6 +47,7 @@ class _ExtraCourseState extends State<ExtraCourse> {
       editingIndex = null;
       courseController.clear();
     });
+    //TODO: add logic to save details
   }
 
   @override
