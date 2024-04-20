@@ -1,7 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:g4c/data/data_sources/firebase_options.dart';
 import 'package:g4c/data/entities/course__detail_provider.dart';
 import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
@@ -13,19 +11,6 @@ import '../../data/entities/subject.dart';
 import '../../domain/use_cases/get_degree_data.dart';
 import '../components/activity_card.dart';
 import '../components/progress_card.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(ChangeNotifierProvider(
-    create: (BuildContext context) => CourseDetailProvider(),
-    child: const MaterialApp(
-      home: ProgressTracker(),
-    ),
-  ));
-}
 
 class ProgressTracker extends StatefulWidget {
   const ProgressTracker({super.key});
@@ -50,19 +35,6 @@ class _ProgressTrackerState extends State<ProgressTracker> {
         body: Consumer<CourseDetailProvider>(
           builder: (context, CourseDetailProvider courseDetailProvider,
               Widget? child) {
-            // TODO : -----------------------------------------------------------------
-
-            // courseDetailProvider.setDegreeCode('bcs_degree');
-            // courseDetailProvider.setGradeValues([
-            //   [4.0, 2.0, 0.0],
-            //   [0.0, 0.0, 0.0], //TODO : REMOVE. Testing only
-            //   [0.0, 0.0, 0.0],
-            // ]);
-            // courseDetailProvider.setDegreeGpa(0);
-            // courseDetailProvider.setDegreeProgress(0);
-
-            // ---------------- REMOVE ------------------------------------------------
-
             return FutureBuilder(
                 future: initializeProgressTracker(courseDetailProvider),
                 builder: (context, snapshot) {
@@ -78,7 +50,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
                       semesterItems: semesterItems,
                       gpa: degreeGpa ?? 0,
                       progress: degreeProgress ?? 0,
-                      spots: getDegreeData(semesterItems, type: "spots"),
+                      degreeSpots: getDegreeData(semesterItems, type: "spots"),
                     );
                   }
                 });
@@ -88,7 +60,9 @@ class _ProgressTrackerState extends State<ProgressTracker> {
 
   Future<void> initializeProgressTracker(
       CourseDetailProvider courseDetailProvider) async {
-    degreeCode = courseDetailProvider.degreeCode;
+    // degreeCode = courseDetailProvider.degreeCode;
+    //TODO: REMOVE HARDCODE. for testing only:
+    degreeCode = 'bcs_degree';
     userGradeValues = courseDetailProvider.degreeGradeValues;
     print(userGradeValues);
     if (degreeCode != null) {
@@ -127,7 +101,7 @@ class Page extends StatelessWidget {
   final double gpa;
   final double progress;
   final String degreeName;
-  final List<FlSpot> spots;
+  final List<FlSpot> degreeSpots;
   final List<SemesterItem> semesterItems;
 
   const Page(
@@ -136,7 +110,7 @@ class Page extends StatelessWidget {
       required this.semesterItems,
       required this.gpa,
       required this.progress,
-      required this.spots});
+      required this.degreeSpots});
 
   @override
   Widget build(BuildContext context) {
@@ -148,20 +122,21 @@ class Page extends StatelessWidget {
         ProgressCard(
           gpa: gpa,
           progress: progress,
-          spots: spots,
+          spots: degreeSpots,
           degreeName: degreeName,
           semesterItems: semesterItems,
         ),
-        // const SizedBox(
-        //   height: 20.0,
-        // ),
-        // heading("Extra Courses"),
-        // ProgressCard(
-        //   gpa: 1.0,
-        //   progress: 50,
-        //   data: widget.data,
-        //   courseCode: 'extra_course',
-        // ),
+        const SizedBox(
+          height: 20.0,
+        ),
+        heading("Extra Courses"),
+        const ProgressCard(
+          gpa: 1.0,
+          progress: 50,
+          spots: [],
+          degreeName: 'Extra Course',
+          semesterItems: [],
+        ),
         const SizedBox(
           height: 20.0,
         ),
