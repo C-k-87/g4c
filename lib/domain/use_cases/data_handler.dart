@@ -39,6 +39,13 @@ class DataHandler {
     }
   }
 
+  Future<dynamic> getDegreeProgram(String degreeName) async {
+    final String resp = await rootBundle
+        .loadString('lib/data/data_sources/json/$degreeName.json');
+    final data = await jsonDecode(resp);
+    return data;
+  }
+
   Future<bool> isLogged() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool('isSignedIn') ?? false;
@@ -58,12 +65,12 @@ class DataHandler {
       "name": user.displayName,
       "email": user.email,
       "imageURL": user.photoURL,
-      "ascore":0,
-      "cscore":0,
-      "escore":0,
-      "iscore":0,
-      "rscore":0,
-      "sscore":0,
+      "ascore": 0,
+      "cscore": 0,
+      "escore": 0,
+      "iscore": 0,
+      "rscore": 0,
+      "sscore": 0,
     };
     userDB.doc(user.uid).set(userInfo);
     setPrefs(user);
@@ -78,7 +85,7 @@ class DataHandler {
   Future<void> updateQuizResults(
       QuizScores quizScores, BuildContext context) async {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
-    
+
     DataProvider provider = Provider.of<DataProvider>(context, listen: false);
     print("updating quiz results on user ${provider.userID}");
     provider.quizScores = quizScores;

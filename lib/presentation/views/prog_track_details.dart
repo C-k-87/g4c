@@ -1,12 +1,31 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:g4c/data/entities/course__detail_provider.dart';
+import 'package:g4c/presentation/components/btn_white.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/components/text_fields.dart';
+import 'package:provider/provider.dart';
+
+import '../../data/entities/semester_item.dart';
+import '../../domain/use_cases/generate_bars.dart';
+import '../../domain/use_cases/get_degree_data.dart';
+import '../components/grades_card.dart';
 
 class ProgTrackDetails extends StatefulWidget {
-  final LineChartData data;
-  const ProgTrackDetails({super.key, required this.data});
-
+  const ProgTrackDetails(
+      {super.key,
+      required this.courseCode,
+      required this.semesterItems,
+      required this.degreeName,
+      required this.gpa,
+      required this.progress,
+      required this.spots});
+  final double gpa;
+  final double progress;
+  final String courseCode;
+  final String degreeName;
+  final List<FlSpot> spots;
+  final List<SemesterItem> semesterItems;
   @override
   State<ProgTrackDetails> createState() => _ProgTrackDetailsState();
 }
@@ -17,43 +36,77 @@ class _ProgTrackDetailsState extends State<ProgTrackDetails> {
     return Scaffold(
       appBar: G4CAppBar('Course Details', true),
       drawer: const G4CDrawer(),
-      body: Page(
-        degreeName: 'Degree',
-        data: widget.data,
+      body: Consumer<CourseDetailProvider>(
+        builder: (BuildContext context, CourseDetailProvider provider,
+            Widget? child) {
+          return Page(
+            degreeName: widget.degreeName,
+            semesterItems: widget.semesterItems,
+            expansionCallback: (panelIndex, isExpanded) => setState(
+              () {
+                widget.semesterItems[panelIndex].isExpanded = isExpanded;
+              },
+            ),
+            gpa: widget.gpa,
+            progress: widget.progress,
+            spots: widget.spots,
+            provider: provider,
+          );
+        },
       ),
     );
   }
 }
 
-class Page extends StatelessWidget {
+class Page extends StatefulWidget {
+  final CourseDetailProvider provider;
+  final double gpa;
+  final double progress;
   final String degreeName;
-  final LineChartData data;
+  final List<FlSpot> spots;
+  final List<SemesterItem> semesterItems;
+  final Function(int, bool)? expansionCallback;
 
-  const Page({super.key, required this.degreeName, required this.data});
+  const Page({
+    super.key,
+    required this.degreeName,
+    required this.spots,
+    required this.semesterItems,
+    required this.expansionCallback,
+    required this.gpa,
+    required this.progress,
+    required this.provider,
+  });
+
+  @override
+  State<Page> createState() => _PageState();
+}
+
+class _PageState extends State<Page> {
+  double? gpa;
+  double? progress;
+  List<FlSpot>? spots;
 
   @override
   Widget build(BuildContext context) {
-    List<SemesterCard> semCardList = [
-      SemesterCard(
-        subjects: ["Subject1", "Subject2", "Subject3"],
-        semesterName: "Semester 1",
-      ),
-      SemesterCard(
-        subjects: ["Subject1", "Subject2", "Subject3"],
-        semesterName: "Semester 2",
-      ),
-      SemesterCard(
-        subjects: ["Subject1", "Subject2", "Subject3"],
-        semesterName: "Semester 3",
-      ),
-    ];
+    gpa = gpa ?? widget.gpa;
+    progress = progress ?? widget.progress;
     return ListView(
       children: [
-        heading(degreeName),
-        AspectRatio(aspectRatio: 1.8, child: LineChart(data)),
-        const SizedBox(
-          height: 20.0,
+        const SizedBox(height: 20.0),
+        Center(child: heading(widget.degreeName)),
+        AspectRatio(
+            aspectRatio: 1.8,
+            child: LineChart(generateBars(spots ?? widget.spots, 4.0))),
+        const SizedBox(height: 20.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text("Progress: $progress%"),
+            Text("GPA: $gpa"),
+          ],
         ),
+        const SizedBox(height: 20.0),
         Container(
           width: double.maxFinite,
           decoration: const BoxDecoration(color: Colors.black),
@@ -71,57 +124,38 @@ class Page extends StatelessWidget {
         const SizedBox(
           height: 20.0,
         ),
-        GradesCard(semCardList: semCardList)
+        GradesCard(
+          expansionCallback: widget.expansionCallback,
+          semesterItems: widget.semesterItems,
+        ),
+        const SizedBox(
+          height: 20.0,
+        ),
+        BtnWhite(
+          onpressed: updateResults,
+          btnText: "Update Results",
+          width: 30.0,
+        ),
       ],
     );
   }
-}
 
-class GradesCard extends StatefulWidget {
-  const GradesCard({super.key, required this.semCardList});
+  updateResults() {
+    CourseDetailProvider courseDetailProvider = widget.provider;
+    List<List<double>> updatedGradeValues = [];
+    for (var semester in widget.semesterItems) {
+      List<double> subjectResults = [];
+      for (var subject in semester.subjectList) {
+        subjectResults.add(subject.gradeValue);
+      }
+      updatedGradeValues.add(subjectResults);
+    }
+    courseDetailProvider.setGradeValues(updatedGradeValues);
 
-  final List<SemesterCard> semCardList;
-
-  @override
-  State<GradesCard> createState() => _GradesCardState();
-}
-
-class _GradesCardState extends State<GradesCard> {
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionPanelList(
-      children: widget.semCardList
-          .map((semCard) => ExpansionPanel(
-              backgroundColor: const Color.fromARGB(255, 241, 241, 241),
-              isExpanded: semCard.isExpanded,
-              headerBuilder: (context, isExpanded) {
-                return ListTile(
-                  title: Text(semCard.semesterName.toUpperCase()),
-                );
-              },
-              body: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children: semCard.subjects.map((e) => Text(e)).toList(),
-                ),
-              )))
-          .toList(),
-      expansionCallback: (panelIndex, isExpanded) {
-        setState(() {
-          widget.semCardList[panelIndex].isExpanded = isExpanded;
-        });
-      },
-    );
+    setState(() {
+      gpa = getDegreeData(widget.semesterItems, type: "gpa");
+      progress = getDegreeData(widget.semesterItems, type: "progress");
+      spots = getDegreeData(widget.semesterItems, type: "spots");
+    });
   }
-}
-
-class SemesterCard {
-  SemesterCard({
-    required this.subjects,
-    required this.semesterName,
-  });
-
-  final String semesterName;
-  final List<String> subjects;
-  bool isExpanded = false;
 }

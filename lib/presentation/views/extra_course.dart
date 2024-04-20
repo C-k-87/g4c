@@ -47,6 +47,7 @@ class _ExtraActivityState extends State<ExtraActivity> {
       editingIndex = null;
       courseController.clear();
     });
+    //TODO: add logic to save details
   }
 
   @override

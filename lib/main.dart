@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/data/entities/course__detail_provider.dart';
 import 'package:g4c/data/entities/data_provider.dart';
 import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/presentation/views/loading_page.dart';
@@ -11,12 +12,25 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ChangeNotifierProvider(
-    create: (BuildContext context) => DataProvider(),
-    child: G4CApp(
-      isSignedIn: await DataHandler().isLogged(),
+  runApp(
+    // ChangeNotifierProvider(
+    //   create: (BuildContext context) => DataProvider(),
+    //   child: G4CApp(
+    //     isSignedIn: await DataHandler().isLogged(),
+    //   ),
+    // ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (BuildContext context) => DataProvider()),
+        ChangeNotifierProvider(
+            create: (BuildContext context) => CourseDetailProvider()),
+      ],
+      child: G4CApp(
+        isSignedIn: await DataHandler().isLogged(),
+      ),
     ),
-  ));
+  );
 }
 
 class G4CApp extends StatelessWidget {

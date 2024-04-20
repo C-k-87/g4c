@@ -7,11 +7,14 @@ class Loader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-        child: SpinKitThreeBounce(
-          duration: Duration(seconds: 2),
-          size: 30,
-          color: Colors.black,
+      body: Align(
+        alignment: Alignment.center,
+        child: Center(
+          child: SpinKitThreeBounce(
+            duration: Duration(seconds: 2),
+            size: 30,
+            color: Colors.black,
+          ),
         ),
       ),
     );
@@ -19,21 +22,23 @@ class Loader extends StatelessWidget {
 }
 
 class ErrorScreen extends StatelessWidget {
-  const ErrorScreen({super.key});
-
+  const ErrorScreen({super.key, this.error});
+  final Object? error;
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
           child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Text(
-              "G4C has encountered an error...",
+              error != null
+                  ? error.toString()
+                  : "G4C has encountered an error...",
             ),
           ),
-          SpinKitCircle(
+          const SpinKitCircle(
             duration: Duration(seconds: 2),
             size: 30,
             color: Colors.black,

@@ -124,13 +124,14 @@ class _LoginPageState extends State<LoginPage> {
 
                       await provider.refreshUserData(user.uid);
                       print("Finished here");
-                      return registered;
+                      return [user, registered];
                     }
                     throw (Exception("User not found"));
                   }).then(
-                    (isRegistered) => isRegistered
+                    (userDetails) => userDetails[1] as bool
                         ? navtoProfilePage(context)
-                        : navtoUserDetailEntry(context),
+                        : navtoUserDetailEntry(
+                            context, userDetails[0] as String),
                   );
                 }),
                 const SizedBox(height: 30.0),
