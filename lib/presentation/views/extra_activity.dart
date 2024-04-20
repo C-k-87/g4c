@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/presentation/components/course_card.dart';
 
-class ExtraCourse extends StatefulWidget {
-  const ExtraCourse({Key? key}) : super(key: key);
+class ExtraActivity extends StatefulWidget {
+  const ExtraActivity({Key? key}) : super(key: key);
 
   @override
-  _ExtraCourseState createState() => _ExtraCourseState();
+  _ExtraActivityState createState() => _ExtraActivityState();
 }
 
-class _ExtraCourseState extends State<ExtraCourse> {
+class _ExtraActivityState extends State<ExtraActivity> {
   final col1 = const Color.fromARGB(255, 195, 255, 195);
 
   List<String> courses = [];
@@ -47,7 +47,6 @@ class _ExtraCourseState extends State<ExtraCourse> {
       editingIndex = null;
       courseController.clear();
     });
-    //TODO: add logic to save details
   }
 
   @override
@@ -71,7 +70,7 @@ class _ExtraCourseState extends State<ExtraCourse> {
               ),
             ),
             const Text(
-              'YOUR EXTRA COURSES',
+              'YOUR EXTRA ACTIVITIES',
               style: TextStyle(
                 fontSize: 30.0,
               ),
@@ -83,7 +82,7 @@ class _ExtraCourseState extends State<ExtraCourse> {
                   child: TextField(
                     controller: courseController,
                     decoration: const InputDecoration(
-                      labelText: 'Course Name',
+                      labelText: 'Activity Name',
                     ),
                   ),
                 ),
