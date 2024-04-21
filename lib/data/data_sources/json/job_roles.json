@@ -13,7 +13,7 @@
             },
             "traits": ["I","R","C"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Identify yourself and your friends\n-Job fair\n-Blossm your life\n-How to succeed\n-Communication Skills\n-Rover scout group\n-Gavel (Communication Skills)",
                 "tech":"-Algorithms and Data Structures Coures\n-Web Development Courses\n-Mobile App Development Courses\n-Software Engineering Fundamentals Courses\n-Database Management Courses\n-Machine Learning and Artificial Intelligence Courses\n-Cybersecurity Courses\n-Cloud Computing Courses\n-Programming Languages Courses"
             }
         },
@@ -29,7 +29,7 @@
             },
             "traits": ["I","E"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-Job fair\n-Educational Magazine\n-Communication Skills\n-Rover scout group\n-Entrepreneurship hub\n-Gavel\n-Zero plastic\n-Career guide",
                 "tech":"-Business Analysis Fundamentals Courses\n-Data Analysis and Visualization Courses\n-Requirements Analysis and Documentation Courses\n-Project Management Courses\n-Process Improvement and Optimization Courses\n-Data Analytics Tools\n-Business Communication Courses\n"
             }
         },
@@ -45,7 +45,7 @@
             },
             "traits": ["E","S"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-Job fair\n-How to plan your life\n-How to achieve your targets\n-Blossm your life\n-How to become a leader\n-How to succeed\n-Community Services\n-Seven habits of higly effective people\n-Gavel\n-Leo\n-Rover scout group\n-Entrepreneurship hub\n-Communication Skills\n-Career guide",
                 "tech":"-Project Management Fundamentals Courses\n-Lean Six Sigma Courses\n-Project Management Professional (PMP) Courses\n-Agile and Scrum Courses\n-Fundamentals of Project Risk Management Courses\n-Stakeholder Management Courses"
             }
         },
@@ -62,7 +62,7 @@
 
             "traits": ["I","C"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-How to become a leader\n-First Aid training\n-Entrepreneurship hub\n-Workshop on CV writing & interview facing",
                 "tech":"-Software Testing Fundamentals Courses\n-Introduction to Quality Assurance Courses\n-Test Automation Courses\n-Agile Methodologies Courses\n-Software Development Processes and Methodologies Courses\n-Bug Tracking and Reporting Courses\n-Performance Testing Courses\n-Mobile App Testing Courses"
             }
         },
@@ -78,7 +78,7 @@
             },
             "traits": ["I","C"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-How to achieve your targets\n-Blossm your life\n-Zero plastic\n-Workshop on CV writing & interview facing",
                 "tech":"-Introduction to Databases Courses\n-SQL Fundamentals Courses\n-Database Design and Management Courses\n-Data Warehousing Courses\n-Database Administration Courses\n-Cloud Database Management Courses"
             }
         },
@@ -94,7 +94,7 @@
             },
             "traits": ["R","I"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-Workshop on CV writing & interview facing\n-Gavel\n-Leo\n-Career guide",
                 "tech":"-Linux Fundamentals Courses\n-Scripting and Automation Courses\n-Version Control Courses\n-Continuous Integration/Continuous Deployment (CI/CD) Courses\n-Cloud Platforms Courses"
             }
         },
@@ -110,7 +110,7 @@
             },
             "traits": ["R","I"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-Workshop on CV writing & interview facing\n-Soft skills and personality development\n-Identify yourself and your friends\n-Positive attitude",
                 "tech":"-Introduction to Networking Courses\n-Networking Fundamentals Courses\n-Cisco CCNA Certification Preparation Courses\n-Network Security Basics Courses\n-Linux Fundamentals Courses\n-Introduction to Routing and Switching Courses\n-Network Troubleshooting and Tools"
             }
         },
@@ -126,7 +126,7 @@
             },
             "traits": ["I","R"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-Soft skills and personality development\n-How to achieve your targets\n-New trends of job market\n-Positive attitude\n-Communication Skills\n-Rover scout group\n-Gavel\n-Zero plastic\n-Career guide",
                 "tech":"-Mathematics and Statistics Courses\n-Programming Languages Courses\n-Data Analysis and Visualization Courses\n-Machine Learning and Data Mining Courses\n-Big Data Technologies Courses\n-Data Engineering Courses"
             }
         },
@@ -142,7 +142,7 @@
             },
             "traits": ["A","I"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-Job fair\n-Communication Skills\n-Photography\n-Rover scout group\n-Educational Magazine\n-Paper Quilling and origami",
                 "tech":"-Introduction to UI/UX Design Courses\n-Human-Computer Interaction Courses\n-User Research and Prototyping Courses\n-Graphic Design Courses\n-Responsive Website Development and Design Courses\n-Mobile App Design Courses\n-Portfolio Development Courses"
             }
         },
@@ -158,7 +158,7 @@
             },
             "traits": ["I","C"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-Communication Skills\n-Positive attitude\n-New trends of job market",
                 "tech":"-Software Engineering Fundamentals Courses\n-System Design and Architecture Courses\n-Advanced Programming Concepts\n-Cloud Computing and Distributed Systems Courses\n-Database Design and Management Courses\n-Enterprise Architecture Courses"
             }
         },
@@ -174,7 +174,7 @@
             },
             "traits": ["I","C"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-Communication Skills\n-Soft skills and personality development\n-How to achieve your targets\n-New trends of job market\n-Positive attitude\n-Communication Skills\n-Rover scout group\n-Gavel\n-Zero plastic\n-Career guide",
                 "tech":"-Introduction to Computer Science Courses\n-Data Structures and Algorithms Courses\n-Discrete Mathematics Courses\n-Programming Languages Courses\n-Operating Systems Courses\n-Computer Networks Courses\n-Introduction to Databases Courses\n-Artificial Intelligence Courses"
             }
         },
@@ -190,7 +190,7 @@
             },
             "traits": ["I","R"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-Communication Skills\n-Positive attitude\n-Gavel\n-Rover scout group",
                 "tech":"-Mathematics and Statistics Fundamentals Courses\n-Programming Fundamentals Courses\n-Data Science and Machine Learning Fundamentals Courses"
             }
         },
@@ -206,7 +206,7 @@
             },
             "traits": ["E","C"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-Communication Skills\n-Career guide\n-Gavel\n-Rover scout group\n-Good behavior & sex education for young university students\n-How to achieve your targets\n-How to plan your life",
                 "tech":"-Business Analysis Fundamentals Courses\n-Project Management Courses\n-Information Technology Management Courses\n-Data Analysis and Visualization Courses\n-Cybersecurity Awareness Courses\n-Information Systems Planning and Strategy Courses"
             }
         },
@@ -222,7 +222,7 @@
             },
             "traits": ["I","R"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-How to plan your life\n-Job fair\n-How to succeed\n-Communication Skills\n-Seven habits of higly effective people\n-Rover scout group\n-Gavel (Communication Skills)",
                 "tech":"-Introduction to Computer Science Courses\n-Programming Fundamentals Courses\n-Data Structures and Algorithms Courses\n-Web Development Courses\n-Mobile App Development Corses\n-Database Management Courses\n-Software Engineering Fundamentals Courses\n-Version Control Courses\n-Computer Networking Courses\n-Operating Systems Courses\n"
             }
         },
@@ -238,7 +238,7 @@
             },
             "traits": ["I","C"],
             "courses":{
-                "soft":"-soft1\n-soft2",
+                "soft":"-Job fair\n-Good behavior & sex education for young university students\n-How to become a leader\n-Positive attitude\n-First Aid training\n-Table manners\n-Leadership program\n-Educational Magazine\n-Gavel (Communication Skills)\n-Communication Skills\n-Moderator Program",
                 "tech":"-Advanced Mathematics Courses\n-research methods and techniques Courses\n-Programming Language Courses\n-Data Structures and Algorithms Courses\n-Software Engineering Principles Courses"
             }
         }
