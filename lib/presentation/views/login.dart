@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     (userDetails) => userDetails[1] as bool
                         ? navtoProfilePage(context)
                         : navtoUserDetailEntry(
-                            context, userDetails[0] as String),
+                            context),
                   );
                 }),
                 const SizedBox(height: 30.0),
