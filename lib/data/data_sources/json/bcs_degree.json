@@ -3,54 +3,226 @@
     "courseData": {
         "semester 1": [
             {
-                "course": "Course1",
-                "id": "CSC1111",
-                "credits": 1.0
-            },
-            {
-                "course": "Course2",
-                "id": "CSC1112",
+                "course": "Programming Techniques",
+                "id": "CSC1113",
                 "credits": 3.0
             },
             {
-                "course": "Course3",
-                "id": "CSC1113",
+                "course": "Computer Systems",
+                "id": "CSC1122",
                 "credits": 2.0
+            },
+            {
+                "course": "Internet Services and Web Development",
+                "id": "CSC113a",
+                "credits": 1.5
+            },
+            {
+                "course": "System Analysis and Design",
+                "id": "CSC1142",
+                "credits": 2.0
+            },
+            {
+                "course": "Laboratory Assignments",
+                "id": "CSC1153",
+                "credits": 3.0
+            },
+            {
+                "course": "Differential Equations",
+                "id": "MAT112c",
+                "credits": 1.25
+            },
+            {
+                "course": "Introductory Statistics",
+                "id": "MAT113c",
+                "credits": 1.25
             }
         ],
         "semester 2": [
             {
-                "course": "Course1",
-                "id": "CSC1211",
-                "credits": 1.0
-            },
-            {
-                "course": "Course2",
-                "id": "CSC1212",
+                "course": "Database Management systems",
+                "id": "CSC1213",
                 "credits": 3.0
             },
             {
-                "course": "Course3",
-                "id": "CSC1213",
+                "course": "Data Structures and algorithms",
+                "id": "CSC1223",
+                "credits": 3.0
+            },
+            {
+                "course": "Software Engineering",
+                "id": "CSC1233",
+                "credits": 3.0
+            },
+            {
+                "course": "Object Oriented System Development",
+                "id": "CSC1242",
                 "credits": 2.0
+            },
+            {
+                "course": "Computer Laboratory",
+                "id": "CSC1251",
+                "credits": 1.0
+            },
+            {
+                "course": "Algebra",
+                "id": "MAT121b",
+                "credits": 1.5
+            },
+            {
+                "course": "Calculus",
+                "id": "MAT122b",
+                "credits": 1.5
             }
         ],
         "semester 3": [
             {
-                "course": "Course1",
-                "id": "CSC2111",
-                "credits": 1.0
-            },
-            {
-                "course": "Course2",
-                "id": "CSC2112",
+                "course": "Data Communication and Computer Networks",
+                "id": "CSC2113",
                 "credits": 3.0
             },
             {
-                "course": "Course3",
-                "id": "CSC2113",
+                "course": "Object Oriented Programming",
+                "id": "CSC2123",
+                "credits": 3.0
+            },
+            {
+                "course": "Operating Systems",
+                "id": "CSC2133",
+                "credits": 3.0
+            },
+            {
+                "course": "Computer Graphics and Image Processing",
+                "id": "CSC2143",
+                "credits": 3.0
+            },
+            {
+                "course": "Computational Mathematics ",
+                "id": "AMT212b",
+                "credits": 1.5
+            },
+            {
+                "course": "Linear Algebra I",
+                "id": "MAT211b",
+                "credits": 1.5
+            },
+            {
+                "course": "Electronics",
+                "id": "PHY2112",
                 "credits": 2.0
             }
+        ],
+        "semester 4": [
+            {
+                "course": "Rapid Application Development ",
+                "id": "CSC2213",
+                "credits": 3.0
+            },
+            {
+                "course": "Computer System II",
+                "id": "CSC2222",
+                "credits": 2.0
+            },
+            {
+                "course": "Internet Programming",
+                "id": "CSC2233",
+                "credits": 3.0
+            },
+            {
+                "course": "Advanced Database Management",
+                "id": "CSC2242",
+                "credits": 2.0
+            },
+            {
+                "course": "Project Management",
+                "id": "CSC2252",
+                "credits": 2.0
+            },
+            {
+                "course": "Multimedia and Video Production",
+                "id": "CSC2263",
+                "credits": 3.0
+            },
+            {
+                "course": "Data and Network Security ",
+                "id": "CSC2272",
+                "credits": 2.0
+            },
+            {
+                "course": "Physical Fitness and Health management",
+                "id": "FSC2241",
+                "credits": 1.0
+            },
+            {
+                "course": "Mathematical Statistics I",
+                "id": "MAT225b",
+                "credits": 1.5
+            }
+        ],
+        "semester 5": [
+            {
+                "course": "Group Projects",
+                "id": "CSC3113",
+                "credits": 3.0
+            },
+            {
+                "course": "e-Commerce and Professional Practice",
+                "id": "CSC3122",
+                "credits": 2.0
+            },
+            {
+                "course": "Data Warehousing and Data mining",
+                "id": "CSC3132",
+                "credits": 2.0
+            },
+            {
+                "course": "Network and System Administration",
+                "id": "CSC3133",
+                "credits": 3.0
+            },
+            {
+                "course": "Internet Services and Protocols",
+                "id": "CSC3142",
+                "credits": 2.0
+            },
+            {
+                "course": "Geographic Information Systems ",
+                "id": "CSC3152",
+                "credits": 2.0
+            },
+            {
+                "course": "Research Methods",
+                "id": "CSC3162",
+                "credits": 2.0
+            },
+            {
+                "course": "Distributed Systems",
+                "id": "CSC3172",
+                "credits": 2.0
+            },
+            {
+                "course": "Management",
+                "id": "FSC3112",
+                "credits": 2.0
+            },
+            {
+                "course": "Accounting",
+                "id": "FSC3122",
+                "credits": 2.0
+            },
+            {
+                "course": "Mathematical Statistics II",
+                "id": "MAT313b ",
+                "credits": 1.5
+            }
+        ],
+        "semester 6": [
+            {
+                "course": "Industrial Training",
+                "id": "CSC3216",
+                "credits": 6.0
+            }
+            
         ]
     }
 }
