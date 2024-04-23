@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/presentation/components/course_card.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ExtraActivity extends StatefulWidget {
   const ExtraActivity({Key? key}) : super(key: key);
@@ -11,43 +13,131 @@ class ExtraActivity extends StatefulWidget {
 class _ExtraActivityState extends State<ExtraActivity> {
   final col1 = const Color.fromARGB(255, 195, 255, 195);
 
-  List<String> courses = [];
-  final TextEditingController courseController = TextEditingController();
-  String? editingCourse;
+  List<String> activities = [];
+  List<Map<String, dynamic>> activitiesData = [];
+
+  final TextEditingController activityController = TextEditingController();
+  String? editingActivity;
   int? editingIndex;
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+@override
+  void initState() {
+    super.initState();
+    // Fetch existing activities from Firestore on initialization
+    _fetchActivities();
+  }
 
-  void addCourse() {
-    setState(() {
-      String newCourse = courseController.text;
-      if (newCourse.isNotEmpty) {
-        courses.add(newCourse);
-        courseController.clear();
+  Future<void> _fetchActivities() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        final snapshot = await _firestore
+            .collection('user')
+            .doc(user.uid)
+            .collection('activities')
+            .get();
+        setState(() {
+          activitiesData = snapshot.docs
+              .map((doc) => {'id': doc.id, 'activityName': doc['activityName']})
+              .toList();
+          activities =
+              activitiesData.map((data) => data['activityName'] as String).toList();
+        });
+      } catch (e) {
+        print('Error fetching activities: $e');
       }
-    });
+    } else {
+      print('No user is currently signed in.');
+    }
   }
 
-  void deleteCourse(int index) {
-    setState(() {
-      courses.removeAt(index);
-    });
+  Future<void> addActivity() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final newActivity = activityController.text;
+      if (newActivity.isNotEmpty) {
+        try {
+          await _firestore
+              .collection('user')
+              .doc(user.uid)
+              .collection('activities')
+              .add({'activityName': newActivity});
+          setState(() {
+            activities.add(newActivity);
+            activityController.clear();
+          });
+        } catch (e) {
+          print('Error adding activity to Firestore: $e');
+        }
+      }
+    } else {
+      print('No user is currently signed in.');
+    }
   }
 
-  void editCourse(int index) {
+  void deleteActivity(int index) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final activityNameToDelete = activities[index];
+      setState(() {
+        activities.removeAt(index);
+      });
+
+      try {
+        await _firestore
+            .collection('user')
+            .doc(user.uid)
+            .collection('activities')
+            .where('activityName', isEqualTo: activityNameToDelete)
+            .get()
+            .then((querySnapshot) {
+          querySnapshot.docs.forEach((doc) async {
+            await doc.reference.delete();
+          });
+        });
+      } catch (e) {
+        print('Error deleting activity from Firestore: $e');
+      }
+    } else {
+      print('No user is currently signed in.');
+    }
+  }
+
+  void editActivity(int index) {
     setState(() {
       editingIndex = index;
-      editingCourse = courses[index];
-      courseController.text = editingCourse!;
+      editingActivity = activities[index];
+      activityController.text = editingActivity!;
     });
   }
 
-  void saveEditedCourse() {
-    setState(() {
-      courses[editingIndex!] = courseController.text;
-      editingCourse = null;
-      editingIndex = null;
-      courseController.clear();
-    });
+  Future<void> saveEditedActivity() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null &&
+        editingIndex != null &&
+        editingIndex! < activitiesData.length) {
+      try {
+        final activityId = activitiesData[editingIndex!]['id'];
+        await _firestore
+            .collection('user')
+            .doc(user.uid)
+            .collection('activities')
+            .doc(activityId)
+            .update({'courseName': activityController.text});
+        setState(() {
+          activities[editingIndex!] = activityController.text;
+          editingActivity = null;
+          editingIndex = null;
+          activityController.clear();
+        });
+      } catch (e) {
+        print('Error saving edited activity: $e');
+      }
+    } else {
+      print('Editing index is null or out of range, or user is not signed in.');
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +170,7 @@ class _ExtraActivityState extends State<ExtraActivity> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: courseController,
+                    controller: activityController,
                     decoration: const InputDecoration(
                       labelText: 'Activity Name',
                     ),
@@ -89,8 +179,8 @@ class _ExtraActivityState extends State<ExtraActivity> {
                 const SizedBox(width: 8.0),
                 ElevatedButton(
                   onPressed:
-                      editingCourse != null ? saveEditedCourse : addCourse,
-                  child: Text(editingCourse != null ? 'Save' : 'Add'),
+                      editingActivity != null ? saveEditedActivity : addActivity,
+                  child: Text(editingActivity != null ? 'Save' : 'Add'),
                 ),
               ],
             ),
@@ -98,12 +188,12 @@ class _ExtraActivityState extends State<ExtraActivity> {
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: courses.length,
+                itemCount: activities.length,
                 itemBuilder: (context, index) {
                   return CourseCard(
-                    courseName: courses[index],
-                    onDelete: () => deleteCourse(index),
-                    onEdit: () => editCourse(index),
+                    courseName: activities[index],
+                    onDelete: () => deleteActivity(index),
+                    onEdit: () => editActivity(index),
                   );
                 },
               ),
