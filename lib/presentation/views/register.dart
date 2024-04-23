@@ -145,7 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         }
                         return user;
                       }).then((user) => user != null
-                          ? navtoUserDetailEntry(context, user.displayName)
+                          ? navtoUserDetailEntry(context, user)
                           : ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text("User not found"))));
                     } else {

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
@@ -120,12 +121,12 @@ void navtoRegistration(BuildContext context) {
       context, MaterialPageRoute(builder: (context) => const RegisterPage()));
 }
 
-void navtoUserDetailEntry(BuildContext context, [String? username]) {
+void navtoUserDetailEntry(BuildContext context, [User? user]) {
   Navigator.pushReplacement(
       context,
       MaterialPageRoute(
           builder: (context) => UserDetails(
-                username: username,
+                user: user,
               )));
 }
 

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:g4c/data/entities/course__detail_provider.dart';
 import 'package:g4c/data/entities/data_provider.dart';
@@ -135,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                   }).then(
                     (userDetails) => userDetails[1] as bool
                         ? navtoProfilePage(context)
-                        : navtoUserDetailEntry(context),
+                        : navtoUserDetailEntry(context, userDetails[0] as User),
                   );
                 }),
                 const SizedBox(height: 30.0),

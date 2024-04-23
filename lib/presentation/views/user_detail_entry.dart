@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -14,9 +15,9 @@ import 'package:g4c/presentation/views/extra_course.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class UserDetails extends StatefulWidget {
-  final String? username; // Add username as a parameter
+  final User? user;
 
-  const UserDetails({super.key, this.username});
+  const UserDetails({super.key, required this.user});
 
   @override
   State<UserDetails> createState() => _UserDetailsState();
@@ -73,7 +74,7 @@ class _UserDetailsState extends State<UserDetails> {
                   ),
                 ),
                 Text(
-                  widget.username ?? "user",
+                  widget.user?.displayName ?? "user",
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 40,
@@ -88,7 +89,8 @@ class _UserDetailsState extends State<UserDetails> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                imageProfile(),
+                imageProfile(url: widget.user?.photoURL, image: _image),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -163,7 +165,6 @@ class _UserDetailsState extends State<UserDetails> {
                 BtnBlack(
                   btnText: 'Save',
                   onpressed: () {
-                    // TODO : SAVE VARIABLES TO FIRESTORE AND SET SHARED PREFERENCES
                     if (dropdownValue != null) {
                       saveUserDetails(file: _image);
                       navtoWelcomePage(context);
@@ -187,7 +188,7 @@ class _UserDetailsState extends State<UserDetails> {
     );
   }
 
-  Widget imageProfile() {
+  Widget imageProfile({String? url, Uint8List? image}) {
     return Stack(
       children: [
         _image != null
@@ -195,10 +196,16 @@ class _UserDetailsState extends State<UserDetails> {
                 radius: 80.0,
                 backgroundImage: MemoryImage(_image!),
               )
-            : const CircleAvatar(
-                radius: 80.0,
-                backgroundImage: AssetImage('asset_lib/images/pofile.png'),
-              ),
+            : url != null
+                ? CircleAvatar(
+                    radius: 80.0,
+                    backgroundImage: CachedNetworkImageProvider(url),
+                  )
+                : const CircleAvatar(
+                    radius: 80.0,
+                    backgroundImage:
+                        AssetImage('asset_lib/images/prof_pic_default.png'),
+                  ),
         Positioned(
           bottom: -10,
           right: 10.0,
@@ -264,9 +271,9 @@ class _UserDetailsState extends State<UserDetails> {
   }
 
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  Future<String> uploadImageToStorage(String childName, Uint8List? file) async {
+  Future<String> uploadImageToStorage(Uint8List? file) async {
     if (file != null) {
-      Reference ref = _storage.ref().child(childName);
+      Reference ref = _storage.ref().child('profileImage');
       UploadTask uploadTask = ref.putData(file);
       TaskSnapshot snapshot = await uploadTask;
       String downloadUrl = await snapshot.ref.getDownloadURL();
@@ -281,7 +288,7 @@ class _UserDetailsState extends State<UserDetails> {
     try {
       // Upload the image to Firebase Storage
 
-      String? imageUrl = await uploadImageToStorage('profileImage', file);
+      String? imageUrl = await uploadImageToStorage(file);
 
       final db = FirebaseFirestore.instance;
       final user = FirebaseAuth.instance.currentUser;
