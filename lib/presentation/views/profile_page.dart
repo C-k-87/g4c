@@ -24,8 +24,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final double fontsize = 15.0;
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>>(
@@ -41,8 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
           print("Profile page reads ${user.userID}");
           return Page(
             username: user.userName,
-            userImage: snapshot.data?['profileImage'],
-            fontsize: fontsize,
+            userImage: user.userProfPic,
             quizScores: user.userScores,
             rolesList: snapshot.data?['rolesList'] as List<dynamic>,
             extraCourses:
@@ -130,9 +127,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
 class Page extends StatelessWidget {
   final String username;
-  final String userImage;
+  final ProfPic userImage;
   final QuizScores quizScores;
-  final double fontsize;
   final List rolesList;
   final List<Map<String, dynamic>> extraCourses;
   final List<Map<String, dynamic>> extraActivities;
@@ -141,7 +137,6 @@ class Page extends StatelessWidget {
     super.key,
     required this.username,
     required this.userImage,
-    required this.fontsize,
     required this.quizScores,
     required this.rolesList,
     required this.extraCourses,
@@ -183,15 +178,14 @@ class Page extends StatelessWidget {
                   Positioned(
                     top: 120.0,
                     child: Container(
-                        width: 200.0,
-                        height: 200.0,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: ProfPic(
-                          url: userImage,
-                        )),
+                      width: 200.0,
+                      height: 200.0,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: userImage,
+                    ),
                   ),
                 ],
               ),
@@ -233,7 +227,6 @@ class Page extends StatelessWidget {
                   },
                 ),
                 title: 'Personality Type',
-                fontsize: fontsize,
               ),
               CardWidget(
                 onPressed: () {
@@ -243,7 +236,6 @@ class Page extends StatelessWidget {
                   height: 100.0,
                 ),
                 title: 'Course Progress',
-                fontsize: fontsize,
               ),
               CardWidget(
                 onPressed: () {},
@@ -253,7 +245,6 @@ class Page extends StatelessWidget {
                   ],
                 ),
                 title: 'Extra Courses',
-                fontsize: fontsize,
               ),
               CardWidget(
                 onPressed: () {},
@@ -264,7 +255,6 @@ class Page extends StatelessWidget {
                   ],
                 ),
                 title: 'Extra Activities',
-                fontsize: fontsize,
               ),
               const SizedBox(
                 height: 10.0,
