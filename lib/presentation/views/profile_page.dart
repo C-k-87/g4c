@@ -47,6 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 snapshot.data?['extraCourses'] as List<Map<String, dynamic>>,
             extraActivities:
                 snapshot.data?['extraActivities'] as List<Map<String, dynamic>>,
+            uid: user.userID,
           );
         }
       },
@@ -143,6 +144,7 @@ class Page extends StatelessWidget {
     required this.rolesList,
     required this.extraCourses,
     required this.extraActivities,
+    required this.uid,
   });
 
   @override
@@ -151,7 +153,7 @@ class Page extends StatelessWidget {
       appBar: G4CAppBar('Profile Page', false),
       drawer: const G4CDrawer(),
       floatingActionButton: IconButton.filled(
-          iconSize: 32.0,
+          color: Colors.white,
           onPressed: () {
             generateCurriculumVitae(uid, context);
           },

@@ -3,13 +3,10 @@ import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/btn_black_icon.dart';
 
 class WelcomePagePersonality extends StatelessWidget {
-  const WelcomePagePersonality({super.key, required this.username});
-  final String username;
+  const WelcomePagePersonality({super.key});
 
   @override
   Widget build(BuildContext context) {
-    String name = username;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -23,13 +20,6 @@ class WelcomePagePersonality extends StatelessWidget {
             children: [
               const SizedBox(
                 height: 120,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Hello $name !',
-                  style: const TextStyle(color: Colors.black, fontSize: 40),
-                ),
               ),
               const SizedBox(
                 height: 90,

@@ -23,4 +23,6 @@ class _ProfPicState extends State<ProfPic> {
       return Image.asset('asset_lib/images/prof_pic_default.png');
     }
   }
+
+  String get imageUrl => widget.url ?? '';
 }

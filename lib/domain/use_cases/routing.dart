@@ -24,11 +24,9 @@ void navtoProfilePage(BuildContext context) {
       context, MaterialPageRoute(builder: (context) => const ProfilePage()));
 }
 
-void navtoWelcomePage(BuildContext context, String username) {
-  Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-          builder: (context) => WelcomePagePersonality(username: username)));
+void navtoWelcomePage(BuildContext context) {
+  Navigator.pushReplacement(context,
+      MaterialPageRoute(builder: (context) => const WelcomePagePersonality()));
 }
 
 void navtoPersQuiz(BuildContext context) {
