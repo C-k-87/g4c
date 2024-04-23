@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:g4c/presentation/components/course_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ExtraCourse extends StatefulWidget {
   const ExtraCourse({Key? key}) : super(key: key);
@@ -12,24 +14,95 @@ class _ExtraCourseState extends State<ExtraCourse> {
   final col1 = const Color.fromARGB(255, 195, 255, 195);
 
   List<String> courses = [];
+  List<Map<String, dynamic>> coursesData = [];
   final TextEditingController courseController = TextEditingController();
   String? editingCourse;
   int? editingIndex;
 
-  void addCourse() {
-    setState(() {
-      String newCourse = courseController.text;
-      if (newCourse.isNotEmpty) {
-        courses.add(newCourse);
-        courseController.clear();
-      }
-    });
+  // Firestore instance
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch existing courses from Firestore on initialization
+    _fetchCourses();
   }
 
-  void deleteCourse(int index) {
-    setState(() {
-      courses.removeAt(index);
-    });
+  Future<void> _fetchCourses() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        final snapshot = await _firestore
+            .collection('user')
+            .doc(user.uid)
+            .collection('courses')
+            .get();
+        setState(() {
+          coursesData = snapshot.docs
+              .map((doc) => {'id': doc.id, 'courseName': doc['courseName']})
+              .toList();
+          courses =
+              coursesData.map((data) => data['courseName'] as String).toList();
+        });
+      } catch (e) {
+        print('Error fetching courses: $e');
+      }
+    } else {
+      print('No user is currently signed in.');
+    }
+  }
+
+  Future<void> addCourse() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final newCourse = courseController.text;
+      if (newCourse.isNotEmpty) {
+        try {
+          await _firestore
+              .collection('user')
+              .doc(user.uid)
+              .collection('courses')
+              .add({'courseName': newCourse});
+          setState(() {
+            courses.add(newCourse);
+            courseController.clear();
+          });
+        } catch (e) {
+          print('Error adding course to Firestore: $e');
+        }
+      }
+    } else {
+      print('No user is currently signed in.');
+    }
+  }
+
+  void deleteCourse(int index) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final courseNameToDelete = courses[index];
+      setState(() {
+        courses.removeAt(index);
+      });
+
+      try {
+        await _firestore
+            .collection('user')
+            .doc(user.uid)
+            .collection('courses')
+            .where('courseName', isEqualTo: courseNameToDelete)
+            .get()
+            .then((querySnapshot) {
+          querySnapshot.docs.forEach((doc) async {
+            await doc.reference.delete();
+          });
+        });
+      } catch (e) {
+        print('Error deleting course from Firestore: $e');
+      }
+    } else {
+      print('No user is currently signed in.');
+    }
   }
 
   void editCourse(int index) {
@@ -40,14 +113,31 @@ class _ExtraCourseState extends State<ExtraCourse> {
     });
   }
 
-  void saveEditedCourse() {
-    setState(() {
-      courses[editingIndex!] = courseController.text;
-      editingCourse = null;
-      editingIndex = null;
-      courseController.clear();
-    });
-    //TODO: add logic to save details
+  Future<void> saveEditedCourse() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null &&
+        editingIndex != null &&
+        editingIndex! < coursesData.length) {
+      try {
+        final courseId = coursesData[editingIndex!]['id'];
+        await _firestore
+            .collection('user')
+            .doc(user.uid)
+            .collection('courses')
+            .doc(courseId)
+            .update({'courseName': courseController.text});
+        setState(() {
+          courses[editingIndex!] = courseController.text;
+          editingCourse = null;
+          editingIndex = null;
+          courseController.clear();
+        });
+      } catch (e) {
+        print('Error saving edited course: $e');
+      }
+    } else {
+      print('Editing index is null or out of range, or user is not signed in.');
+    }
   }
 
   @override
@@ -88,7 +178,7 @@ class _ExtraCourseState extends State<ExtraCourse> {
                   ),
                 ),
                 const SizedBox(width: 8.0),
-                ElevatedButton(
+                 ElevatedButton(
                   onPressed:
                       editingCourse != null ? saveEditedCourse : addCourse,
                   child: Text(editingCourse != null ? 'Save' : 'Add'),

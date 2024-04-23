@@ -1,19 +1,21 @@
+import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/foundation.dart';
+import 'dart:typed_data';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_arrow_icon.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/views/extra_activity.dart';
 import 'package:g4c/presentation/views/extra_course.dart';
-import 'package:image_picker/image_picker.dart';
 
 class UserDetails extends StatefulWidget {
   final String? username; // Add username as a parameter
 
-  const UserDetails({super.key, this.username});
+  const UserDetails({Key? key, this.username}) : super(key: key);
 
   @override
   State<UserDetails> createState() => _UserDetailsState();
@@ -22,7 +24,6 @@ class UserDetails extends StatefulWidget {
 class _UserDetailsState extends State<UserDetails> {
   String? dropdownValue;
   Uint8List? _image;
-  File? selectedImage;
 
   @override
   void initState() {
@@ -44,7 +45,6 @@ class _UserDetailsState extends State<UserDetails> {
         child: ListView(
           clipBehavior: Clip.hardEdge,
           shrinkWrap: true,
-          padding: null,
           children: [
             const SizedBox(
               child: TopCard(
@@ -59,9 +59,7 @@ class _UserDetailsState extends State<UserDetails> {
                 color: Color.fromARGB(255, 195, 255, 195),
               ),
             ),
-            const SizedBox(
-              height: 40.0,
-            ),
+            const SizedBox(height: 40.0),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -88,9 +86,7 @@ class _UserDetailsState extends State<UserDetails> {
                     fontSize: 30,
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 imageProfile(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -101,9 +97,7 @@ class _UserDetailsState extends State<UserDetails> {
                         fontSize: 20,
                       ),
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
+                    const SizedBox(width: 20),
                     DropdownButton<String>(
                       value: dropdownValue,
                       icon: const Icon(Icons.keyboard_arrow_down),
@@ -121,23 +115,15 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Row(
                   children: [
-                    const SizedBox(
-                      width: 35,
-                    ),
+                    const SizedBox(width: 35),
                     const Text(
                       'Extra Activities',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                      style: TextStyle(fontSize: 20),
                     ),
-                    const SizedBox(
-                      width: 75,
-                    ),
+                    const SizedBox(width: 75),
                     BtnNavigation1(
                       onPressed: () {
                         Navigator.push(
@@ -150,49 +136,38 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Row(
                   children: [
-                    const SizedBox(
-                      width: 35,
-                    ),
+                    const SizedBox(width: 35),
                     const Text(
                       'Extra Courses',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                      style: TextStyle(fontSize: 20),
                     ),
-                    const SizedBox(
-                      width: 83,
-                    ),
+                    const SizedBox(width: 83),
                     BtnNavigation1(
-                      
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ExtraCourse()),
+                            builder: (context) => const ExtraCourse(),
+                          ),
                         );
                       },
                       iconData: Icons.arrow_forward,
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 40,
-                ),
+                const SizedBox(height: 40),
                 BtnBlack(
                   btnText: 'Save',
                   onpressed: () {
                     // TODO : SAVE VARIABLES TO FIRESTORE AND SET SHARED PREFERENCES
+                    saveUserDetails();
                     navtoWelcomePage(context);
                   },
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
               ],
             ),
           ],
@@ -201,16 +176,17 @@ class _UserDetailsState extends State<UserDetails> {
     );
   }
 
-  imageProfile() {
+  Widget imageProfile() {
     return Stack(
       children: [
         _image != null
-            ? CircleAvatar(radius: 80.0, backgroundImage: MemoryImage(_image!))
+            ? CircleAvatar(
+                radius: 80.0,
+                backgroundImage: MemoryImage(_image!),
+              )
             : const CircleAvatar(
                 radius: 80.0,
-                backgroundImage: AssetImage(
-                  'asset_lib/images/pofile.png',
-                ),
+                backgroundImage: AssetImage('asset_lib/images/pofile.png'),
               ),
         Positioned(
           bottom: -10,
@@ -226,7 +202,6 @@ class _UserDetailsState extends State<UserDetails> {
     );
   }
 
-  // ignore: non_constant_identifier_names
   void bottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -239,29 +214,18 @@ class _UserDetailsState extends State<UserDetails> {
               Expanded(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     const Text(
                       "Choose Profile Photo",
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                      style: TextStyle(fontSize: 20),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     InkWell(
-                      onTap: () {
-                        _PickImageFromGallery();
-                      },
+                      onTap: _pickImageFromGallery,
                       child: const SizedBox(
                         child: Column(
                           children: [
-                            Icon(
-                              Icons.image,
-                              size: 50,
-                            ),
+                            Icon(Icons.image, size: 50),
                             Text("Gallery"),
                           ],
                         ),
@@ -277,17 +241,55 @@ class _UserDetailsState extends State<UserDetails> {
     );
   }
 
-  // ignore: non_constant_identifier_names
-  Future _PickImageFromGallery() async {
-    final returnImage =
+  Future<void> _pickImageFromGallery() async {
+    final pickedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (returnImage != null) {
+    if (pickedImage != null) {
       setState(() {
-        _image = File(returnImage.path).readAsBytesSync();
+        _image = File(pickedImage.path).readAsBytesSync();
       });
     }
-
-    // ignore: use_build_context_synchronously
     Navigator.of(context).pop();
+  }
+
+  Future<void> saveUserDetails() async {
+    try {
+      if (dropdownValue == null) {
+        throw Exception("Please select a degree program");
+      }
+
+      final db = FirebaseFirestore.instance;
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        final data = {
+          "degreeProgram": dropdownValue,
+          "profileImage": _image != null ? base64Encode(_image!) : null,
+        };
+        if (!mounted) {
+          return;
+        }
+
+        // Use user's UID as document ID
+        await db.collection("UserDetails").doc(user.uid).set(data);
+        if (!mounted) {
+          return;
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Details saved successfully")),
+        );
+      } else {
+        throw Exception("User not logged in");
+      }
+    } catch (exception) {
+      if (!mounted) {
+        return;
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Failed to save user details")),
+      );
+    }
   }
 }
