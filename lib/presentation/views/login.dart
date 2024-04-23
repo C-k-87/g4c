@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/data/entities/course__detail_provider.dart';
 import 'package:g4c/data/entities/data_provider.dart';
 import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
@@ -34,6 +35,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     DataProvider provider = Provider.of<DataProvider>(context);
+    CourseDetailProvider courseProvider =
+        Provider.of<CourseDetailProvider>(context);
     return Scaffold(
       appBar: G4CAppBar('', false, login: true),
       body: ListView(
@@ -99,6 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                           await DataHandler().initializeUserProfile(user);
                         }
                         await provider.refreshUserData(user.uid);
+                        await courseProvider.refreshDegreeData(user.uid);
                         return registered;
                       }
                       throw (Exception("User not found"));
@@ -123,6 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                       }
 
                       await provider.refreshUserData(user.uid);
+                      await courseProvider.refreshDegreeData(user.uid);
                       print("Finished here");
                       return [user, registered];
                     }
@@ -130,8 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                   }).then(
                     (userDetails) => userDetails[1] as bool
                         ? navtoProfilePage(context)
-                        : navtoUserDetailEntry(
-                            context),
+                        : navtoUserDetailEntry(context),
                   );
                 }),
                 const SizedBox(height: 30.0),

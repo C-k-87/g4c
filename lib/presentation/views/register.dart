@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/data/entities/course__detail_provider.dart';
 import 'package:g4c/data/entities/data_provider.dart';
 import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
-import 'package:g4c/domain/use_cases/show_dialog.dart';
 import 'package:g4c/domain/use_cases/sign_in.dart';
 import 'package:g4c/presentation/components/btn_black.dart';
 import 'package:g4c/presentation/components/btn_white.dart';
@@ -13,7 +13,7 @@ import 'package:g4c/presentation/components/txt_input.dart';
 import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -40,6 +40,9 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     DataProvider provider = Provider.of<DataProvider>(context);
+    CourseDetailProvider courseProvider =
+        Provider.of<CourseDetailProvider>(context);
+
     return Scaffold(
       appBar: G4CAppBar('', false, login: true),
       body: Container(
@@ -133,20 +136,21 @@ class _RegisterPageState extends State<RegisterPage> {
                     String email = emailController.text;
 
                     if (password == confPwdController.text) {
-                      signUp(email, password, username).then((user) async {
-                        // user != null
-                        //     ? DataHandler().initializeUserProfile(user)
-                        //     : print("Error registering");
+                      signUp(email, password, username, context).then(
+                          (user) async {
                         if (user != null) {
                           DataHandler().initializeUserProfile(user);
                           await provider.refreshUserData(user.uid);
+                          await courseProvider.refreshDegreeData(user.uid);
                         }
                         return user;
                       }).then((user) => user != null
                           ? navtoUserDetailEntry(context, user.displayName)
-                          : print("nav rejected"));
+                          : ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("User not found"))));
                     } else {
-                      showAlert(context, "Passwords do not match");
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Passwords do not match")));
                     }
                   },
                 ),

@@ -260,7 +260,7 @@ class _UserDetailsState extends State<UserDetails> {
         _image = File(pickedImage.path).readAsBytesSync();
       });
     }
-    mounted ? Navigator.of(context).pop() : print("Not mounted");
+    mounted ? Navigator.of(context).pop() : null;
   }
 
   final FirebaseStorage _storage = FirebaseStorage.instance;
@@ -293,7 +293,10 @@ class _UserDetailsState extends State<UserDetails> {
         };
 
         // Use user's UID as document ID
-        await db.collection("user").doc(user.uid).set(data);
+        await db
+            .collection("Users")
+            .doc(user.uid)
+            .set(data, SetOptions(merge: true));
       }
     } catch (e) {
       mounted

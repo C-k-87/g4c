@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:g4c/data/entities/course__detail_provider.dart';
 import 'package:g4c/data/entities/data_provider.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
 import 'package:g4c/domain/use_cases/create_roles_list.dart';
@@ -16,7 +17,7 @@ import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/views/loader.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -56,8 +57,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<Map<String, dynamic>> loadProfilePage() async {
     final provider = Provider.of<DataProvider>(context, listen: false);
+    final courseProvider =
+        Provider.of<CourseDetailProvider>(context, listen: false);
     final prefs = await SharedPreferences.getInstance();
     await provider.refreshUserData(prefs.getString('uid') ?? '');
+    await courseProvider.refreshDegreeData(prefs.getString('uid') ?? '');
 
     // Fetch roles list
     final rolesList = await DataHandler().getRolesList();
@@ -134,7 +138,7 @@ class Page extends StatelessWidget {
   final List<Map<String, dynamic>> extraActivities;
 
   const Page({
-    Key? key,
+    super.key,
     required this.username,
     required this.userImage,
     required this.fontsize,
@@ -142,7 +146,7 @@ class Page extends StatelessWidget {
     required this.rolesList,
     required this.extraCourses,
     required this.extraActivities,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
