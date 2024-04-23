@@ -14,13 +14,13 @@ import 'package:g4c/presentation/components/prof_pic.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/views/loader.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
-
 
 class _ProfilePageState extends State<ProfilePage> {
   final double fontsize = 15.0;
@@ -44,8 +44,10 @@ class _ProfilePageState extends State<ProfilePage> {
               fontsize: fontsize,
               quizScores: user.userScores,
               rolesList: snapshot.data?['rolesList'] as List,
-              extraCourses: snapshot.data?['extraCourses'] as List<Map<String, dynamic>>,
-              extraActivities: snapshot.data?['extraActivities'] as List<Map<String, dynamic>>,
+              extraCourses:
+                  snapshot.data?['extraCourses'] as List<Map<String, dynamic>>,
+              extraActivities: snapshot.data?['extraActivities']
+                  as List<Map<String, dynamic>>,
             );
           });
         }
@@ -91,7 +93,11 @@ class _ProfilePageState extends State<ProfilePage> {
       print('No user is currently signed in.');
     }
 
-    return {'rolesList': rolesList, 'extraCourses': extraCourses, 'extraActivities': extraActivities};
+    return {
+      'rolesList': rolesList,
+      'extraCourses': extraCourses,
+      'extraActivities': extraActivities
+    };
   }
 }
 
@@ -225,7 +231,8 @@ class Page extends StatelessWidget {
                 onPressed: () {},
                 content: Column(
                   children: [
-                    for (var activity in extraActivities) Text(activity['activityName']),
+                    for (var activity in extraActivities)
+                      Text(activity['activityName']),
                   ],
                 ),
                 title: 'Extra Activities',

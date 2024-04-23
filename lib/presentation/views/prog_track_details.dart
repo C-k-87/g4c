@@ -35,7 +35,6 @@ class _ProgTrackDetailsState extends State<ProgTrackDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: G4CAppBar('Course Details', true),
-      drawer: const G4CDrawer(),
       body: Consumer<CourseDetailProvider>(
         builder: (BuildContext context, CourseDetailProvider provider,
             Widget? child) {
