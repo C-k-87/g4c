@@ -292,11 +292,11 @@ class _UserDetailsState extends State<UserDetails> {
 
       final db = FirebaseFirestore.instance;
       final user = FirebaseAuth.instance.currentUser;
-
+      print("Custom image url: $imageUrl");
       if (user != null) {
         final data = {
           "degreeProgram": dropdownValue,
-          "profileImage": imageUrl, // Add the image URL to the user details
+          "imageURL": imageUrl, // Add the image URL to the user details
         };
 
         // Use user's UID as document ID

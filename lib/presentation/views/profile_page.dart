@@ -109,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (user != null) {
       try {
         final snapshot = await FirebaseFirestore.instance
-            .collection('user')
+            .collection('Users')
             .doc(user.uid)
             .get();
         print("Prof pic url : ${snapshot.data()?['profileImage']}");
