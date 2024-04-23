@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g4c/data/entities/course__detail_provider.dart';
 import 'package:g4c/data/entities/data_provider.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
 import 'package:g4c/domain/use_cases/create_roles_list.dart';
@@ -54,6 +55,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<dynamic> loadProfilePage() async {
     Future.delayed(Durations.long1);
     DataProvider provider = Provider.of<DataProvider>(context);
+    CourseDetailProvider courseProvider =
+        Provider.of<CourseDetailProvider>(context);
+    //TODO : refresh course details
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await provider.refreshUserData(prefs.getString('uid') ?? '');
     return await DataHandler().getRolesList();
@@ -85,7 +89,7 @@ class Page extends StatelessWidget {
       floatingActionButton: IconButton.filled(
           iconSize: 32.0,
           onPressed: () {
-            generateCurriculumVitae(uid);
+            generateCurriculumVitae(uid, context);
           },
           icon: const Icon(Icons.edit_document)),
       body: ListView(
