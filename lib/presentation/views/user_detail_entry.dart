@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,6 +12,7 @@ import 'package:g4c/presentation/components/btn_arrow_icon.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/views/extra_activity.dart';
 import 'package:g4c/presentation/views/extra_course.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class UserDetails extends StatefulWidget {
   final String? username; // Add username as a parameter
@@ -163,8 +165,18 @@ class _UserDetailsState extends State<UserDetails> {
                   btnText: 'Save',
                   onpressed: () {
                     // TODO : SAVE VARIABLES TO FIRESTORE AND SET SHARED PREFERENCES
-                    saveUserDetails();
-                    navtoWelcomePage(context);
+                    if (_image != null || dropdownValue != null) {
+                      saveUserDetails(file: _image);
+                      navtoWelcomePage(context);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Please select a degree program and choose a profile image.',
+                          ),
+                        ),
+                      );
+                    }
                   },
                 ),
                 const SizedBox(height: 20),
@@ -252,11 +264,24 @@ class _UserDetailsState extends State<UserDetails> {
     Navigator.of(context).pop();
   }
 
-  Future<void> saveUserDetails() async {
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  Future<String> uploadImageToStorage(String childName, Uint8List? file) async {
+    if (file != null) {
+      Reference ref = _storage.ref().child(childName);
+    UploadTask uploadTask = ref.putData(file);
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+    }
+    return '';
+  }
+
+  Future<void> saveUserDetails({required Uint8List? file,}) async {
+    
     try {
-      if (dropdownValue == null) {
-        throw Exception("Please select a degree program");
-      }
+      // Upload the image to Firebase Storage
+      
+      String? imageUrl = await uploadImageToStorage('profileImage', file);
 
       final db = FirebaseFirestore.instance;
       final user = FirebaseAuth.instance.currentUser;
@@ -264,31 +289,17 @@ class _UserDetailsState extends State<UserDetails> {
       if (user != null) {
         final data = {
           "degreeProgram": dropdownValue,
-          "profileImage": _image != null ? base64Encode(_image!) : null,
+          "profileImage": imageUrl, // Add the image URL to the user details
         };
-        if (!mounted) {
-          return;
-        }
 
         // Use user's UID as document ID
-        await db.collection("UserDetails").doc(user.uid).set(data);
-        if (!mounted) {
-          return;
-        }
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Details saved successfully")),
-        );
-      } else {
-        throw Exception("User not logged in");
+        await db.collection("user").doc(user.uid).set(data);
       }
-    } catch (exception) {
-      if (!mounted) {
-        return;
-      }
-
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Failed to save user details")),
+        SnackBar(
+          content: Text('Failed to save user details: $e'),
+        ),
       );
     }
   }

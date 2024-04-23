@@ -13,7 +13,7 @@ class ProfPic extends StatefulWidget {
 class _ProfPicState extends State<ProfPic> {
   @override
   Widget build(BuildContext context) {
-    if (widget.url != null) {
+    if (widget.url != null && widget.url != '') {
       return CachedNetworkImage(fit: BoxFit.fill, imageUrl: widget.url!);
     } else if (widget.diskImage != null) {
       return widget.diskImage!;

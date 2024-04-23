@@ -1,19 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:g4c/domain/use_cases/create_roles_list.dart';
-import 'package:g4c/presentation/components/text_fields.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:g4c/data/entities/data_provider.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
+import 'package:g4c/domain/use_cases/create_roles_list.dart';
 import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
-import 'package:g4c/presentation/components/card_widget.dart';
-import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/components/prof_pic.dart';
+import 'package:g4c/presentation/components/text_fields.dart';
 import 'package:g4c/presentation/components/top_card.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:g4c/presentation/components/card_widget.dart';
+import 'package:g4c/presentation/components/g4c_app_bar.dart';
+import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/views/loader.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
@@ -21,13 +23,12 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-
 class _ProfilePageState extends State<ProfilePage> {
   final double fontsize = 15.0;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<Map<String, dynamic>>(
       future: loadProfilePage(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -36,30 +37,31 @@ class _ProfilePageState extends State<ProfilePage> {
           print(snapshot.error);
           return const ErrorScreen();
         } else {
-          return Consumer<DataProvider>(builder: (context, user, child) {
-            print("Profile page reads ${user.userID}");
-            return Page(
-              username: user.userName,
-              userImage: user.userProfPic,
-              fontsize: fontsize,
-              quizScores: user.userScores,
-              rolesList: snapshot.data?['rolesList'] as List,
-              extraCourses: snapshot.data?['extraCourses'] as List<Map<String, dynamic>>,
-              extraActivities: snapshot.data?['extraActivities'] as List<Map<String, dynamic>>,
-            );
-          });
+          final user = Provider.of<DataProvider>(context, listen: false);
+          print("Profile page reads ${user.userID}");
+          return Page(
+            username: user.userName,
+            userImage: snapshot.data?['profileImage'],
+            fontsize: fontsize,
+            quizScores: user.userScores,
+            rolesList: snapshot.data?['rolesList'] as List<dynamic>,
+            extraCourses:
+                snapshot.data?['extraCourses'] as List<Map<String, dynamic>>,
+            extraActivities:
+                snapshot.data?['extraActivities'] as List<Map<String, dynamic>>,
+          );
         }
       },
     );
   }
 
   Future<Map<String, dynamic>> loadProfilePage() async {
-    DataProvider provider = Provider.of<DataProvider>(context);
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final provider = Provider.of<DataProvider>(context, listen: false);
+    final prefs = await SharedPreferences.getInstance();
     await provider.refreshUserData(prefs.getString('uid') ?? '');
 
     // Fetch roles list
-    List rolesList = await DataHandler().getRolesList();
+    final rolesList = await DataHandler().getRolesList();
 
     // Fetch extra courses data from Firestore
     List<Map<String, dynamic>> extraCourses = [];
@@ -91,13 +93,41 @@ class _ProfilePageState extends State<ProfilePage> {
       print('No user is currently signed in.');
     }
 
-    return {'rolesList': rolesList, 'extraCourses': extraCourses, 'extraActivities': extraActivities};
+    // Fetch profile image URL
+    final profileImage = await fetchProfileImage();
+
+    return {
+      'rolesList': rolesList,
+      'extraCourses': extraCourses,
+      'extraActivities': extraActivities,
+      'profileImage': profileImage
+    };
+  }
+
+  Future<String> fetchProfileImage() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        final snapshot = await FirebaseFirestore.instance
+            .collection('user')
+            .doc(user.uid)
+            .get();
+            print("Prof pic url : ${snapshot.data()?['profileImage']}");
+            String url = snapshot.data()?['profileImage'];
+        return  url;
+      } catch (e) {
+        print('Error fetching profile image: $e');
+        return '';
+      }
+    } else {
+      return '';
+    }
   }
 }
 
 class Page extends StatelessWidget {
   final String username;
-  final ProfPic userImage;
+  final String userImage;
   final QuizScores quizScores;
   final double fontsize;
   final List rolesList;
@@ -140,7 +170,7 @@ class Page extends StatelessWidget {
                   Positioned(
                     top: 50.0,
                     child: Text(
-                      username, // USERNAME
+                      username,
                       style: const TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.w500,
@@ -156,7 +186,7 @@ class Page extends StatelessWidget {
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
-                      child: userImage, // PROFILE PICTURE
+                      child: ProfPic(url: userImage,)
                     ),
                   ),
                 ],
@@ -225,7 +255,8 @@ class Page extends StatelessWidget {
                 onPressed: () {},
                 content: Column(
                   children: [
-                    for (var activity in extraActivities) Text(activity['activityName']),
+                    for (var activity in extraActivities)
+                      Text(activity['activityName']),
                   ],
                 ),
                 title: 'Extra Activities',
