@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,7 +16,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class UserDetails extends StatefulWidget {
   final String? username; // Add username as a parameter
 
-  const UserDetails({Key? key, this.username}) : super(key: key);
+  const UserDetails({super.key, this.username});
 
   @override
   State<UserDetails> createState() => _UserDetailsState();
@@ -165,14 +164,14 @@ class _UserDetailsState extends State<UserDetails> {
                   btnText: 'Save',
                   onpressed: () {
                     // TODO : SAVE VARIABLES TO FIRESTORE AND SET SHARED PREFERENCES
-                    if (_image != null || dropdownValue != null) {
+                    if (dropdownValue != null) {
                       saveUserDetails(file: _image);
                       navtoWelcomePage(context);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text(
-                            'Please select a degree program and choose a profile image.',
+                            'Please select a degree program.',
                           ),
                         ),
                       );
@@ -261,26 +260,27 @@ class _UserDetailsState extends State<UserDetails> {
         _image = File(pickedImage.path).readAsBytesSync();
       });
     }
-    Navigator.of(context).pop();
+    mounted ? Navigator.of(context).pop() : print("Not mounted");
   }
 
   final FirebaseStorage _storage = FirebaseStorage.instance;
   Future<String> uploadImageToStorage(String childName, Uint8List? file) async {
     if (file != null) {
       Reference ref = _storage.ref().child(childName);
-    UploadTask uploadTask = ref.putData(file);
-    TaskSnapshot snapshot = await uploadTask;
-    String downloadUrl = await snapshot.ref.getDownloadURL();
-    return downloadUrl;
+      UploadTask uploadTask = ref.putData(file);
+      TaskSnapshot snapshot = await uploadTask;
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+      return downloadUrl;
     }
     return '';
   }
 
-  Future<void> saveUserDetails({required Uint8List? file,}) async {
-    
+  Future<void> saveUserDetails({
+    required Uint8List? file,
+  }) async {
     try {
       // Upload the image to Firebase Storage
-      
+
       String? imageUrl = await uploadImageToStorage('profileImage', file);
 
       final db = FirebaseFirestore.instance;
@@ -296,11 +296,13 @@ class _UserDetailsState extends State<UserDetails> {
         await db.collection("user").doc(user.uid).set(data);
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Failed to save user details: $e'),
-        ),
-      );
+      mounted
+          ? ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Failed to save user details: $e'),
+              ),
+            )
+          : null;
     }
   }
 }

@@ -12,7 +12,6 @@ import 'package:g4c/presentation/components/top_card.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:g4c/presentation/components/card_widget.dart';
-import 'package:g4c/presentation/components/g4c_app_bar.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/views/loader.dart';
 
@@ -112,9 +111,9 @@ class _ProfilePageState extends State<ProfilePage> {
             .collection('user')
             .doc(user.uid)
             .get();
-            print("Prof pic url : ${snapshot.data()?['profileImage']}");
-            String url = snapshot.data()?['profileImage'];
-        return  url;
+        print("Prof pic url : ${snapshot.data()?['profileImage']}");
+        String url = snapshot.data()?['profileImage'];
+        return url;
       } catch (e) {
         print('Error fetching profile image: $e');
         return '';
@@ -180,14 +179,15 @@ class Page extends StatelessWidget {
                   Positioned(
                     top: 120.0,
                     child: Container(
-                      width: 200.0,
-                      height: 200.0,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: ProfPic(url: userImage,)
-                    ),
+                        width: 200.0,
+                        height: 200.0,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: ProfPic(
+                          url: userImage,
+                        )),
                   ),
                 ],
               ),
