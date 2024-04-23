@@ -168,7 +168,6 @@ class _UserDetailsState extends State<UserDetails> {
                       width: 83,
                     ),
                     BtnNavigation1(
-                      
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -187,7 +186,7 @@ class _UserDetailsState extends State<UserDetails> {
                   btnText: 'Save',
                   onpressed: () {
                     // TODO : SAVE VARIABLES TO FIRESTORE AND SET SHARED PREFERENCES
-                    navtoWelcomePage(context);
+                    navtoWelcomePage(context, widget.username ?? 'user');
                   },
                 ),
                 const SizedBox(

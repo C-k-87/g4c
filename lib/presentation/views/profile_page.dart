@@ -3,6 +3,7 @@ import 'package:g4c/data/entities/data_provider.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
 import 'package:g4c/domain/use_cases/create_roles_list.dart';
 import 'package:g4c/domain/use_cases/data_handler.dart';
+import 'package:g4c/domain/use_cases/generate_curriulum_vitae.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/card_widget.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
@@ -37,11 +38,13 @@ class _ProfilePageState extends State<ProfilePage> {
           return Consumer<DataProvider>(builder: (context, user, child) {
             print("Profile page reads ${user.userID}");
             return Page(
-                username: user.userName,
-                userImage: user.userProfPic,
-                quizScores: user.userScores,
-                fontsize: fontsize,
-                rolesList: snapshot.data);
+              username: user.userName,
+              userImage: user.userProfPic,
+              quizScores: user.userScores,
+              fontsize: fontsize,
+              rolesList: snapshot.data,
+              uid: user.userID,
+            );
           });
         }
       },
@@ -58,6 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 class Page extends StatelessWidget {
+  final String uid;
   final String username;
   final ProfPic userImage;
   final QuizScores quizScores;
@@ -70,13 +74,20 @@ class Page extends StatelessWidget {
       required this.userImage,
       required this.quizScores,
       required this.fontsize,
-      required this.rolesList});
+      required this.rolesList,
+      required this.uid});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: G4CAppBar('Profile Page', false),
       drawer: const G4CDrawer(),
+      floatingActionButton: IconButton.filled(
+          iconSize: 32.0,
+          onPressed: () {
+            generateCurriculumVitae(uid);
+          },
+          icon: const Icon(Icons.edit_document)),
       body: ListView(
         children: [
           Column(

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:g4c/data/entities/data_provider.dart';
 import 'package:g4c/domain/use_cases/data_handler.dart';
@@ -101,6 +102,11 @@ class _LoginPageState extends State<LoginPage> {
                         await provider.refreshUserData(user.uid);
                         return registered;
                       }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text(
+                                "User not found. Check your credentials.")),
+                      );
                       throw (Exception("User not found"));
                     }).then(
                       (isRegistered) => isRegistered
@@ -126,12 +132,16 @@ class _LoginPageState extends State<LoginPage> {
                       print("Finished here");
                       return [user, registered];
                     }
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text("Something went wrong. Try again.")),
+                    );
                     throw (Exception("User not found"));
                   }).then(
                     (userDetails) => userDetails[1] as bool
                         ? navtoProfilePage(context)
                         : navtoUserDetailEntry(
-                            context, userDetails[0] as String),
+                            context, (userDetails[0] as User).displayName),
                   );
                 }),
                 const SizedBox(height: 30.0),
