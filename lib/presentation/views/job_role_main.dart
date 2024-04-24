@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:g4c/domain/use_cases/create_roles_list.dart';
 import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/components/job_role_list.dart';

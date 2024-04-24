@@ -18,7 +18,6 @@ class JobDescription extends StatelessWidget {
         image: AssetImage('asset_lib/images/roleimages/${role["image"]}'));
     return Scaffold(
       appBar: G4CAppBar('Job Roles', false),
-      drawer: const G4CDrawer(),
       body: ListView(
         padding: const EdgeInsets.all(15.0),
         children: [

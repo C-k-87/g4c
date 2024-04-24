@@ -36,6 +36,8 @@ class _ProfilePageState extends State<ProfilePage> {
           return const ErrorScreen();
         } else {
           final user = Provider.of<DataProvider>(context, listen: false);
+          final course =
+              Provider.of<CourseDetailProvider>(context, listen: false);
           print("Profile page reads ${user.userID}");
           return Page(
             username: user.userName,
@@ -46,6 +48,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 snapshot.data?['extraCourses'] as List<Map<String, dynamic>>,
             extraActivities:
                 snapshot.data?['extraActivities'] as List<Map<String, dynamic>>,
+            degreeName: course.degreeCode,
+            degreeGpa: course.degreeGpa.toString(),
+            degreeProgress: course.degreeProgress.toString(),
           );
         }
       },
@@ -127,6 +132,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
 class Page extends StatelessWidget {
   final String username;
+  final String degreeName;
+  final String degreeGpa;
+  final String degreeProgress;
   final ProfPic userImage;
   final QuizScores quizScores;
   final List rolesList;
@@ -141,6 +149,9 @@ class Page extends StatelessWidget {
     required this.rolesList,
     required this.extraCourses,
     required this.extraActivities,
+    required this.degreeName,
+    required this.degreeGpa,
+    required this.degreeProgress,
   });
 
   @override
@@ -232,8 +243,27 @@ class Page extends StatelessWidget {
                 onPressed: () {
                   navtoProgressTracker(context);
                 },
-                content: Container(
-                  height: 100.0,
+                content: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        degreeName,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20.0),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const SizedBox(),
+                          Text("GPA : $degreeGpa"),
+                          Text("Progress: $degreeProgress"),
+                          const SizedBox()
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 title: 'Course Progress',
               ),
