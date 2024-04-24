@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:g4c/domain/use_cases/create_roles_list.dart';
 import 'package:g4c/domain/use_cases/data_handler.dart';
-import 'package:g4c/presentation/views/loader.dart';
 
 class JobRoleList extends StatefulWidget {
   final String searchParam;
@@ -33,9 +33,12 @@ class _JobRoleListState extends State<JobRoleList> {
         future: DataHandler().getRolesList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Loader();
+            print("Loading");
+            return const SpinKitCircle(
+              color: Colors.black,
+            );
           } else if (snapshot.hasError) {
-            return const ErrorScreen();
+            return SpinKitThreeBounce();
           } else {
             rolesList = snapshot.data;
             List<Widget> children = createRolesList(rolesList, searchParam);
