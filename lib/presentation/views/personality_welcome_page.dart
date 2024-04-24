@@ -4,14 +4,12 @@ import 'package:g4c/presentation/components/btn_black_icon.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 
 class WelcomePagePersonality extends StatelessWidget {
-  const WelcomePagePersonality({Key? key});
+  const WelcomePagePersonality({super.key});
 
   @override
   Widget build(BuildContext context) {
-    String name = 'username';
-
     return Scaffold(
-      body: Stack(
+      body: ListView(
         children: [
           const TopCard(
             content: Center(
@@ -24,20 +22,17 @@ class WelcomePagePersonality extends StatelessWidget {
             ),
             color: Color.fromARGB(255, 195, 255, 195),
           ),
-          const SizedBox(
-            // Remove the extra comma here
-            height: 40.0,
-          ),
           Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const SizedBox(
-                height: 300,
+                height: 50.0,
               ),
-              Align(
+              const Align(
                 alignment: Alignment.center,
                 child: Text(
-                  '     Hello \n$name !',
-                  style: const TextStyle(color: Colors.black, fontSize: 40),
+                  'Welcome!',
+                  style: TextStyle(color: Colors.black, fontSize: 40),
                 ),
               ),
               const SizedBox(

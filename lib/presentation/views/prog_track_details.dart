@@ -156,5 +156,8 @@ class _PageState extends State<Page> {
       progress = getDegreeData(widget.semesterItems, type: "progress");
       spots = getDegreeData(widget.semesterItems, type: "spots");
     });
+
+    courseDetailProvider.setDegreeGpa(gpa ?? 0.0);
+    courseDetailProvider.setDegreeProgress(progress ?? 0.0);
   }
 }

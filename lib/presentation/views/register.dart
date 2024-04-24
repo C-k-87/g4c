@@ -139,7 +139,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       signUp(email, password, username, context).then(
                           (user) async {
                         if (user != null) {
-                          DataHandler().initializeUserProfile(user);
+                          await DataHandler().initializeUserProfile(user);
                           await provider.refreshUserData(user.uid);
                           await courseProvider.refreshDegreeData(user.uid);
                         }

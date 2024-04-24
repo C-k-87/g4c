@@ -24,6 +24,7 @@ Future<User?> signIn(String email, String password) async {
 
 Future<User?> signInWithGoogle() async {
   try {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
 
@@ -40,6 +41,7 @@ Future<User?> signInWithGoogle() async {
           await firebaseAuth.signInWithCredential(credential);
       final User? user = authResult.user;
       print("Got user ${user?.email}. Hello ${user?.displayName}");
+      prefs.setBool('isSignedIn', true);
       return user;
     }
   } catch (e) {

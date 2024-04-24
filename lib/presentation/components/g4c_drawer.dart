@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:g4c/data/entities/data_provider.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/btn_black_icon.dart';
 import 'package:g4c/presentation/components/btn_navigation.dart';
+import 'package:provider/provider.dart';
 
 class G4CDrawer extends StatelessWidget {
   const G4CDrawer({
@@ -10,6 +13,7 @@ class G4CDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<DataProvider>(context, listen: false);
     return Drawer(
       backgroundColor: const Color.fromARGB(255, 195, 255, 195),
       child: ListView(
@@ -26,14 +30,36 @@ class G4CDrawer extends StatelessWidget {
                 ),
                 width: double.maxFinite,
                 height: double.maxFinite,
-                child: const Center(
-                  child: Text(
-                    'Header',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+                child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                            clipBehavior: Clip.antiAlias,
+                            decoration:
+                                const BoxDecoration(shape: BoxShape.circle),
+                            child: user.userProfPic),
+                        const SizedBox(),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                user.userName,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              Text(
+                                user.userEmail,
+                                style: const TextStyle(
+                                    color: Colors.white70, fontSize: 10.0),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
               ),
             ),
           ),
