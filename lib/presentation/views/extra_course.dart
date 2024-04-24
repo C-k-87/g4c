@@ -178,7 +178,7 @@ class _ExtraCourseState extends State<ExtraCourse> {
                   ),
                 ),
                 const SizedBox(width: 8.0),
-                 ElevatedButton(
+                ElevatedButton(
                   onPressed:
                       editingCourse != null ? saveEditedCourse : addCourse,
                   child: Text(editingCourse != null ? 'Save' : 'Add'),
