@@ -60,9 +60,7 @@ class _ProgressTrackerState extends State<ProgressTracker> {
 
   Future<void> initializeProgressTracker(
       CourseDetailProvider courseDetailProvider) async {
-    // degreeCode = courseDetailProvider.degreeCode;
-    //TODO: REMOVE HARDCODE. for testing only:
-    degreeCode = 'bcs_degree';
+    degreeCode = courseDetailProvider.degreeCode;
     userGradeValues = courseDetailProvider.degreeGradeValues;
     print(userGradeValues);
     if (degreeCode != null) {

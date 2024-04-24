@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,11 +49,6 @@ Future<User?> signInWithGoogle() async {
   return null;
 }
 
-Future<User?> signUp(String email, String password, String username) async {
-  User? user = await authService.signUp(email, password, username);
-  return user;
-}
-
 Future<void> logoutSession() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await googleSignIn.signOut();
@@ -60,8 +56,15 @@ Future<void> logoutSession() async {
   await prefs.setBool('isSignedIn', false);
 }
 
+Future<User?> signUp(String email, String password, String username,
+    BuildContext context) async {
+  User? user = await authService.signUp(email, password, username, context);
+  return user;
+}
+
 class FirebaseAuthService {
-  Future<User?> signUp(String email, String password, String username) async {
+  Future<User?> signUp(String email, String password, String username,
+      BuildContext context) async {
     try {
       UserCredential credential = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -75,8 +78,12 @@ class FirebaseAuthService {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         print('The email address is already in use.');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Error: Email in use")));
       } else {
         print('An error occurred: ${e.code}');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Error: ${e.toString()}")));
       }
     }
     return null;
