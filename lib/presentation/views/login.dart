@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 50.0),
                 TxtInput(
-                  fieldName: 'Username',
+                  fieldName: 'Email',
                   controller: unameController,
                 ),
                 const SizedBox(height: 50.0),
@@ -130,8 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                   }).then(
                     (userDetails) => userDetails[1] as bool
                         ? navtoProfilePage(context)
-                        : navtoUserDetailEntry(
-                            context),
+                        : navtoUserDetailEntry(context),
                   );
                 }),
                 const SizedBox(height: 30.0),
