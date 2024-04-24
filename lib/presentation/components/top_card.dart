@@ -113,4 +113,9 @@ class TopCard extends StatelessWidget {
       child: content,
     );
   }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return content.toString();
+  }
 }

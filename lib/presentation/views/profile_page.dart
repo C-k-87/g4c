@@ -18,6 +18,7 @@ import 'package:g4c/presentation/views/loader.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+  const ProfilePage({super.key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -250,6 +251,8 @@ class Page extends StatelessWidget {
                 onPressed: () {},
                 content: Column(
                   children: [
+                    for (var activity in extraActivities)
+                      Text(activity['activityName']),
                     for (var activity in extraActivities)
                       Text(activity['activityName']),
                   ],
