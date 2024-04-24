@@ -40,6 +40,11 @@ class DataHandler {
   }
 
   Future<dynamic> getDegreeProgram(String degreeName) async {
+    switch (degreeName) {
+      case 'BCS General Degree':
+        degreeName = 'bcs_degree';
+        break;
+    }
     final String resp = await rootBundle
         .loadString('lib/data/data_sources/json/$degreeName.json');
     final data = await jsonDecode(resp);
@@ -71,6 +76,7 @@ class DataHandler {
       "iscore": 0,
       "rscore": 0,
       "sscore": 0,
+      "degreeProgram": '',
     };
     userDB.doc(user.uid).set(userInfo);
     setPrefs(user);

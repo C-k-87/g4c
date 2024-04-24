@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 class CardWidget extends StatelessWidget {
   final String title;
   final Widget content;
-  final double fontsize;
   final Function()? onPressed;
 
   const CardWidget(
       {super.key,
       required this.content,
       required this.title,
-      required this.fontsize,
       required this.onPressed});
 
   @override
@@ -41,9 +39,8 @@ class CardWidget extends StatelessWidget {
               padding: const EdgeInsets.all(5.0),
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
-                  fontSize: fontsize,
                 ),
               ),
             ),

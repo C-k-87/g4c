@@ -7,16 +7,24 @@ class DataProvider extends ChangeNotifier {
   String _userID = 'n/a';
   String _userEmail = 'n/a';
   String _userName = 'Username';
-  String _userDegree = 'n/a';
   ProfPic _userProfPic = const ProfPic();
   QuizScores _userScores = QuizScores(0, 0, 0, 0, 0, 0);
 
   String get userID => _userID;
   String get userEmail => _userEmail;
   String get userName => _userName;
-  String get userDegree => _userDegree;
   ProfPic get userProfPic => _userProfPic;
   QuizScores get userScores => _userScores;
+
+  set quizScores(QuizScores quizScores) {
+    _userScores = quizScores;
+    notifyListeners();
+  }
+
+  set userProfPic(ProfPic profPic) {
+    _userProfPic = profPic;
+    notifyListeners();
+  }
 
   Future<void> refreshUserData(String? uid) async {
     if (uid != null) {
@@ -31,10 +39,8 @@ class DataProvider extends ChangeNotifier {
       _userID = userDoc['uid'];
       _userEmail = userDoc['email'];
       _userName = userDoc['name'];
-      _userProfPic = ProfPic(
-        url: userDoc['imageURL'],
-      );
-      _userScores = QuizScores(
+      userProfPic = ProfPic(url: userDoc['imageURL']);
+      quizScores = QuizScores(
         userDoc['ascore'],
         userDoc['cscore'],
         userDoc['escore'],
@@ -45,20 +51,5 @@ class DataProvider extends ChangeNotifier {
     } else {
       throw Exception('User not found');
     }
-  }
-
-  set quizScores(QuizScores quizScores) {
-    _userScores = quizScores;
-    notifyListeners();
-  }
-
-  set userProfPic(ProfPic profPic) {
-    _userProfPic = profPic;
-    notifyListeners();
-  }
-
-  set userDegree(String userDegree) {
-    _userDegree = userDegree;
-    notifyListeners();
   }
 }
