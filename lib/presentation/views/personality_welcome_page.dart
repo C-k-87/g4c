@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/btn_black_icon.dart';
+import 'package:g4c/presentation/components/top_card.dart';
 
 class WelcomePagePersonality extends StatelessWidget {
-  const WelcomePagePersonality({super.key});
+  const WelcomePagePersonality({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,21 +13,30 @@ class WelcomePagePersonality extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          const Image(
-            image: AssetImage('asset_lib/images/Top Bar.jpg'),
-            width: 1700,
-            height: 2000,
-            fit: BoxFit.cover,
+          const TopCard(
+            content: Center(
+              child: Image(
+                image: AssetImage(
+                  'asset_lib/images/G4C_logo_transparent.png',
+                ),
+                width: 200.0,
+              ),
+            ),
+            color: Color.fromARGB(255, 195, 255, 195),
+          ),
+          const SizedBox(
+            // Remove the extra comma here
+            height: 40.0,
           ),
           Column(
             children: [
               const SizedBox(
-                height: 120,
+                height: 300,
               ),
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'Hello $name !',
+                  '     Hello \n$name !',
                   style: const TextStyle(color: Colors.black, fontSize: 40),
                 ),
               ),
@@ -45,7 +55,7 @@ class WelcomePagePersonality extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 90,
+                height: 50,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 50.0),
