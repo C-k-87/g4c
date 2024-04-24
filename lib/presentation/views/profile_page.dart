@@ -1,17 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:g4c/domain/use_cases/create_roles_list.dart';
+import 'package:g4c/presentation/components/text_fields.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:g4c/data/entities/data_provider.dart';
 import 'package:g4c/data/entities/quiz_scores.dart';
-import 'package:g4c/domain/use_cases/create_roles_list.dart';
 import 'package:g4c/domain/use_cases/data_handler.dart';
 import 'package:g4c/domain/use_cases/routing.dart';
 import 'package:g4c/presentation/components/card_widget.dart';
 import 'package:g4c/presentation/components/g4c_drawer.dart';
 import 'package:g4c/presentation/components/prof_pic.dart';
-import 'package:g4c/presentation/components/text_fields.dart';
 import 'package:g4c/presentation/components/top_card.dart';
 import 'package:g4c/presentation/views/loader.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -37,23 +39,65 @@ class _ProfilePageState extends State<ProfilePage> {
           return Consumer<DataProvider>(builder: (context, user, child) {
             print("Profile page reads ${user.userID}");
             return Page(
-                username: user.userName,
-                userImage: user.userProfPic,
-                quizScores: user.userScores,
-                fontsize: fontsize,
-                rolesList: snapshot.data);
+              username: user.userName,
+              userImage: user.userProfPic,
+              fontsize: fontsize,
+              quizScores: user.userScores,
+              rolesList: snapshot.data?['rolesList'] as List,
+              extraCourses:
+                  snapshot.data?['extraCourses'] as List<Map<String, dynamic>>,
+              extraActivities: snapshot.data?['extraActivities']
+                  as List<Map<String, dynamic>>,
+            );
           });
         }
       },
     );
   }
 
-  Future<dynamic> loadProfilePage() async {
-    Future.delayed(Durations.long1);
+  Future<Map<String, dynamic>> loadProfilePage() async {
     DataProvider provider = Provider.of<DataProvider>(context);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await provider.refreshUserData(prefs.getString('uid') ?? '');
-    return await DataHandler().getRolesList();
+
+    // Fetch roles list
+    List rolesList = await DataHandler().getRolesList();
+
+    // Fetch extra courses data from Firestore
+    List<Map<String, dynamic>> extraCourses = [];
+    List<Map<String, dynamic>> extraActivities = [];
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        final coursesSnapshot = await FirebaseFirestore.instance
+            .collection('user')
+            .doc(user.uid)
+            .collection('courses')
+            .get();
+        extraCourses = coursesSnapshot.docs
+            .map((doc) => {'id': doc.id, 'courseName': doc['courseName']})
+            .toList();
+
+        final activitiesSnapshot = await FirebaseFirestore.instance
+            .collection('user')
+            .doc(user.uid)
+            .collection('activities')
+            .get();
+        extraActivities = activitiesSnapshot.docs
+            .map((doc) => {'id': doc.id, 'activityName': doc['activityName']})
+            .toList();
+      } catch (e) {
+        print('Error fetching extra data: $e');
+      }
+    } else {
+      print('No user is currently signed in.');
+    }
+
+    return {
+      'rolesList': rolesList,
+      'extraCourses': extraCourses,
+      'extraActivities': extraActivities
+    };
   }
 }
 
@@ -63,14 +107,19 @@ class Page extends StatelessWidget {
   final QuizScores quizScores;
   final double fontsize;
   final List rolesList;
+  final List<Map<String, dynamic>> extraCourses;
+  final List<Map<String, dynamic>> extraActivities;
 
-  const Page(
-      {super.key,
-      required this.username,
-      required this.userImage,
-      required this.quizScores,
-      required this.fontsize,
-      required this.rolesList});
+  const Page({
+    Key? key,
+    required this.username,
+    required this.userImage,
+    required this.fontsize,
+    required this.quizScores,
+    required this.rolesList,
+    required this.extraCourses,
+    required this.extraActivities,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -170,8 +219,21 @@ class Page extends StatelessWidget {
               ),
               CardWidget(
                 onPressed: () {},
-                content: Container(
-                  height: 100.0,
+                content: Column(
+                  children: [
+                    for (var course in extraCourses) Text(course['courseName']),
+                  ],
+                ),
+                title: 'Extra Courses',
+                fontsize: fontsize,
+              ),
+              CardWidget(
+                onPressed: () {},
+                content: Column(
+                  children: [
+                    for (var activity in extraActivities)
+                      Text(activity['activityName']),
+                  ],
                 ),
                 title: 'Extra Activities',
                 fontsize: fontsize,
